@@ -261,6 +261,7 @@
     <ClInclude Include="SlidingWindowOfTime.h" />
     <ClInclude Include="Spec.h" />
     <ClInclude Include="SpecParser.h" />
+    <ClInclude Include="SpecUtils.h" />
     <ClInclude Include="StatefulOperator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StreamProcessing.h" />

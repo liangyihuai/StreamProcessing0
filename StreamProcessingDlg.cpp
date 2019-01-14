@@ -8,6 +8,8 @@
 #include "afxdialogex.h"
 
 #include "ExecuteScheduler.h"
+#include "SpecUtils.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -61,14 +63,11 @@ CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 		\r\nFrom rawData\
 		\r\nThen targetData");
 
-	event_capture_name = _T("allytarget enemyTarget");
+	event_capture_name = _T("allytarget");
 
 	event_capture_rule = _T("If target.iff = ally\
 		\r\nFrom target\
-		\r\nThen allytarget\
-		\r\n\r\nIf target.iff = unknown\
-		\r\nFrom target\
-		\r\nthen enemyTarget");
+		\r\nThen allytarget");
 
 	cq_name = _T("flyingTarget");
 
@@ -78,8 +77,8 @@ CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 
 	cep_name = _T("cepTarget1");
 
-	cep_rule = _T("If exist(enemytarget) & exist(flyingTarget)\
-		\r\nFrom enemytarget, flyingTarget\
+	cep_rule = _T("If exist(flyingTarget)\
+		\r\nFrom flyingTarget\
 		\r\nThen cepTarget1");
 
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
@@ -115,6 +114,7 @@ END_MESSAGE_MAP()
 
 BOOL CStreamProcessingDlg::OnInitDialog()
 {
+
 	CDialogEx::OnInitDialog();
 
 	// Add "About..." menu item to system menu.

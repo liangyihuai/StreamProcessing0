@@ -46,6 +46,33 @@
     <Filter Include="Source Files\backend\execution\event">
       <UniqueIdentifier>{1659729b-43e5-44dc-8931-29dad827263b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\backend\utils">
+      <UniqueIdentifier>{11b445e3-89b4-49d8-a940-a49137838599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\expression">
+      <UniqueIdentifier>{21b01172-7bf1-4904-beb3-e52058f130bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\op">
+      <UniqueIdentifier>{dfcbad6d-4d74-47a2-a6ef-1472adb6f6d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\execution">
+      <UniqueIdentifier>{48f7bf9e-18d6-4544-83ba-7cabe5a550c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\execution\win">
+      <UniqueIdentifier>{d10db58f-0e51-40b4-a3a7-d496d8b5c844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\execution\event">
+      <UniqueIdentifier>{a638cc2b-58d6-4423-8096-12e8c7ad58ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\execution\results">
+      <UniqueIdentifier>{45c2ceb9-29d5-4724-a534-c991ddf243ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\buffer">
+      <UniqueIdentifier>{651a6785-d66e-4bba-bd25-ebc7ddd3cd1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\backend\spec">
+      <UniqueIdentifier>{4ed04195-b317-4d3d-9867-2113710f69d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StreamProcessing.h">
@@ -63,218 +90,221 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="And.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Average.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="BoolResult.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CEPProcess.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CEPSpec.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CEPSpecParser.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CEPStoreResultListener.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Condition.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Count.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CQProcess.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CQSpec.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CQSpecParser.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="CQStoreResultListener.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="DerivedEvent.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="DerivedEventStore.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="DistanceOp.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="DoubleResult.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EnhanceEventResult.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EqualString.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EventCapture.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EventCaptureSpec.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EventCaptureSpecParser.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EventFilterSpec.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EventFilterSpecParser.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
     <ClInclude Include="EventGenerator.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="EventProcess.h">
       <Filter>Header Files\backend</Filter>
     </ClInclude>
     <ClInclude Include="ExecuteScheduler.h">
       <Filter>Header Files\backend</Filter>
     </ClInclude>
-    <ClInclude Include="ExistOp.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="FileReaderUtils.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="GreaterEqualThanInt.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="GreaterThanFloat.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="GreatThanOpPreDouble.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="HashEvent.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="LessThanFloat.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="LessThanOpPreDouble.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="LongResult.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Max.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Min.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="MulStreamResult.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Operator.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="OperatorPredicate.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
     <ClInclude Include="OperatorRegister.h">
       <Filter>Header Files\backend</Filter>
     </ClInclude>
-    <ClInclude Include="OutsideAreaOp.h">
-      <Filter>Header Files\backend</Filter>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\backend\utils</Filter>
     </ClInclude>
-    <ClInclude Include="Predicate.h">
-      <Filter>Header Files\backend</Filter>
+    <ClInclude Include="FileReaderUtils.h">
+      <Filter>Header Files\backend\utils</Filter>
     </ClInclude>
-    <ClInclude Include="PredicateBase.h">
-      <Filter>Header Files\backend</Filter>
+    <ClInclude Include="CEPSpecParser.h">
+      <Filter>Header Files\backend\utils</Filter>
     </ClInclude>
-    <ClInclude Include="Process.h">
-      <Filter>Header Files\backend</Filter>
+    <ClInclude Include="CQSpecParser.h">
+      <Filter>Header Files\backend\utils</Filter>
     </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="QueueReader.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="QueueWriter.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="RadarDerivedEvent.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="RadarEvent.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Result.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultListener.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedQueueReader.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedQueueWriter.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="SlidingWindow.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="SlidingWindowOfCount.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="SlidingWindowOfTime.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Spec.h">
-      <Filter>Header Files\backend</Filter>
+    <ClInclude Include="EventCaptureSpecParser.h">
+      <Filter>Header Files\backend\utils</Filter>
     </ClInclude>
     <ClInclude Include="SpecParser.h">
-      <Filter>Header Files\backend</Filter>
+      <Filter>Header Files\backend\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="EventFilterSpecParser.h">
+      <Filter>Header Files\backend\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecUtils.h">
+      <Filter>Header Files\backend\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="And.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="Condition.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="EqualString.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="GreaterEqualThanInt.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="GreaterThanFloat.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="GreatThanOpPreDouble.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="LessThanFloat.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="LessThanOpPreDouble.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="Count.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceOp.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="ExistOp.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="Max.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="Min.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="Average.h">
+      <Filter>Header Files\backend\op</Filter>
     </ClInclude>
     <ClInclude Include="StatefulOperator.h">
-      <Filter>Header Files\backend</Filter>
+      <Filter>Header Files\backend\op</Filter>
     </ClInclude>
     <ClInclude Include="Sum.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="TruePredicate.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="TumbleCountWindow.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="TumbleTimeWindow.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="TumbleWindow.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Header Files\backend</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowBase.h">
-      <Filter>Header Files\backend</Filter>
+      <Filter>Header Files\backend\op</Filter>
     </ClInclude>
     <ClInclude Include="WithinAreaOp.h">
-      <Filter>Header Files\backend</Filter>
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="CQProcess.h">
+      <Filter>Header Files\backend\execution</Filter>
+    </ClInclude>
+    <ClInclude Include="CEPProcess.h">
+      <Filter>Header Files\backend\execution</Filter>
+    </ClInclude>
+    <ClInclude Include="EventCapture.h">
+      <Filter>Header Files\backend\execution</Filter>
+    </ClInclude>
+    <ClInclude Include="EventProcess.h">
+      <Filter>Header Files\backend\execution</Filter>
+    </ClInclude>
+    <ClInclude Include="Process.h">
+      <Filter>Header Files\backend\execution</Filter>
+    </ClInclude>
+    <ClInclude Include="TumbleWindow.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="TumbleCountWindow.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="TumbleTimeWindow.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowBase.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingWindowOfTime.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingWindowOfCount.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="SlidingWindow.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\backend\execution\event</Filter>
+    </ClInclude>
+    <ClInclude Include="HashEvent.h">
+      <Filter>Header Files\backend\execution\event</Filter>
+    </ClInclude>
+    <ClInclude Include="RadarDerivedEvent.h">
+      <Filter>Header Files\backend\execution\event</Filter>
+    </ClInclude>
+    <ClInclude Include="RadarEvent.h">
+      <Filter>Header Files\backend\execution\event</Filter>
+    </ClInclude>
+    <ClInclude Include="BoolResult.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="LongResult.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="EnhanceEventResult.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleResult.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedQueueWriter.h">
+      <Filter>Header Files\backend\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedQueueReader.h">
+      <Filter>Header Files\backend\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueWriter.h">
+      <Filter>Header Files\backend\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueReader.h">
+      <Filter>Header Files\backend\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Header Files\backend\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Result.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="TruePredicate.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="PredicateBase.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatorPredicate.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="EventFilterSpec.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="Spec.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="EventCaptureSpec.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="CEPSpec.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="Predicate.h">
+      <Filter>Header Files\backend\expression</Filter>
+    </ClInclude>
+    <ClInclude Include="CQSpec.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="CEPStoreResultListener.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="CQStoreResultListener.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="MulStreamResult.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultListener.h">
+      <Filter>Header Files\backend\execution\results</Filter>
+    </ClInclude>
+    <ClInclude Include="OutsideAreaOp.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="DerivedEvent.h">
+      <Filter>Header Files\backend\execution\event</Filter>
+    </ClInclude>
+    <ClInclude Include="Operator.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="DerivedEventStore.h">
+      <Filter>Header Files\backend\buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
