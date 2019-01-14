@@ -52,3 +52,38 @@
 #endif
 
 
+
+#include "Result.h"
+#include "EnhanceEventResult.h"
+#include "DoubleResult.h"
+#include "LongResult.h"
+#include "BoolResult.h"
+#include "RadarEvent.h"
+
+#include "Event.h"
+#include "Utils.h"
+#include "EventGenerator.h"
+#include "FileReaderUtils.h"
+#include <exception>
+
+#include <iostream>
+#include <string>
+
+#include "QueueWriter.h"
+
+#include "QueueReader.h"
+
+#include "Process.h"
+
+#include "GreaterEqualThanInt.h"
+#include "GreaterThanFloat.h"
+#include "EqualString.h"
+#include "And.h"
+#include "LessThanFloat.h"
+#include "TruePredicate.h"
+
+#include "EventCaptureSpecParser.h"
+#include "CQSpecParser.h"
+#include "CEPSpecParser.h"
+
+#include "glog/logging.h"

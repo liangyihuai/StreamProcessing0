@@ -35,10 +35,19 @@ CStreamProcessingApp::CStreamProcessingApp()
 CStreamProcessingApp theApp;
 
 
+
+
+
 // CStreamProcessingApp initialization
 
 BOOL CStreamProcessingApp::InitInstance()
 {
+	//setup log store dir
+	google::SetLogDestination(google::GLOG_ERROR,"C:\\Users\\LIANG\\Desktop\\temp\\streamprocessingLog\\log");
+	//initialize log instance
+	google::InitGoogleLogging("streamprocessing");
+
+
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
 	// visual styles.  Otherwise, any window creation will fail.
@@ -101,6 +110,18 @@ BOOL CStreamProcessingApp::InitInstance()
 
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
+
+
+	
+	
+	LOG(INFO) << "This is INFO";
+	LOG(WARNING) << "This is WARNING";
+	LOG(ERROR) << "This is Error";
+
+
+	google::ShutdownGoogleLogging();
+	//system("pause");
+
 	return FALSE;
 }
 
