@@ -6,6 +6,8 @@
 #include "StreamProcessing.h"
 #include "StreamProcessingDlg.h"
 
+#include "thread"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -35,6 +37,30 @@ CStreamProcessingApp::CStreamProcessingApp()
 CStreamProcessingApp theApp;
 
 
+class ThreadWrapper {
+public:
+	void member1() {
+		//launch a console
+		FILE* fp = NULL;
+		AllocConsole();
+		freopen_s(&fp, "CONOUT$", "w+t", stdout);
+		//freopen_s(&fp, "CONIN$", "r+t", stdin);
+		cout << "hello world" << endl;
+		//int iTest = 0;
+		//cin >> iTest;
+
+		system("pause");
+
+		fclose(stdout);
+		//fclose(stdin);
+		FreeConsole();
+	}
+	
+
+	std::thread member1Thread() {
+		return std::thread(&ThreadWrapper::member1, this);
+	}
+};
 
 
 
@@ -42,11 +68,17 @@ CStreamProcessingApp theApp;
 
 BOOL CStreamProcessingApp::InitInstance()
 {
+	//multi-thread test
+	ThreadWrapper *w = new ThreadWrapper();
+	std::thread tw1 = w->member1Thread();
+	//tw1.join();
+	tw1.detach();
+
+
 	//setup log store dir
 	google::SetLogDestination(google::GLOG_ERROR,"C:\\Users\\LIANG\\Desktop\\temp\\streamprocessingLog\\log");
 	//initialize log instance
 	google::InitGoogleLogging("streamprocessing");
-
 
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
@@ -120,7 +152,8 @@ BOOL CStreamProcessingApp::InitInstance()
 
 
 	google::ShutdownGoogleLogging();
-	//system("pause");
+	
+
 
 	return FALSE;
 }

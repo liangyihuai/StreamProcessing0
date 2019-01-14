@@ -22,6 +22,30 @@
     <Filter Include="Source Files\backend\test">
       <UniqueIdentifier>{02d60c54-c6eb-4f5c-8688-96869a419335}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\backend\spec_txt">
+      <UniqueIdentifier>{594c9628-081c-407f-b895-22e8865a3e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\test\cep_test1">
+      <UniqueIdentifier>{76215722-fb2c-4537-b1f2-4ff2f3e54309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\test\cep_test2">
+      <UniqueIdentifier>{5edcaaa9-cee8-43da-87c1-733472cec1eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\buffer">
+      <UniqueIdentifier>{25e0aecc-9dfe-4447-bba8-20a537aa662d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\execution">
+      <UniqueIdentifier>{1d9d485b-b410-4d99-9535-e2eb5a8f4e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\op">
+      <UniqueIdentifier>{9d213773-fcd8-458f-b951-010b6d829776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\execution\win">
+      <UniqueIdentifier>{be36e987-3795-40a5-8fb0-660d99c38ec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\execution\event">
+      <UniqueIdentifier>{1659729b-43e5-44dc-8931-29dad827263b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StreamProcessing.h">
@@ -263,91 +287,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Average.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="CEPProcess.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="Condition.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="Count.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="CQProcess.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="DerivedEventStore.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="DistanceOp.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="Event.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="EventCapture.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="EventProcess.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="ExecuteScheduler.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="ExistOp.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="HashEvent.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="Max.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="Min.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
     <ClCompile Include="OperatorRegister.cpp">
       <Filter>Source Files\backend</Filter>
     </ClCompile>
-    <ClCompile Include="OutsideAreaOp.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="QueueReader.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="QueueWriter.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="RadarEvent.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="SharedQueueReader.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="SharedQueueWriter.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="SlidingWindow.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="Sum.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="TumbleCountWindow.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="TumbleTimeWindow.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="TumbleWindow.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files\backend</Filter>
-    </ClCompile>
-    <ClCompile Include="WithinAreaOp.cpp">
       <Filter>Source Files\backend</Filter>
     </ClCompile>
     <ClCompile Include="CEP_SpecTest.cpp">
@@ -405,10 +348,91 @@
       <Filter>Source Files\backend\test</Filter>
     </ClCompile>
     <ClCompile Include="CEPTest_Spec1.cpp">
-      <Filter>Source Files\backend\test</Filter>
+      <Filter>Source Files\backend\test\cep_test1</Filter>
     </ClCompile>
     <ClCompile Include="CEPTest_Spec2.cpp">
-      <Filter>Source Files\backend\test</Filter>
+      <Filter>Source Files\backend\test\cep_test2</Filter>
+    </ClCompile>
+    <ClCompile Include="DerivedEventStore.cpp">
+      <Filter>Source Files\backend\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueReader.cpp">
+      <Filter>Source Files\backend\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueWriter.cpp">
+      <Filter>Source Files\backend\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedQueueReader.cpp">
+      <Filter>Source Files\backend\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedQueueWriter.cpp">
+      <Filter>Source Files\backend\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CEPProcess.cpp">
+      <Filter>Source Files\backend\execution</Filter>
+    </ClCompile>
+    <ClCompile Include="CQProcess.cpp">
+      <Filter>Source Files\backend\execution</Filter>
+    </ClCompile>
+    <ClCompile Include="EventCapture.cpp">
+      <Filter>Source Files\backend\execution</Filter>
+    </ClCompile>
+    <ClCompile Include="EventProcess.cpp">
+      <Filter>Source Files\backend\execution</Filter>
+    </ClCompile>
+    <ClCompile Include="ExecuteScheduler.cpp">
+      <Filter>Source Files\backend\execution</Filter>
+    </ClCompile>
+    <ClCompile Include="HashEvent.cpp">
+      <Filter>Source Files\backend\execution\event</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Source Files\backend\execution\event</Filter>
+    </ClCompile>
+    <ClCompile Include="RadarEvent.cpp">
+      <Filter>Source Files\backend\execution\event</Filter>
+    </ClCompile>
+    <ClCompile Include="Average.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="Condition.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="Count.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceOp.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="ExistOp.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="Max.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="Min.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="OutsideAreaOp.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="Sum.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="WithinAreaOp.cpp">
+      <Filter>Source Files\backend\op</Filter>
+    </ClCompile>
+    <ClCompile Include="SlidingWindow.cpp">
+      <Filter>Source Files\backend\execution\win</Filter>
+    </ClCompile>
+    <ClCompile Include="TumbleCountWindow.cpp">
+      <Filter>Source Files\backend\execution\win</Filter>
+    </ClCompile>
+    <ClCompile Include="TumbleTimeWindow.cpp">
+      <Filter>Source Files\backend\execution\win</Filter>
+    </ClCompile>
+    <ClCompile Include="TumbleWindow.cpp">
+      <Filter>Source Files\backend\execution\win</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -425,5 +449,40 @@
     <Image Include="res\StreamProcessing.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CEPSpec.txt">
+      <Filter>Source Files\backend\spec_txt</Filter>
+    </Text>
+    <Text Include="CQSpec.txt">
+      <Filter>Source Files\backend\spec_txt</Filter>
+    </Text>
+    <Text Include="CQSpecTest2.txt">
+      <Filter>Source Files\backend\spec_txt</Filter>
+    </Text>
+    <Text Include="EventCaptureSpec.txt">
+      <Filter>Source Files\backend\spec_txt</Filter>
+    </Text>
+    <Text Include="EventFilterSpec.txt">
+      <Filter>Source Files\backend\spec_txt</Filter>
+    </Text>
+    <Text Include="cep_spec.txt">
+      <Filter>Source Files\backend\test\cep_test1</Filter>
+    </Text>
+    <Text Include="cq_spec.txt">
+      <Filter>Source Files\backend\test\cep_test1</Filter>
+    </Text>
+    <Text Include="event_capture_spec.txt">
+      <Filter>Source Files\backend\test\cep_test1</Filter>
+    </Text>
+    <Text Include="cep_spec2.txt">
+      <Filter>Source Files\backend\test\cep_test2</Filter>
+    </Text>
+    <Text Include="cq_spec2.txt">
+      <Filter>Source Files\backend\test\cep_test2</Filter>
+    </Text>
+    <Text Include="event_capture_spec2.txt">
+      <Filter>Source Files\backend\test\cep_test2</Filter>
+    </Text>
   </ItemGroup>
 </Project>

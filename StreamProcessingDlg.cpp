@@ -7,6 +7,8 @@
 #include "StreamProcessingDlg.h"
 #include "afxdialogex.h"
 
+#include "ExecuteScheduler.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -52,18 +54,60 @@ END_MESSAGE_MAP()
 CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_STREAMPROCESSING_DIALOG, pParent)
 {
+	//initialize name and value
+	event_filter_name = _T("targetData");
+
+	event_filter_rule = _T("If not duplicate(id) & not unusual(speed)\
+		\r\nFrom rawData\
+		\r\nThen targetData");
+
+	event_capture_name = _T("allytarget enemyTarget");
+
+	event_capture_rule = _T("If target.iff = ally\
+		\r\nFrom target\
+		\r\nThen allytarget\
+		\r\n\r\nIf target.iff = unknown\
+		\r\nFrom target\
+		\r\nthen enemyTarget");
+
+	cq_name = _T("flyingTarget");
+
+	cq_rule = _T("If iff = ally & speed>500\
+		\r\nFrom allytarget\
+		\r\nThen flyingTarget");
+
+	cep_name = _T("cepTarget1");
+
+	cep_rule = _T("If exist(enemytarget) & exist(flyingTarget)\
+		\r\nFrom enemytarget, flyingTarget\
+		\r\nThen cepTarget1");
+
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 void CStreamProcessingDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+
+	DDX_Text(pDX, IDC_EDIT_EVENT_FILTER_NAME, event_filter_name);
+	DDX_Text(pDX, IDC_EDIT_EVENT_FILTER_RULE, event_filter_rule);
+	DDX_Text(pDX, IDC_EDIT_CAPTURE_NAME, event_capture_name);
+	DDX_Text(pDX, IDC_EDIT_CAPTURE_RULE, event_capture_rule);
+	DDX_Text(pDX, IDC_EDIT_CQ_NAME, cq_name);
+	DDX_Text(pDX, IDC_EDIT_CQ_RULE, cq_rule);
+	DDX_Text(pDX, IDC_EDIT_CEP_NAME, cep_name);
+	DDX_Text(pDX, IDC_EDIT_CEP_RULE, cep_rule);
 }
 
 BEGIN_MESSAGE_MAP(CStreamProcessingDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_EN_CHANGE(IDC_EDIT_CEP_RULE, &CStreamProcessingDlg::OnEnChangeEditCepRule)
+	ON_BN_CLICKED(IDC_BUTTON_EVENT_FILTER_ADD, &CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd)
+	ON_BN_CLICKED(IDC_BUTTON_CAPTURE_ADD, &CStreamProcessingDlg::OnBnClickedButtonCaptureAdd)
+	ON_BN_CLICKED(IDC_BUTTON_CQ_ADD, &CStreamProcessingDlg::OnBnClickedButtonCqAdd)
+	ON_BN_CLICKED(IDC_BUTTON_CEP_ADD, &CStreamProcessingDlg::OnBnClickedButtonCepAdd)
 END_MESSAGE_MAP()
 
 
@@ -152,3 +196,61 @@ HCURSOR CStreamProcessingDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CStreamProcessingDlg::OnEnChangeEditCepRule()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialogEx::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+}
+
+
+void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd()
+{
+	
+}
+
+
+void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
+	UpdateData(true);
+
+	if (event_capture_name.GetLength() == 0 || event_capture_rule.GetLength() == 0) {
+		MessageBox(_T("fill the name and the rule"), NULL, MB_OK);
+		return;
+	}
+	
+
+	//pause names 
+	string name_str(CW2A(event_capture_name.GetString()));
+	vector<string> names = Utils::split(name_str, " ");
+
+	//parse event capture rules
+	string str(CW2A(event_capture_rule.GetString()));
+	vector<string> lines = Utils::split(str, "\r\n");
+	list<string>lines_list;
+	for (string line : lines) {
+		line = Utils::trim(line);
+		lines_list.push_back(line);
+	}
+	list<EventCaptureSpec*> eventcaptureSpecs = EventCaptureSpecParser::parseAllEventCaptureSpec(lines_list);
+	for (EventCaptureSpec* spec : eventcaptureSpecs) {
+		EventCapture* ec = spec->instance();
+		ExecuteScheduler::registerEventCapture(ec);
+	}
+}
+
+
+void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
+{
+	
+}
+
+
+void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
+{
+
+}

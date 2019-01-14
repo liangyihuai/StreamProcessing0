@@ -3,6 +3,9 @@
 //
 
 #pragma once
+#include <string>
+
+using namespace std;
 
 
 // CStreamProcessingDlg dialog
@@ -31,4 +34,19 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	CString event_filter_name;
+	CString event_filter_rule;
+	CString event_capture_name;
+	CString event_capture_rule;
+	CString cq_name;
+	CString cq_rule;
+	CString cep_name;
+	CString cep_rule;
+	afx_msg void OnCbnSelchangeComboboxex1();
+	afx_msg void OnEnChangeEditCepRule();
+	afx_msg void OnBnClickedButtonEventFilterAdd();
+	afx_msg void OnBnClickedButtonCaptureAdd();
+	afx_msg void OnBnClickedButtonCqAdd();
+	afx_msg void OnBnClickedButtonCepAdd();
 };

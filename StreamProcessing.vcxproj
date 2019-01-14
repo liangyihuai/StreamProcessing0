@@ -444,6 +444,19 @@
   <ItemGroup>
     <Image Include="res\StreamProcessing.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CEPSpec.txt" />
+    <Text Include="cep_spec.txt" />
+    <Text Include="cep_spec2.txt" />
+    <Text Include="CQSpec.txt" />
+    <Text Include="CQSpecTest2.txt" />
+    <Text Include="cq_spec.txt" />
+    <Text Include="cq_spec2.txt" />
+    <Text Include="EventCaptureSpec.txt" />
+    <Text Include="EventFilterSpec.txt" />
+    <Text Include="event_capture_spec.txt" />
+    <Text Include="event_capture_spec2.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
