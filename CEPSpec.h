@@ -4,6 +4,8 @@
 #include <vector>
 #include "WindowBase.h"
 #include "CEPProcess.h"
+#include "SinkType.h"
+
 
 class CEPSpec : public Spec {
 private:
@@ -15,31 +17,14 @@ private:
 
 	WindowBase * win;
 
+	SinkType sinkType;
+
 public:
-	CEPProcess * instance() {
-		CEPProcess* cep = new CEPProcess();
-		for (string os : outputStreams) {
-			cep->addOutputStream(os);
-		}
-	
-		for (int i = 0; i < inputStreams.size(); i++) {
-			cep->addPredicate(predicateVec[i], inputStreams[i]);
-		}
+	CEPSpec();
 
-		//cep->setWindow(win);
-		return cep;
-	}
+	CEPProcess * instance();
 
+	void addOutputStream(string name);
 
-
-	void addOutputStream(string name) {
-		outputStreams.push_back(name);
-	}
-
-	void addPredicate(Predicate * pre, string stream) {
-		predicateVec.push_back(pre);
-		inputStreams.push_back(stream);
-	}
-
-
+	void addPredicate(Predicate * pre, string stream);
 };

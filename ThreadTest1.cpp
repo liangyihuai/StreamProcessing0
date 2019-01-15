@@ -4,15 +4,15 @@
 
 class ThreadWrapper {
 public:
-	void member1() {
+	void run() {
 		std::cout << "i am member1" << std::endl;
 	}
 	void member2(const char *arg1, unsigned arg2) {
 		std::cout << "i am member2 and my first arg is (" << arg1 << ") and second arg is (" << arg2 << ")" << std::endl;
 	}
 
-	std::thread member1Thread() {
-		return std::thread(&ThreadWrapper::member1, this);
+	std::thread runThread() {
+		return std::thread(&ThreadWrapper::run, this);
 	}
 	std::thread member2Thread(const char *arg1, unsigned arg2) {
 		return std::thread(&ThreadWrapper::member2, this, arg1, arg2);
@@ -21,7 +21,7 @@ public:
 
 int main0() {
 	ThreadWrapper *w = new ThreadWrapper();
-	std::thread tw1 = w->member1Thread();
+	std::thread tw1 = w->runThread();
 	tw1.join();
 	w->member2Thread("hello", 100).detach();
 

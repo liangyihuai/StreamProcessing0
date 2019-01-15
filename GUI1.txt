@@ -1,0 +1,13 @@
+# event capture
+
+If target.iff = unknown		
+From targetData		
+Then enemyTarget
+
+
+
+# cep
+
+If exist(enemyTarget)		
+From enemyTarget		
+Then cepTarget2

@@ -61,21 +61,6 @@ int main() {
 		EventPtr e = EventGenerator::generateEvent();
 		ExecuteScheduler::run(e);
 		ExecuteScheduler::executeCEPProcess();
-
-		/*
-		while (!ecReader2.isEmpty()) {
-			EventPtr e = ecReader2.dequeue();
-			cout << "EventCapture: enemytarget, id=" << e->getId() << ", iff=" << e->getString("iff") << ", speed=" << e->getFloat("speed") << endl;
-		}
-		while (!cqReader1.isEmpty()) {
-			EventPtr e = cqReader1.dequeue();
-			cout << "Eventcapture: flyingtarget, id=" << e->getId() << ", iff=" << e->getString("iff") << ", speed=" << e->getFloat("speed") << endl;
-		}*/
-
-		/*while (!cqReader2.isEmpty()) {
-			EventPtr e = cqReader2.dequeue();
-			cout << "Eventcapture: nearEnemyTarget, id=" << e->getId() << ", iff=" << e->getString("iff") << ", speed=" << e->getFloat("speed") << endl;
-		}*/
 	}
 	
 	system("pause");

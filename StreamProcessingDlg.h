@@ -15,6 +15,8 @@ class CStreamProcessingDlg : public CDialogEx
 public:
 	CStreamProcessingDlg(CWnd* pParent = nullptr);	// standard constructor
 
+	~CStreamProcessingDlg();
+
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_STREAMPROCESSING_DIALOG };
@@ -43,10 +45,22 @@ public:
 	CString cq_rule;
 	CString cep_name;
 	CString cep_rule;
-	afx_msg void OnCbnSelchangeComboboxex1();
 	afx_msg void OnEnChangeEditCepRule();
 	afx_msg void OnBnClickedButtonEventFilterAdd();
 	afx_msg void OnBnClickedButtonCaptureAdd();
 	afx_msg void OnBnClickedButtonCqAdd();
 	afx_msg void OnBnClickedButtonCepAdd();
+	CComboBox sink_combobox;
+	afx_msg void OnBnClickedButtonStart();
+	afx_msg void OnBnClickedButtonStop();
+	afx_msg void OnBnClickedButtonInputStream();
+
+	void updataPrintInputStream();
+
+public:
+
+	static CString inputstream_to_display;
+
+	CWinThread * threadOfInputStream = nullptr;
 };
+

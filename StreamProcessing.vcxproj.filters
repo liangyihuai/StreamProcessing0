@@ -108,21 +108,6 @@
     <ClInclude Include="FileReaderUtils.h">
       <Filter>Header Files\backend\utils</Filter>
     </ClInclude>
-    <ClInclude Include="CEPSpecParser.h">
-      <Filter>Header Files\backend\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="CQSpecParser.h">
-      <Filter>Header Files\backend\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="EventCaptureSpecParser.h">
-      <Filter>Header Files\backend\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="SpecParser.h">
-      <Filter>Header Files\backend\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="EventFilterSpecParser.h">
-      <Filter>Header Files\backend\utils</Filter>
-    </ClInclude>
     <ClInclude Include="SpecUtils.h">
       <Filter>Header Files\backend\utils</Filter>
     </ClInclude>
@@ -312,6 +297,27 @@
     <ClInclude Include="SpecRegister.h">
       <Filter>Header Files\backend\spec</Filter>
     </ClInclude>
+    <ClInclude Include="CEPSpecParser.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="CQSpecParser.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="EventCaptureSpecParser.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="EventFilterSpecParser.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecParser.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="SinkType.h">
+      <Filter>Header Files\backend\execution</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadOfInputStreamPrint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StreamProcessing.cpp">
@@ -473,6 +479,12 @@
     <ClCompile Include="SpecRegister.cpp">
       <Filter>Source Files\backend\spec</Filter>
     </ClCompile>
+    <ClCompile Include="CEPSpec.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadOfInputStreamPrint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StreamProcessing.rc">
@@ -522,6 +534,9 @@
     </Text>
     <Text Include="event_capture_spec2.txt">
       <Filter>Source Files\backend\test\cep_test2</Filter>
+    </Text>
+    <Text Include="GUI1.txt">
+      <Filter>Source Files\backend\spec_txt</Filter>
     </Text>
   </ItemGroup>
 </Project>

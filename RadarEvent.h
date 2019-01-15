@@ -166,9 +166,7 @@ public:
 		}
 	}
 
-	//friend ostream& operator << (ostream&, RadarEvent&);
-
-	void print(ostream& out) {
+	string toString() {
 		stringstream msg;
 		msg << getId() << ", type:";
 		msg << getTime() << ", speed:";
@@ -180,7 +178,14 @@ public:
 		msg << getFloat("elevationAngle") << ", elec:";
 		msg << getFloat("electromagnetic") << ", iff:";
 		msg << getString("iff") << ",";
-		out << msg.str();
+		return msg.str();
+	}
+
+
+	//friend ostream& operator << (ostream&, RadarEvent&);
+
+	void print(ostream& out) {
+		out << toString();
 	}
 };
 

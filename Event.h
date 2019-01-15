@@ -38,6 +38,8 @@ public:
         throw runtime_error("");
     }
 
+	virtual string toString() = 0;
+
 private:
     friend std::ostream& operator<< (std::ostream& os, Event& e);
 };
