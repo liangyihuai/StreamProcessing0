@@ -3,7 +3,8 @@
 
 
 // ThreadOfInputStreamPrint
-
+//this class is to update input stream in a individual thread.
+//the main logic is in function "runThread"
 class ThreadOfInputStreamPrint : public CWinThread
 {
 	DECLARE_DYNCREATE(ThreadOfInputStreamPrint)

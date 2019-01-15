@@ -259,7 +259,7 @@ void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd(){
 	MessageBox(_T("Add Event Filter rule successfully"), NULL, MB_OK);
 }
 
-
+//add rule specification of event capture
 void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 	UpdateData(true);
 
@@ -268,7 +268,6 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 		return;
 	}
 	
-
 	//parse names 
 	string name_str(CW2A(event_capture_name.GetString()));
 	vector<string> names = Utils::split(name_str, " ");
@@ -293,7 +292,7 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 	UpdateData(false);
 }
 
-
+//add rule specification of CQ
 void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 {
 	UpdateData(true);
@@ -326,7 +325,7 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 	UpdateData(false);
 }
 
-
+//add rule specification of CEP
 void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 {
 	UpdateData(true);
@@ -361,7 +360,7 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 	UpdateData(false);
 }
 
-
+//the thread to run the backend of stream processing
 class ThreadWrapper {
 private:
 	bool isStop = false;
@@ -430,9 +429,10 @@ void CStreamProcessingDlg::OnBnClickedButtonStop(){
 	}
 }
 
-int length = 0;
+int length = 0;//store the history length of "inputstream_to_display"
 void CStreamProcessingDlg::updataPrintInputStream() {
-	if (length != inputstream_to_display.GetLength()) {
+	if (length != inputstream_to_display.GetLength()) {\
+		//change the content of edit control
 		GetDlgItem(IDC_INPUT_STREAM)->SetWindowText(inputstream_to_display);
 		length = inputstream_to_display.GetLength();
 	}
@@ -443,6 +443,7 @@ void CStreamProcessingDlg::updataPrintInputStream() {
 //button for displaying input stream
 void CStreamProcessingDlg::OnBnClickedButtonInputStream(){
 	if (threadOfInputStream == nullptr) {
+		//start a new thread
 		threadOfInputStream = AfxBeginThread(ThreadOfInputStreamPrint::runThread, this);
 	}
 }

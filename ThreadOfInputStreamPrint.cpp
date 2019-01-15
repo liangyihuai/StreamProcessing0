@@ -32,8 +32,10 @@ int ThreadOfInputStreamPrint::ExitInstance()
 }
 
 UINT ThreadOfInputStreamPrint::runThread(LPVOID param) {
+	//convert the paramether into CStreamProcessingDlg object.
 	CStreamProcessingDlg * dlg = (CStreamProcessingDlg*)param;
 	while (true) {
+		//continuously to update the print of input stream
 		dlg->updataPrintInputStream();
 		Sleep(1000);
 	}
