@@ -73,6 +73,9 @@
     <Filter Include="Header Files\backend\spec">
       <UniqueIdentifier>{4ed04195-b317-4d3d-9867-2113710f69d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\backend\spec">
+      <UniqueIdentifier>{9c671ebe-1d54-420d-8f77-3f7084058f5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StreamProcessing.h">
@@ -306,6 +309,9 @@
     <ClInclude Include="DerivedEventStore.h">
       <Filter>Header Files\backend\buffer</Filter>
     </ClInclude>
+    <ClInclude Include="SpecRegister.h">
+      <Filter>Header Files\backend\spec</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StreamProcessing.cpp">
@@ -463,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="TumbleWindow.cpp">
       <Filter>Source Files\backend\execution\win</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecRegister.cpp">
+      <Filter>Source Files\backend\spec</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
