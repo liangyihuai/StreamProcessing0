@@ -10,36 +10,33 @@
 #include "ResultListener.h"
 #include "DerivedEventStore.h"
 #include "Process.h"
+#include <queue>
 
 
 class EventCapture: public Process{
 private:
+	//
+	queue<EventPtr>* inputQueue;
+	
+	//the input queue of other processing unit, so this class should not maintain deallocate it memory
+	queue<EventPtr> * outputQueue;
     Condition condition;
-	string inputStream;
-    string outputStream;
-
+	string inputStreamName;
+    string outputStreamName;
 public:
-    void setCondition(Condition condition){
-        this->condition = condition;
-    }
+	EventCapture(queue<EventPtr> * outputQueue);
 
-	void setInputStream(string name) {
-		this->inputStream = name;
-	}
+	~EventCapture();
 
-    void setOutputStream(string name){
-        this->outputStream = name;
-    }
+	void setCondition(Condition condition);
 
-    bool process(EventPtr e){
-        if(condition.check(e)){//meet the condition
-            DerivedEventStore::addEvent(outputStream, e);
-            return true;
-        }
-        return false;
-    }
+	void setInputStreamName(string name);
 
-   // ~EventCapture(){};
+	void setOutputStreamName(string name);
+
+	queue<EventPtr>* getInputQueue();
+
+	void process(int timeSlice = 50);
 };
 
 

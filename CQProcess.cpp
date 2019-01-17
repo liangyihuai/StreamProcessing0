@@ -5,53 +5,45 @@
 #include "CQProcess.h"
 #include "DerivedEventStore.h"
 
-void CQProcess::process(){
-	if (!reader) {
-		LOG(ERROR) << "the queue reader is nullptr";
-		throw runtime_error("");
-	}
-   
-    EventPtr e = nullptr;
-    while(!reader->isEmpty()){
-        e = reader->dequeue();
-		if (predicate->check(e)) {//check condition
-			if (resultListener) {
-				ResultPtr r(new EnhanceEventResult(e, outputStreamName));
-				resultListener->update(r);
-			}
+CQProcess::CQProcess(queue<EventPtr> *outputQueue, string outputStreamName) {
+	this->inputQueue = new queue<EventPtr>();
+	this->outputQueue = outputQueue;
+	this->outputStreamName = outputStreamName;
+}
+
+void CQProcess::process(int timeSlice){
+	while (!inputQueue->empty() && timeSlice > 0) {
+		EventPtr e = inputQueue->front();
+		if (predicate->check(e)) {
+			outputQueue->push(e);
 		}
-    }
+		timeSlice--;
+		inputQueue->pop();
+	}
 }
 
 void CQProcess::setPredicate(Predicate * pre) {
 	this->predicate = pre;
 }
 
+void CQProcess::setInputStreamName(string name) {
+	this->inputStreamName = name;
+}
+
 void CQProcess::setOutputStreamName(string stream){
     this->outputStreamName = stream;
 }
 
-void CQProcess::setResultListener(ResultListener* listener){
-    this->resultListener = listener;
-}
-
-void CQProcess::setInputStream(string s){
-    this->reader = new QueueReader();
-    reader->setStreamName(s);
-	//DerivedEventStore::registerReader(outputStreamName, reader);
+queue<EventPtr>* CQProcess::getInputQueue() {
+	return this->inputQueue;
 }
 
 void CQProcess::setWindow(Window *w){
     this->win = w;
 }
 
-QueueReader* CQProcess::getReader(){
-    return reader;
-}
-
 CQProcess::~CQProcess(){
 	delete predicate; predicate = nullptr;
-    delete reader; reader = nullptr;
     delete win; win = nullptr;
-    delete resultListener; resultListener = nullptr;
+	delete inputQueue; inputQueue = nullptr;
 }

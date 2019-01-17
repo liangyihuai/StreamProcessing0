@@ -7,8 +7,9 @@
 
 #include "Event.h"
 #include "Process.h"
+#include <queue>
 #include <vector>
-#include "QueueReader.h"
+//#include "QueueReader.h"
 #include "Condition.h"
 #include "Operator.h"
 #include "ResultListener.h"
@@ -17,6 +18,9 @@
 #include "MulStreamResult.h"
 #include <unordered_map>
 
+
+using namespace std;
+
 //the ResultListener return vector<DerivedEventPtr>.
 //复杂事件处理基于时间窗口或者计数窗口。格式为[time len, time sliding] or [count len, count sliding].
 //len表示
@@ -24,7 +28,15 @@ class CEPProcess: public Process{
 private:
     //one row of predicates are associating with a window.
 	vector<vector<Predicate*>*> predicateMatrix;
-	vector<QueueReader*> readerVec;
+	
+	vector<string> inputStreamNames;
+
+	vector<queue<EventPtr>*>* inputQueues;
+
+	string outputStreamName;
+
+	queue<EventPtr> *outputQueue;
+
 	vector<WindowBase*> windowVec;//the initial values are nullptr
 
     //set up callback function to process the result of this query
@@ -40,20 +52,25 @@ private:
 
 	WindowBase * window = nullptr;
 public:
-	CEPProcess();
+	CEPProcess(int inputStreamNum, string outputStreamName, queue<EventPtr>* outputQueue);
 
     //only class execution/ExecuteSchedule could access this method
     //before call it, the queue readers should be prepared.
-    bool process();
+    void process(int timeSlice);
     void addPredicate(Predicate * pre, string stream);
     void setResultListener(ResultListener* listener);
     void setWindow(WindowBase *w);
 	WindowBase * getWindow() {return this->window;}
-    set<QueueReader*> getReaderSet();
-	void addOutputStream(string streamName);
+
+	void setInputStreamNames(vector<string> names) {
+		this->inputStreamNames = names;
+	}
+
+	vector<queue<EventPtr>*>* getInputQueues() {
+		return this->inputQueues;
+	}
 
     ~CEPProcess();
-
 };
 
 

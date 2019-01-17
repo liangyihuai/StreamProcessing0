@@ -3,5 +3,5 @@
 
 class Process {
 public:
-
+	virtual void process(int timeSlice) = 0;
 };
