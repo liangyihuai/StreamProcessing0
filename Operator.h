@@ -9,6 +9,7 @@
 
 class Operator {
 public:
+	//perform the procedure to generate results.
     virtual ResultPtr result(EventPtr event) = 0;
 };
 

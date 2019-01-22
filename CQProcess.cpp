@@ -5,21 +5,30 @@
 #include "CQProcess.h"
 #include "DerivedEventStore.h"
 
-CQProcess::CQProcess(queue<EventPtr> *outputQueue, string outputStreamName) {
+CQProcess::CQProcess(string outputStreamName) {
 	this->inputQueue = new queue<EventPtr>();
-	this->outputQueue = outputQueue;
 	this->outputStreamName = outputStreamName;
 }
 
-void CQProcess::process(int timeSlice){
+void CQProcess::addOutputQueue(queue<EventPtr> *outputQueue) {
+	outputQueueSet.insert(outputQueue);
+}
+
+bool CQProcess::process(int timeSlice){
 	while (!inputQueue->empty() && timeSlice > 0) {
 		EventPtr e = inputQueue->front();
 		if (predicate->check(e)) {
-			outputQueue->push(e);
+			for (queue<EventPtr>* q : *outputQueueSet) {
+				q->push(e);
+			}
 		}
 		timeSlice--;
 		inputQueue->pop();
 	}
+	if (!inputQueue->empty()) {
+		return false;
+	}
+	return true;
 }
 
 void CQProcess::setPredicate(Predicate * pre) {

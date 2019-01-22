@@ -11,6 +11,7 @@
 #include "DerivedEventStore.h"
 #include "Process.h"
 #include <queue>
+#include <set>
 
 
 class EventCapture: public Process{
@@ -19,14 +20,16 @@ private:
 	queue<EventPtr>* inputQueue;
 	
 	//the input queue of other processing unit, so this class should not maintain deallocate it memory
-	queue<EventPtr> * outputQueue;
+	set<queue<EventPtr>*> outputQueueSet;
     Condition condition;
 	string inputStreamName;
     string outputStreamName;
 public:
-	EventCapture(queue<EventPtr> * outputQueue);
+	EventCapture(string _outputStreamName);
 
 	~EventCapture();
+
+	void addOutputQueue(queue<EventPtr> * outputQueue);
 
 	void setCondition(Condition condition);
 

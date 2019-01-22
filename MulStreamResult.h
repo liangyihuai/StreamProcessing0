@@ -19,12 +19,10 @@ public:
         derivedEvents.push_back(e);
     }
 
-    void addDeriveEventPtr(vector<string> streams){
-        for(string s: streams){
-			EventPtr newEvent(new RadarEvent(Utils::id++, Utils::getTime()));
-            DerivedEventPtr e(new DerivedEvent(newEvent, s));
-            derivedEvents.push_back(e);
-        }
+    void addDeriveEventPtr(string s){
+		EventPtr newEvent(new RadarEvent(Utils::id++, Utils::getTime()));
+		DerivedEventPtr e(new DerivedEvent(newEvent, s));
+		derivedEvents.push_back(e);
     }
 };
 

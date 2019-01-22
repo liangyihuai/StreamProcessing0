@@ -1,19 +1,17 @@
-//
-// Created by USER on 12/4/2018.
-//
-
 #ifndef CONTINUOUSPROCESSING_EVENTPROCESS_H
 #define CONTINUOUSPROCESSING_EVENTPROCESS_H
 
 #include <iostream>
 #include "Process.h"
 #include <unordered_set>
+#include <queue>
 #include <list>
 #include "Event.h"
+#include <set>
 
 using namespace std;
 
-class EventProcess: public Process {
+class EventProcess{
 private:
 	//name of input stream
 	string inputStream;
@@ -21,8 +19,10 @@ private:
 	//name of output stream
 	string outputStream;
 
+	set<queue<EventPtr>*> outputQueueSet;
+
     unordered_set<string> set;//for deduplication
-    list<EventPtr> queue;//for deduplication
+    list<EventPtr> queueForDeduplication;//for deduplication
     string deduplicationField;//the field name that make deduplication
     int deduplicateBufferSize;
     list<string> unusualFieldNames;
@@ -31,20 +31,23 @@ public:
 	EventProcess(int deduplicateBufferSize = 10);
 	~EventProcess();
 
+	void addOutputQueue(queue<EventPtr>* q);
+
 	void setDeduplicationField(string field);
 
 	void addUnusualName(string name);
 
     //filter the incoming events based on the "deduplicatedFiled" and "unusualFieldNames" setup.
-	bool filter(EventPtr e);
+	void process(EventPtr e);
 
 	void setInputStream(string name) {
 		this->inputStream = name;
 	}
 
-	void setOutputStream(string name) {
+	void setOutputStreamName(string name) {
 		this->outputStream = name;
 	}
+
 private:
     //if the actual event number is greater than deduplicateBufferSize, remove the old event
 	void removeOldEvent();

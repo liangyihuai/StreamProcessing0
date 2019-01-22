@@ -1,6 +1,3 @@
-//
-// Created by USER on 12/5/2018.
-//
 #include "stdafx.h"
 #include "ExecuteScheduler.h"
 
@@ -56,45 +53,52 @@ void ExecuteScheduler::registerCEPProcess(CEPProcess* cep){
     }
 }
 
-void ExecuteScheduler::executeEventCapture(EventPtr e) {
-	for (EventCapture * ec : ExecuteScheduler::eventCaptureList) {
-		ec->process(e);
+//void ExecuteScheduler::executeEventCapture(EventPtr e) {
+//	for (EventCapture * ec : ExecuteScheduler::eventCaptureList) {
+//		ec->process(e);
+//	}
+//}
+
+//void ExecuteScheduler::executeCQProcess(){
+//    //get unempty stream name
+//    for(string stream: DerivedEventStore::unemptyStreams){
+//        if(cqMap.find(stream) != cqMap.end()) {
+//            list<CQProcess*> * processList = cqMap[stream];
+//            for(CQProcess* process: *processList){
+//                process->process();
+//            }
+//        }
+//    }
+//}
+
+//void ExecuteScheduler::executeCEPProcess(){
+//    for(string stream: DerivedEventStore::unemptyStreams){//unemptyStreams have no reduction, need to modify
+//        if(cepMap.find(stream) != cepMap.end()){
+//            list<CEPProcess*> * processList = cepMap[stream];
+//			//traverse all CEPprocess of this stream, need to modify
+//            for(CEPProcess* process: *processList){
+//				process->process();
+//            }
+//        }
+//    }
+//}
+
+void ExecuteScheduler::runProcessQueue(){
+	while (!processQueue.empty()) {
+		Process* p = processQueue.front();
+		bool pushBackToqueue = p->process(100);
+		if (pushBackToqueue) processQueue.push(p);
 	}
-}
-
-void ExecuteScheduler::executeCQProcess(){
-    //get unempty stream name
-    for(string stream: DerivedEventStore::unemptyStreams){
-        if(cqMap.find(stream) != cqMap.end()) {
-            list<CQProcess*> * processList = cqMap[stream];
-            for(CQProcess* process: *processList){
-                process->process();
-            }
-        }
-    }
-}
-
-void ExecuteScheduler::executeCEPProcess(){
-    for(string stream: DerivedEventStore::unemptyStreams){//unemptyStreams have no reduction, need to modify
-        if(cepMap.find(stream) != cepMap.end()){
-            list<CEPProcess*> * processList = cepMap[stream];
-			//traverse all CEPprocess of this stream, need to modify
-            for(CEPProcess* process: *processList){
-				process->process();
-            }
-        }
-    }
 }
 
 void ExecuteScheduler::run(EventPtr incomingEvent) {
 	if (ExecuteScheduler::eventProcess.filter(incomingEvent)) {
-		/*cout << "id=" << incomingEvent->getId() 
-			<< ", iff=" << incomingEvent->getString("iff") 
-			<< ", speed=" << incomingEvent->getFloat("speed") 
-			<< ", lon=" << incomingEvent->getFloat("lon") 
-			<< ",lat=" << incomingEvent->getFloat("lat") << endl;*/
 		ExecuteScheduler::executeEventCapture(incomingEvent);
 		ExecuteScheduler::executeCQProcess();
-		//ExecuteScheduler::executeCEPProcess();
 	}
 }
+
+void ExecuteScheduler::pushBackProcessQueue(Process * cp) {
+	processQueue.push(cp);
+}
+

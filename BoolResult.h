@@ -4,19 +4,18 @@
 
 class BoolResult : public Result {
 private:
-	int value;
+	bool value;
 public:
 	BoolResult() {}
 
-	BoolResult(int value) : value(value) {}
+	BoolResult(bool value) : value(value) {}
 
 	void setValue(int v) {
 		this->value = v;
 	}
 
 	bool getBool() {
-		if (value) return true;
-		return false;
+		return value;
 	};
 
 };

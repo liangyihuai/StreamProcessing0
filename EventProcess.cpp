@@ -1,6 +1,3 @@
-//
-// Created by USER on 12/4/2018.
-//
 #include "stdafx.h"
 #include "EventProcess.h"
 
@@ -9,6 +6,10 @@ EventProcess::EventProcess(int deduplicateBufferSize) {
 }
 
 EventProcess::~EventProcess() {}
+
+void EventProcess::addOutputQueue(queue<EventPtr>* q) {
+	outputQueueSet.insert(q);
+}
 
 void EventProcess::setDeduplicationField(string field) {
 	this->deduplicationField = field;
@@ -27,7 +28,7 @@ bool EventProcess::isDuplicated(EventPtr e) {
 	if (set.find(value) != set.end()) {
 		result = true;
 	}else {
-		queue.push_back(e);
+		queueForDeduplication.push_back(e);
 		set.insert(value);
 	}
 
@@ -55,26 +56,29 @@ void EventProcess::addUnusualName(string name) {
 }
 
 //filter the incoming events based on the "deduplicatedFiled" and "unusualFieldNames" setup.
-bool EventProcess::filter(EventPtr e) {
+ void EventProcess::process(EventPtr e) {
 	for (string unusual : unusualFieldNames) {
 		bool b = isUnusual(e, unusual);
-		if (b) return false;
+		if (b) return ;
 	}
 	if (deduplicationField != "") {
 		if (isDuplicated(e)) {
-			return false;
+			return;
 		}
 	}
-	return true;
+	
+	for (queue<EventPtr>* q : outputQueueSet) {
+		q->push(e);
+	}
 }
 
 //if the actual event number is greater than deduplicateBufferSize, remove the old event
 void EventProcess::removeOldEvent() {
-	while (queue.size() > deduplicateBufferSize) {
-		EventPtr tempE = queue.front();
+	while (queueForDeduplication.size() > deduplicateBufferSize) {
+		EventPtr tempE = queueForDeduplication.front();
 		string value = tempE->getString(deduplicationField);
 		if (set.find(value) != set.end())
 			set.erase(value);
-		queue.pop_front();
+		queueForDeduplication.pop_front();
 	}
 }

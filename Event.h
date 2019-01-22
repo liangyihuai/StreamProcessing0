@@ -8,12 +8,34 @@
 #include <set>
 #include <memory>
 #include "glog\logging.h"
+#include "Consts.h"
 
 using namespace std;
 //using namespace google;
 
+/**
+ * A simple attribute
+ */
+typedef struct EventAttribute {
+	string name;
+	ValType type;
+	union {
+		int intVal;
+		float floatVal;
+		bool boolVal;
+		string stringVal;
+	};
+} Attribute;
+
+enum EventType {
+	EVENT_MSG, TIME_SLIDING_MSG
+};
+
 class Event {
 public:
+	EventType getEventType() { return eventType; }
+	void setEventType(EventType type) { this->eventType = type; }
+
     virtual long getId(){ return 0L;};
 
     virtual long long getTime() {return 0LL;};
@@ -42,6 +64,9 @@ public:
 
 private:
     friend std::ostream& operator<< (std::ostream& os, Event& e);
+
+	//event message or control message, event msg in default.
+	EventType eventType = EVENT_MSG;
 };
 
 

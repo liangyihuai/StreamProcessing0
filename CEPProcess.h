@@ -21,49 +21,32 @@
 
 using namespace std;
 
-//the ResultListener return vector<DerivedEventPtr>.
-//复杂事件处理基于时间窗口或者计数窗口。格式为[time len, time sliding] or [count len, count sliding].
-//len表示
+/*
+目前是简单的版本，CEP的输出只有一个名字，其他的操作都用在条件IF字段里面。
+一个CEP可以接收多个输入流数据，所有的数据流都被尽可能快地输入IF字段里面的Operator中。
+目前IF字段的Operator以exist操作为主，并且它的time length和sliding length具有相同的长度。
+The ResultListener return vector<DerivedEventPtr>.
+*/
 class CEPProcess: public Process{
-private:
-    //one row of predicates are associating with a window.
-	vector<vector<Predicate*>*> predicateMatrix;
-	
-	vector<string> inputStreamNames;
-
-	vector<queue<EventPtr>*>* inputQueues;
-
-	string outputStreamName;
-
-	queue<EventPtr> *outputQueue;
-
-	vector<WindowBase*> windowVec;//the initial values are nullptr
-
-    //set up callback function to process the result of this query
-    ResultListener* resultListener = nullptr;
-
-	//output target names
-    vector<string> resultStreams;
-
-	//length and sliding of count window equal to 3
-	const int DEFAULT_COUNT_LEN_SLIDING = 3;
-
-	const int MAX_READER = 10;
-
-	WindowBase * window = nullptr;
 public:
 	CEPProcess(int inputStreamNum, string outputStreamName, queue<EventPtr>* outputQueue);
 
-    //only class execution/ExecuteSchedule could access this method
-    //before call it, the queue readers should be prepared.
+	/*insert event to the window of operator from input queues.
+	this function is called by a time scheduler*/
     void process(int timeSlice);
-    void addPredicate(Predicate * pre, string stream);
+
+    void addCondition(ExistOp * con, string inputStreamName);
     void setResultListener(ResultListener* listener);
-    void setWindow(WindowBase *w);
-	WindowBase * getWindow() {return this->window;}
+    void setWindow(int timeWindowLen);
+
+	void result();
 
 	void setInputStreamNames(vector<string> names) {
 		this->inputStreamNames = names;
+	}
+
+	vector<string> getInputStreamNames() {
+		return inputStreamNames;
 	}
 
 	vector<queue<EventPtr>*>* getInputQueues() {
@@ -71,6 +54,19 @@ public:
 	}
 
     ~CEPProcess();
+
+private:
+	vector<ExistOp*> existOpVec;
+
+	vector<string> inputStreamNames;
+	vector<queue<EventPtr>*>* inputQueues;
+	string outputStreamName;
+	//queue<EventPtr> *outputQueue;
+
+	//set up callback function to process the result of this query
+	ResultListener* resultListener = nullptr;
+
+	int windowLen = 1000; //1 second
 };
 
 

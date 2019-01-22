@@ -1,12 +1,13 @@
-//
-// Created by USER on 12/4/2018.
-//
 #include "stdafx.h"
 #include "EventCapture.h"
 
-EventCapture::EventCapture(queue<EventPtr> * outputQueue) {
+EventCapture::EventCapture(string _outputStreamName) {
 	inputQueue = new queue<EventPtr>();
-	this->outputQueue = outputQueue;
+	this->outputStreamName = _outputStreamName;
+}
+
+void EventCapture::addOutputQueue(queue<EventPtr> * outputQueue) {
+	outputQueueSet.insert(outputQueue);
 }
 
 EventCapture::~EventCapture() {
@@ -18,7 +19,9 @@ void EventCapture::process(int timeSlice) {
 	while (!inputQueue->empty() && timeSlice > 0) {
 		EventPtr e = inputQueue->front();
 		if (condition.check(e)) {
-			outputQueue->push(e);
+			for (queue<EventPtr>* q : outputQueueSet) {
+				q->push(e);
+			}
 		}
 		inputQueue->pop();
 		timeSlice--;

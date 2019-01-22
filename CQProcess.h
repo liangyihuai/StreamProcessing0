@@ -16,6 +16,7 @@
 #include "EnhanceEventResult.h"
 #include <unordered_map>
 #include <queue>
+#include <set>
 
 //the ResultListener return DerivedEventPtr.
 class CQProcess: public Process{
@@ -25,20 +26,21 @@ private:
 	//the result name of stream after processing
 	string outputStreamName;
 	queue<EventPtr> * inputQueue;
-	//the input queue of other processing unit.
-	queue<EventPtr> * outputQueue;
+	//the input queue of other processing units.
+	set<queue<EventPtr>*> outputQueueSet;
     // all stateless operatorPredicates and simple simple predicates share one queue reader.
 	Predicate* predicate;
 
     //sliding window, or tumble window or others
     Window * win;
 public:
-	CQProcess(queue<EventPtr>* outputQueue, string outputStreamName);
+	CQProcess(string outputStreamName);
+
 	~CQProcess();
 
-    //only class execution/ExecuteSchedule could access this method
-    //before call it, the queue readers should be prepared.
-    void process(int timeSlice);
+	void addOutputQueue(queue<EventPtr> *outputQueue);
+
+    bool process(int timeSlice);
 
     void setPredicate(Predicate * pre);
 
