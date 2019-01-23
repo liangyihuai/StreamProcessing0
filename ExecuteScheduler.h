@@ -24,18 +24,29 @@ private:
     //system wise id
     // unsigned int id = 0;
 
-	static EventProcess eventProcess;
+	//static EventProcess eventProcess;
 
-    //stream name -> eventCapture
-    static std::list<EventCapture*> eventCaptureList;
+ //   //stream name -> eventCapture
+ //   static std::list<EventCapture*> eventCaptureList;
 
-    //stream name -> CQProcess object
-    static std::unordered_map<std::string, list<CQProcess*>*> cqMap;
+ //   //stream name -> CQProcess object
+ //   static std::unordered_map<std::string, list<CQProcess*>*> cqMap;
 
-    //stream name -> CEPProcess object
-	static std::unordered_map<std::string, list<CEPProcess*>*> cepMap;
+ //   //stream name -> CEPProcess object
+	//static std::unordered_map<std::string, list<CEPProcess*>*> cepMap;
 
 	static std::queue<Process*> processQueue;
+
+	static EventProcess eventProcess;
+
+	//output stream name -> process
+	static std::unordered_map<string, Process*> processMap;
+
+	//connect process unit A and B. It is used to build compute graph
+	static void connectTowProcessUnit(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB);
+
+	//check whether the outputQueue reference of a process is nullptr.
+	static void checkGraph();
 
 public:
 	
@@ -43,21 +54,23 @@ public:
 
     //static void executeEventCapture(EventPtr e);
 
-	static void registerEventCapture(EventCapture *);
+	/*static void registerEventCapture(EventCapture *);
 
 	static void registerCQProcess(CQProcess* cq);
 
-	static void registerCEPProcess(CEPProcess* cep);
+	static void registerCEPProcess(CEPProcess* cep);*/
 
 	/*static void executeCQProcess();
 
 	static void executeCEPProcess();*/
 
-	static void run(EventPtr);
+	static void initialize();
 
 	static void runProcessQueue();
 
 	static void pushBackProcessQueue(Process * cp);
+
+	static void buildGraph();
 };
 
 #endif //CONTINUOUSPROCESSING_EXECUTESCHEDULER_H

@@ -12,4 +12,4 @@
  /**
   * Kinds of types for the values of attributes and contraints
   */
-enum ValType { INT = 0, FLOAT = 1, BOOL = 2, STRING = 3 };
+enum class ValType { INT = 0, FLOAT = 1, BOOL = 2, STRING = 3 };

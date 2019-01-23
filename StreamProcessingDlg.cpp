@@ -7,7 +7,7 @@
 #include "StreamProcessingDlg.h"
 #include "afxdialogex.h"
 
-#include "ExecuteScheduler.h"
+//#include "ExecuteScheduler.h"
 #include "SpecUtils.h"
 #include <thread>
 #include "ThreadOfInputStreamPrint.h"
@@ -19,8 +19,6 @@
 
 
 CString CStreamProcessingDlg::inputstream_to_display;
-
-
 
 // CAboutDlg dialog used for App About
 
@@ -237,24 +235,24 @@ void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd(){
 		return;
 	}
 
-	//parse names 
-	string name_str(CW2A(event_filter_name.GetString()));
-	vector<string> names = Utils::split(name_str, " ");
+	////parse names 
+	//string name_str(CW2A(event_filter_name.GetString()));
+	//vector<string> names = Utils::split(name_str, " ");
 
-	//parse event capture rules
-	string str(CW2A(event_filter_rule.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-	
-	list<EventFilterSpec*> eventcaptureSpecs = EventFilterParser::parseAllEventFilterSpec(lines_list);
-	for (EventFilterSpec* spec : eventcaptureSpecs) {
-		EventProcess* ec = spec->instance();
-		ExecuteScheduler::registerEventProcess(*ec);
-	}
+	////parse event capture rules
+	//string str(CW2A(event_filter_rule.GetString()));
+	//vector<string> lines = Utils::split(str, "\r\n");
+	//list<string>lines_list;
+	//for (string line : lines) {
+	//	line = Utils::trim(line);
+	//	lines_list.push_back(line);
+	//}
+	//
+	//list<EventFilterSpec*> eventcaptureSpecs = EventFilterParser::parseAllEventFilterSpec(lines_list);
+	//for (EventFilterSpec* spec : eventcaptureSpecs) {
+	//	EventProcess* ec = spec->instance();
+	//	ExecuteScheduler::registerEventProcess(*ec);
+	//}
 
 	MessageBox(_T("Add Event Filter rule successfully"), NULL, MB_OK);
 }
@@ -268,23 +266,25 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 		return;
 	}
 	
-	//parse names 
-	string name_str(CW2A(event_capture_name.GetString()));
-	vector<string> names = Utils::split(name_str, " ");
+	////parse names 
+	//string name_str(CW2A(event_capture_name.GetString()));
+	//vector<string> names = Utils::split(name_str, " ");
 
-	//parse event capture rules
-	string str(CW2A(event_capture_rule.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-	list<EventCaptureSpec*> eventcaptureSpecs = EventCaptureSpecParser::parseAllEventCaptureSpec(lines_list);
-	for (EventCaptureSpec* spec : eventcaptureSpecs) {
-		EventCapture* ec = spec->instance();
-		ExecuteScheduler::registerEventCapture(ec);
-	}
+	////parse event capture rules
+	//string str(CW2A(event_capture_rule.GetString()));
+	//vector<string> lines = Utils::split(str, "\r\n");
+	//list<string>lines_list;
+	//for (string line : lines) {
+	//	line = Utils::trim(line);
+	//	lines_list.push_back(line);
+	//}
+	//list<EventCaptureSpec*> eventcaptureSpecs = EventCaptureSpecParser::parseAllEventCaptureSpec(lines_list);
+	//for (EventCaptureSpec* spec : eventcaptureSpecs) {
+	//	EventCapture* ec = spec->instance();
+	//	//ExecuteScheduler::registerEventCapture(ec);
+	//}
+
+
 	MessageBox(_T("Add Event Capture rule successfully"), NULL, MB_OK);
 
 	event_capture_rule = _T("");
@@ -302,23 +302,25 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 		return;
 	}
 
-	//parse names 
-	string name_str(CW2A(cq_name.GetString()));
-	vector<string> names = Utils::split(name_str, " ");
+	////parse names 
+	//string name_str(CW2A(cq_name.GetString()));
+	//vector<string> names = Utils::split(name_str, " ");
 
-	//parse event capture rules
-	string str(CW2A(cq_rule.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-	list<CQSpec*> eventcaptureSpecs = CQSpecParser::parseAllCQSpec(lines_list);
-	for (CQSpec* spec : eventcaptureSpecs) {
-		CQProcess* cq = spec->instance();
-		ExecuteScheduler::registerCQProcess(cq);
-	}
+	////parse event capture rules
+	//string str(CW2A(cq_rule.GetString()));
+	//vector<string> lines = Utils::split(str, "\r\n");
+	//list<string>lines_list;
+	//for (string line : lines) {
+	//	line = Utils::trim(line);
+	//	lines_list.push_back(line);
+	//}
+	//list<CQSpec*> eventcaptureSpecs = CQSpecParser::parseAllCQSpec(lines_list);
+	//for (CQSpec* spec : eventcaptureSpecs) {
+	//	CQProcess* cq = spec->instance();
+	//	//ExecuteScheduler::registerCQProcess(cq);
+	//}
+
+
 	MessageBox(_T("Add CQ rule successfully"), NULL, MB_OK);
 	cq_rule = _T("");
 	cq_name = _T("");;
@@ -335,24 +337,24 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 		return;
 	}
 
-	//parse names 
-	string name_str(CW2A(cep_name.GetString()));
-	vector<string> names = Utils::split(name_str, " ");
+	////parse names 
+	//string name_str(CW2A(cep_name.GetString()));
+	//vector<string> names = Utils::split(name_str, " ");
 
-	//parse event capture rules
-	string str(CW2A(cep_rule.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-	list<CEPSpec*> eventcaptureSpecs = CEPSpecParser::parseAllCEPSpec(lines_list);
-	for (CEPSpec* spec : eventcaptureSpecs) {
-		CEPProcess* cep = spec->instance();
-		
-		ExecuteScheduler::registerCEPProcess(cep);
-	}
+	////parse event capture rules
+	//string str(CW2A(cep_rule.GetString()));
+	//vector<string> lines = Utils::split(str, "\r\n");
+	//list<string>lines_list;
+	//for (string line : lines) {
+	//	line = Utils::trim(line);
+	//	lines_list.push_back(line);
+	//}
+	//list<CEPSpec*> eventcaptureSpecs = CEPSpecParser::parseAllCEPSpec(lines_list);
+	//for (CEPSpec* spec : eventcaptureSpecs) {
+	//	CEPProcess* cep = spec->instance();
+	//	
+	//	//ExecuteScheduler::registerCEPProcess(cep);
+	//}
 
 	MessageBox(_T("Add CEP rule successfully"), NULL, MB_OK);
 	cep_name = _T("");
@@ -383,8 +385,8 @@ public:
 				CStreamProcessingDlg::inputstream_to_display.Truncate(3000);
 
 			//cout << "input: " << *e << endl;
-			ExecuteScheduler::run(e);
-			ExecuteScheduler::executeCEPProcess();
+			//ExecuteScheduler::run(e);
+			//ExecuteScheduler::executeCEPProcess();
 		}
 
 		fclose(stdout);

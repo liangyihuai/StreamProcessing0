@@ -494,6 +494,27 @@
     <ClCompile Include="TimerTest.cpp">
       <Filter>Source Files\backend\test</Filter>
     </ClCompile>
+    <ClCompile Include="EventFilterSpec.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="CEPSpecParser.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="CQSpec.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="CQSpecParser.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="EventCaptureSpec.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="EventFilterSpecParser.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecParser.cpp">
+      <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StreamProcessing.rc">

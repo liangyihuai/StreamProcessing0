@@ -1,6 +1,11 @@
 #pragma once
 //the interface of process, including event filter, event capture, cq, cep
 
+#include "Event.h"
+#include <vector>
+#include <queue>
+#include <iostream>
+
 class Process {
 public:
 	/*insert event to the window of operator from input queues.
@@ -9,8 +14,11 @@ public:
 	*/
 	virtual bool process(int timeSlice) = 0;
 
-	void setId(int _id) { id = _id; };
-	int getId() { return id; }
-private:
-	int id;
+	virtual vector<string> getInputStreamNames() = 0;
+
+	virtual vector<queue<EventPtr>*> getInputQueues() = 0;
+
+	virtual string getOutputStreamName() = 0;
+
+	virtual void addOutputQueue(queue<EventPtr>* outputQueue) = 0;
 };

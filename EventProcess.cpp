@@ -82,3 +82,15 @@ void EventProcess::removeOldEvent() {
 		queueForDeduplication.pop_front();
 	}
 }
+
+void EventProcess::setInputStream(string name) {
+	this->inputStream = name;
+}
+
+void EventProcess::setOutputStreamName(string name) {
+	this->outputStreamName = name;
+}
+
+string EventProcess::getOutputStreamName() {
+	return outputStreamName;
+}

@@ -35,23 +35,24 @@ private:
     Window * win;
 public:
 	CQProcess(string outputStreamName);
-
 	~CQProcess();
 
+	//---------------------------
+	//implemented methods
+	//-------------------------
+	bool process(int timeSlice);
 	void addOutputQueue(queue<EventPtr> *outputQueue);
-
-    bool process(int timeSlice);
-
+	vector<string> getInputStreamNames();
+	vector<queue<EventPtr>*> getInputQueues();
+	string getOutputStreamName();
+   
+	//--------------------------------
+	//other
+	//---------------------------------
     void setPredicate(Predicate * pre);
-
     void setOutputStreamName(string name);
 	void setInputStreamName(string name);
-
     queue<EventPtr>* getInputQueue();
-
     void setWindow(Window *w);
-
-    ~CQProcess();
-
 };
 #endif //CONTINUOUSPROCESSING_CQPROCESS_H

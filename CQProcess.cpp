@@ -18,7 +18,7 @@ bool CQProcess::process(int timeSlice){
 	while (!inputQueue->empty() && timeSlice > 0) {
 		EventPtr e = inputQueue->front();
 		if (predicate->check(e)) {
-			for (queue<EventPtr>* q : *outputQueueSet) {
+			for (queue<EventPtr>* q : outputQueueSet) {
 				q->push(e);
 			}
 		}
@@ -30,6 +30,23 @@ bool CQProcess::process(int timeSlice){
 	}
 	return true;
 }
+
+vector<string> CQProcess::getInputStreamNames() {
+	vector<string> result;
+	result.push_back(inputStreamName);
+	return result;
+}
+
+vector<queue<EventPtr>*> CQProcess::getInputQueues() {
+	vector<queue<EventPtr>*> result;
+	result.push_back(inputQueue);
+	return result;
+}
+
+string CQProcess::getOutputStreamName() {
+	return outputStreamName;
+}
+
 
 void CQProcess::setPredicate(Predicate * pre) {
 	this->predicate = pre;

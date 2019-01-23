@@ -2,7 +2,6 @@
 #define CONTINUOUSPROCESSING_EVENTPROCESS_H
 
 #include <iostream>
-#include "Process.h"
 #include <unordered_set>
 #include <queue>
 #include <list>
@@ -17,7 +16,7 @@ private:
 	string inputStream;
 
 	//name of output stream
-	string outputStream;
+	string outputStreamName;
 
 	set<queue<EventPtr>*> outputQueueSet;
 
@@ -40,13 +39,11 @@ public:
     //filter the incoming events based on the "deduplicatedFiled" and "unusualFieldNames" setup.
 	void process(EventPtr e);
 
-	void setInputStream(string name) {
-		this->inputStream = name;
-	}
+	void setInputStream(string name);
 
-	void setOutputStreamName(string name) {
-		this->outputStream = name;
-	}
+	void setOutputStreamName(string name);
+
+	string getOutputStreamName();
 
 private:
     //if the actual event number is greater than deduplicateBufferSize, remove the old event

@@ -16,48 +16,17 @@ private:
 	int winLen;
 	int winSliding;
 public:
-	CQProcess * instance() {
-		CQProcess* cq = new CQProcess();
-		if (windowType.length() > 0) {
-			windowType = Utils::toLower(windowType);
-			if (windowType == "slidingwindowofcount") {
+	CQProcess * instance();
 
-			}else if (windowType == "slidingwindowoftime") {
+	void setInputStream(string name);
 
-			}else if (windowType == "tumblecountwindow") {
+	void setOutputStream(string name);
 
-			}else if (windowType == "tumbletimewindow") {
+	void setPredicate(Predicate * pre);
 
-			}
-		}
-		cq->setInputStream(inputStream);
-		cq->setOutputStreamName(outputStream);
-		cq->setPredicate(predicate);
-		cq->setResultListener(new CQStoreResultListener());
-		return cq;
-	}
+	void setWindowType(string type);
 
-	void setInputStream(string name) {
-		this->inputStream = name;
-	}
+	void setWindowlen(int len);
 
-	void setOutputStream(string name) {
-		this->outputStream = name;
-	}
-
-	void setPredicate(Predicate * pre) {
-		this->predicate = pre;
-	}
-
-	void setWindowType(string type) {
-		this->windowType = type;
-	}
-
-	void setWindowlen(int len) {
-		this->winLen = len;
-	}
-
-	void setWindowSliding(int sliding) {
-		this->winSliding = sliding;
-	}
+	void setWindowSliding(int sliding);
 };

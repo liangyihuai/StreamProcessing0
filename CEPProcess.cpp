@@ -3,9 +3,8 @@
 #include "CEPProcess.h"
 #include "DerivedEventStore.h"
 
-CEPProcess::CEPProcess(int inputStreamNum, string outputStreamName, queue<EventPtr>* outputQueue) {
+CEPProcess::CEPProcess(int inputStreamNum, string outputStreamName) {
 	this->outputStreamName = outputStreamName;
-	this->outputQueue = outputQueue;
 
 	inputQueues = new vector<queue<EventPtr>*>();
 	for (int i = 0; i < inputStreamNum; i++) {
@@ -14,7 +13,7 @@ CEPProcess::CEPProcess(int inputStreamNum, string outputStreamName, queue<EventP
 	}
 }
 
-void CEPProcess::process(int timeSlice){
+bool CEPProcess::process(int timeSlice){
 	for (int i = 0; i < inputQueues->size(); i++) {
 		int timeSlice_i = timeSlice;
 		queue<EventPtr> * q = (*inputQueues)[i];
@@ -24,6 +23,23 @@ void CEPProcess::process(int timeSlice){
 			timeSlice_i--;
 		}
 	}
+}
+
+vector<string> CEPProcess::getInputStreamNames() {
+	return inputStreamNames;
+}
+
+vector<queue<EventPtr>*> CEPProcess::getInputQueues() {
+	return *inputQueues;
+}
+
+string CEPProcess::getOutputStreamName() {
+	return outputStreamName;
+}
+
+void CEPProcess::addOutputQueue(queue<EventPtr>* outputQueue) {
+	LOG(ERROR) << "not implemented method addOutputQueue";
+	throw runtime_error("");
 }
 
 void CEPProcess::result(){
@@ -51,7 +67,7 @@ void CEPProcess::result(){
 	}
 }
 
-void CEPProcess::addCondition(ExistOp * con, string inputStreamName){
+void CEPProcess::addCondition(ExistOp * con, string inputStreamName) {
 	bool exists = false;
     //find a reader according stream name
 	for (int i = 0; i < inputQueues->size(); i++) {
@@ -64,6 +80,10 @@ void CEPProcess::addCondition(ExistOp * con, string inputStreamName){
     if(exists == false){
 		LOG(WARNING) << "there is no specified input stream name in this CEP process, name is:" << outputStreamName;
     }
+}
+
+void CEPProcess::setInputStreamNames(vector<string> names) {
+	this->inputStreamNames = names;
 }
 
 void CEPProcess::setResultListener(ResultListener* listener){

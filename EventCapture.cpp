@@ -6,6 +6,22 @@ EventCapture::EventCapture(string _outputStreamName) {
 	this->outputStreamName = _outputStreamName;
 }
 
+vector<string> EventCapture::getInputStreamNames() {
+	vector<string> result;
+	result.push_back(inputStreamName);
+	return result;
+}
+
+vector<queue<EventPtr>*> EventCapture::getInputQueues() {
+	vector<queue<EventPtr>*> result;
+	result.push_back(inputQueue);
+	return result;
+}
+
+string EventCapture::getOutputStreamName() {
+	return outputStreamName;
+}
+
 void EventCapture::addOutputQueue(queue<EventPtr> * outputQueue) {
 	outputQueueSet.insert(outputQueue);
 }
@@ -15,7 +31,7 @@ EventCapture::~EventCapture() {
 	//delete outputQueue;
 }
 
-void EventCapture::process(int timeSlice) {
+bool EventCapture::process(int timeSlice) {
 	while (!inputQueue->empty() && timeSlice > 0) {
 		EventPtr e = inputQueue->front();
 		if (condition.check(e)) {
@@ -26,6 +42,8 @@ void EventCapture::process(int timeSlice) {
 		inputQueue->pop();
 		timeSlice--;
 	}
+	if (!inputQueue->empty()) return false;
+	return true;
 }
 
 queue<EventPtr>* EventCapture::getInputQueue() {

@@ -1,7 +1,3 @@
-//
-// Created by USER on 12/4/2018.
-//
-
 #ifndef CONTINUOUSPROCESSING_EVENTCAPTURE_H
 #define CONTINUOUSPROCESSING_EVENTCAPTURE_H
 
@@ -26,21 +22,24 @@ private:
     string outputStreamName;
 public:
 	EventCapture(string _outputStreamName);
-
 	~EventCapture();
 
+	//---------------------------
+	//implemented methods
+	//---------------------------
+	bool process(int timeSlice = 100);
+	vector<string> getInputStreamNames();
+	vector<queue<EventPtr>*> getInputQueues();
+	string getOutputStreamName();
 	void addOutputQueue(queue<EventPtr> * outputQueue);
 
+	//--------------------------
+	//other methods
+	//---------------------------
 	void setCondition(Condition condition);
-
 	void setInputStreamName(string name);
-
 	void setOutputStreamName(string name);
-
 	queue<EventPtr>* getInputQueue();
-
-	void process(int timeSlice = 50);
 };
-
 
 #endif //CONTINUOUSPROCESSING_EVENTCAPTURE_H

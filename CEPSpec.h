@@ -10,9 +10,10 @@
 class CEPSpec : public Spec {
 private:
 	vector<string> inputStreams;
-	vector<string> outputStreams;
+	string outputStreamName;
 
-	vector<Predicate*> predicateVec;
+	//vector<Predicate*> predicateVec;
+	vector<ExistOp*> predicateVec;
 	vector<string> precessedStreamVec;
 
 	WindowBase * win;
@@ -24,7 +25,7 @@ public:
 
 	CEPProcess * instance();
 
-	void addOutputStream(string name);
+	void setOutputStreamName(string name);
 
-	void addPredicate(Predicate * pre, string stream);
+	void addPredicate(ExistOp * pre, string stream);
 };

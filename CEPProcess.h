@@ -5,6 +5,7 @@
 #ifndef CONTINUOUSPROCESSING_CEPPROCESS_H
 #define CONTINUOUSPROCESSING_CEPPROCESS_H
 
+#include "ExistOp.h"
 #include "Event.h"
 #include "Process.h"
 #include <queue>
@@ -29,43 +30,36 @@ The ResultListener return vector<DerivedEventPtr>.
 */
 class CEPProcess: public Process{
 public:
-	CEPProcess(int inputStreamNum, string outputStreamName, queue<EventPtr>* outputQueue);
-
+	CEPProcess(int inputStreamNum, string outputStreamName);
+	~CEPProcess();
+	//------------------------
+	//implemented methods
+	//------------------------------
 	/*insert event to the window of operator from input queues.
 	this function is called by a time scheduler*/
-    void process(int timeSlice);
+    bool process(int timeSlice);
+	vector<string> getInputStreamNames();
+	vector<queue<EventPtr>*> getInputQueues();
+	string getOutputStreamName();
+	void addOutputQueue(queue<EventPtr>* outputQueue);
 
+	//---------------------------
+	//other
+	//----------------------------
     void addCondition(ExistOp * con, string inputStreamName);
     void setResultListener(ResultListener* listener);
     void setWindow(int timeWindowLen);
-
 	void result();
-
-	void setInputStreamNames(vector<string> names) {
-		this->inputStreamNames = names;
-	}
-
-	vector<string> getInputStreamNames() {
-		return inputStreamNames;
-	}
-
-	vector<queue<EventPtr>*>* getInputQueues() {
-		return this->inputQueues;
-	}
-
-    ~CEPProcess();
-
+	void setInputStreamNames(vector<string> names);
+    
 private:
 	vector<ExistOp*> existOpVec;
-
 	vector<string> inputStreamNames;
 	vector<queue<EventPtr>*>* inputQueues;
 	string outputStreamName;
 	//queue<EventPtr> *outputQueue;
-
 	//set up callback function to process the result of this query
 	ResultListener* resultListener = nullptr;
-
 	int windowLen = 1000; //1 second
 };
 

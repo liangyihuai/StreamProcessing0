@@ -8,13 +8,10 @@ CEPSpec::CEPSpec() {
 }
 
 CEPProcess * CEPSpec::instance() {
-	CEPProcess* cep = new CEPProcess();
-	for (string os : outputStreams) {
-		cep->addOutputStream(os);
-	}
+	CEPProcess* cep = new CEPProcess(inputStreams.size() , outputStreamName);
 
 	for (int i = 0; i < inputStreams.size(); i++) {
-		cep->addPredicate(predicateVec[i], inputStreams[i]);
+		cep->addCondition(predicateVec[i], inputStreams[i]);
 	}
 
 	//cep->setWindow(win);
@@ -30,13 +27,11 @@ CEPProcess * CEPSpec::instance() {
 	return cep;
 }
 
-
-
-void CEPSpec::addOutputStream(string name) {
-	outputStreams.push_back(name);
+void CEPSpec::setOutputStreamName(string name) {
+	outputStreamName = name;
 }
 
-void CEPSpec::addPredicate(Predicate * pre, string stream) {
+void CEPSpec::addPredicate(ExistOp * pre, string stream) {
 	predicateVec.push_back(pre);
 	inputStreams.push_back(stream);
 }

@@ -285,6 +285,7 @@
     <ClCompile Include="Average.cpp" />
     <ClCompile Include="CEPProcess.cpp" />
     <ClCompile Include="CEPSpec.cpp" />
+    <ClCompile Include="CEPSpecParser.cpp" />
     <ClCompile Include="CEPTest_Spec1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -306,6 +307,8 @@
     <ClCompile Include="Condition.cpp" />
     <ClCompile Include="Count.cpp" />
     <ClCompile Include="CQProcess.cpp" />
+    <ClCompile Include="CQSpec.cpp" />
+    <ClCompile Include="CQSpecParser.cpp" />
     <ClCompile Include="CQ_SpecTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -322,12 +325,15 @@
     <ClCompile Include="DistanceOp.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventCapture.cpp" />
+    <ClCompile Include="EventCaptureSpec.cpp" />
     <ClCompile Include="EventCapture_SpecTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="EventFilterSpec.cpp" />
+    <ClCompile Include="EventFilterSpecParser.cpp" />
     <ClCompile Include="EventFilter_SpecTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -372,6 +378,7 @@
     <ClCompile Include="SharedQueueReader.cpp" />
     <ClCompile Include="SharedQueueWriter.cpp" />
     <ClCompile Include="SlidingWindow.cpp" />
+    <ClCompile Include="SpecParser.cpp" />
     <ClCompile Include="SpecRegister.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

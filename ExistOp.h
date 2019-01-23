@@ -56,7 +56,7 @@ namespace exist_op {
 class ExistOp:public Operator{
 
 public:
-	ExistOp(string _streamName, int _timeWinLen);
+	ExistOp(string _streamName, int _timeWinLen=1000);
 
 	//insert an event to the window. If the size of
 	//the window is greater than max, return false;

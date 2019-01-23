@@ -10,23 +10,11 @@ private:
 	string outputStream;
 	Condition conditon;
 public:
-	EventCapture * instance() {
-		EventCapture * ec = new EventCapture();
-		ec->setCondition(conditon);
-		ec->setInputStream(inputStream);
-		ec->setOutputStream(outputStream);
-		return ec;
-	}
+	EventCapture * instance();
 
-	void setInputStream(string name) {
-		this->inputStream = name;
-	}
+	void setInputStream(string name);
 
-	void setOutputStream(string name) {
-		this->outputStream = name;
-	}
+	void setOutputStream(string name);
 
-	void setCondition(Condition con) {
-		this->conditon = con;
-	}
+	void setCondition(Condition con);
 };
