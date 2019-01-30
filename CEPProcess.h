@@ -30,7 +30,7 @@ The ResultListener return vector<DerivedEventPtr>.
 */
 class CEPProcess: public Process{
 public:
-	CEPProcess(int inputStreamNum, string outputStreamName);
+	CEPProcess(vector<string> inputStreamNames, string outputStreamName);
 	~CEPProcess();
 	//------------------------
 	//implemented methods

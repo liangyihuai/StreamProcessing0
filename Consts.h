@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 
 /**
  * The maximum len allowed for a string attribute.
@@ -13,3 +14,7 @@
   * Kinds of types for the values of attributes and contraints
   */
 enum class ValType { INT = 0, FLOAT = 1, BOOL = 2, STRING = 3 };
+
+namespace Consts {
+	const static char* LOG_DIR = "C:\\Users\\LIANG\\Desktop\\temp\\streamprocessingLog\\log";
+}

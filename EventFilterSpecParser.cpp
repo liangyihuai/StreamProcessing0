@@ -1,26 +1,29 @@
 #include "stdafx.h"
 #include "EventFilterSpecParser.h"
 
-list<EventFilterSpec*> EventFilterParser::parseAllEventFilterSpec(const list<string> allCQSpecs) {
-	list<EventFilterSpec*> result;
-	list<string> specStrVec;
-	for (string line : allCQSpecs) {
-		line = Utils::toLower(Utils::trim(line));
-		if (line.size() == 0 || line[0] == '#') continue;
+//list<EventFilterSpec*> EventFilterParser::parseAllEventFilterSpec(const list<string> allCQSpecs) {
+//	list<EventFilterSpec*> result;
+//	list<string> specStrVec;
+//	for (string line : allCQSpecs) {
+//		line = Utils::toLower(Utils::trim(line));
+//		if (line.size() == 0 || line[0] == '#') continue;
+//
+//		specStrVec.push_back(line);
+//		if (line.find("then") == 0) {
+//			result.push_back(parseOneEventFilterSpec(specStrVec));
+//			specStrVec.clear();
+//		}
+//	}
+//	return result;
+//}
 
-		specStrVec.push_back(line);
-		if (line.find("then") == 0) {
-			result.push_back(parseOneEventFilterSpec(specStrVec));
-			specStrVec.clear();
-		}
-	}
-	return result;
-}
-
-EventFilterSpec* EventFilterParser::parseOneEventFilterSpec(list<string> specStr) {
+EventFilterSpec* EventFilterParser::parseOneEventFilterSpec(list<string> specStr, string outputStreamName) {
 	EventFilterSpec * eventfilterSpec = new EventFilterSpec();
 
 	for (string s : specStr) {
+		s = Utils::toLower(Utils::trim(s));
+		if (s.size() == 0 || s[0] == '#') continue;
+
 		if (s.size() == 0) continue;
 		size_t index = s.find_first_of(" ", 0);
 		if (index < 0) {
@@ -59,5 +62,6 @@ EventFilterSpec* EventFilterParser::parseOneEventFilterSpec(list<string> specStr
 			throw "undefined CQ spec term";
 		}
 	}
+	eventfilterSpec->setOutputStream(outputStreamName);
 	return eventfilterSpec;
 }

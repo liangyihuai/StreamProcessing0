@@ -11,7 +11,9 @@
 #include "SpecUtils.h"
 #include <thread>
 #include "ThreadOfInputStreamPrint.h"
+#include "ExecuteScheduler.h"
 
+#include <future>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -119,12 +121,19 @@ BEGIN_MESSAGE_MAP(CStreamProcessingDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_START, &CStreamProcessingDlg::OnBnClickedButtonStart)
 	ON_BN_CLICKED(IDC_BUTTON_STOP, &CStreamProcessingDlg::OnBnClickedButtonStop)
 	ON_BN_CLICKED(IDC_BUTTON_INPUT_STREAM, &CStreamProcessingDlg::OnBnClickedButtonInputStream)
+	ON_BN_CLICKED(IDC_BUTTON1, &CStreamProcessingDlg::OnBnClickedButton1)
+	ON_EN_CHANGE(IDC_EDIT2, &CStreamProcessingDlg::OnEnChangeEdit2)
 END_MESSAGE_MAP()
 
 
 // CStreamProcessingDlg message handlers
 
 BOOL CStreamProcessingDlg::OnInitDialog(){
+
+	//setup log store dir
+	google::SetLogDestination(google::GLOG_ERROR, Consts::LOG_DIR);
+	//initialize log instance
+	google::InitGoogleLogging("streamprocessing");
 
 	CDialogEx::OnInitDialog();
 
@@ -209,12 +218,9 @@ void CStreamProcessingDlg::OnPaint()
 
 // The system calls this function to obtain the cursor to display while the user drags
 //  the minimized window.
-HCURSOR CStreamProcessingDlg::OnQueryDragIcon()
-{
+HCURSOR CStreamProcessingDlg::OnQueryDragIcon(){
 	return static_cast<HCURSOR>(m_hIcon);
 }
-
-
 
 void CStreamProcessingDlg::OnEnChangeEditCepRule()
 {
@@ -226,7 +232,7 @@ void CStreamProcessingDlg::OnEnChangeEditCepRule()
 	// TODO:  Add your control notification handler code here
 }
 
-
+//add rule of event filter
 void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd(){
 	UpdateData(true);
 
@@ -235,24 +241,22 @@ void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd(){
 		return;
 	}
 
-	////parse names 
-	//string name_str(CW2A(event_filter_name.GetString()));
-	//vector<string> names = Utils::split(name_str, " ");
+	//parse names 
+	string outputStreamName(CW2A(event_filter_name.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
 
-	////parse event capture rules
-	//string str(CW2A(event_filter_rule.GetString()));
-	//vector<string> lines = Utils::split(str, "\r\n");
-	//list<string>lines_list;
-	//for (string line : lines) {
-	//	line = Utils::trim(line);
-	//	lines_list.push_back(line);
-	//}
-	//
-	//list<EventFilterSpec*> eventcaptureSpecs = EventFilterParser::parseAllEventFilterSpec(lines_list);
-	//for (EventFilterSpec* spec : eventcaptureSpecs) {
-	//	EventProcess* ec = spec->instance();
-	//	ExecuteScheduler::registerEventProcess(*ec);
-	//}
+	//parse event capture rules
+	string str(CW2A(event_filter_rule.GetString()));
+	vector<string> lines = Utils::split(str, "\r\n");
+	list<string>lines_list;
+	for (string line : lines) {
+		line = Utils::trim(line);
+		lines_list.push_back(line);
+	}
+
+	EventFilterSpec* eventFilterSpec = EventFilterParser::parseOneEventFilterSpec(lines_list, outputStreamName);
+	EventProcess* ec = eventFilterSpec->instance();
+	ExecuteScheduler::registerEventProcess(ec);
 
 	MessageBox(_T("Add Event Filter rule successfully"), NULL, MB_OK);
 }
@@ -266,24 +270,21 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 		return;
 	}
 	
-	////parse names 
-	//string name_str(CW2A(event_capture_name.GetString()));
-	//vector<string> names = Utils::split(name_str, " ");
+	//parse names 
+	string outputStreamName(CW2A(event_capture_name.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
 
-	////parse event capture rules
-	//string str(CW2A(event_capture_rule.GetString()));
-	//vector<string> lines = Utils::split(str, "\r\n");
-	//list<string>lines_list;
-	//for (string line : lines) {
-	//	line = Utils::trim(line);
-	//	lines_list.push_back(line);
-	//}
-	//list<EventCaptureSpec*> eventcaptureSpecs = EventCaptureSpecParser::parseAllEventCaptureSpec(lines_list);
-	//for (EventCaptureSpec* spec : eventcaptureSpecs) {
-	//	EventCapture* ec = spec->instance();
-	//	//ExecuteScheduler::registerEventCapture(ec);
-	//}
-
+	//parse event capture rules
+	string str(CW2A(event_capture_rule.GetString()));
+	vector<string> lines = Utils::split(str, "\r\n");
+	list<string>lines_list;
+	for (string line : lines) {
+		line = Utils::trim(line);
+		lines_list.push_back(line);
+	}
+	EventCaptureSpec* spec = EventCaptureSpecParser::parseOneEventCaptureSpec(lines_list, outputStreamName);
+	EventCapture* ec = spec->instance();
+	ExecuteScheduler::registerProcess(outputStreamName, ec);
 
 	MessageBox(_T("Add Event Capture rule successfully"), NULL, MB_OK);
 
@@ -302,24 +303,21 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 		return;
 	}
 
-	////parse names 
-	//string name_str(CW2A(cq_name.GetString()));
-	//vector<string> names = Utils::split(name_str, " ");
+	//parse names 
+	string outputStreamName(CW2A(cq_name.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
 
-	////parse event capture rules
-	//string str(CW2A(cq_rule.GetString()));
-	//vector<string> lines = Utils::split(str, "\r\n");
-	//list<string>lines_list;
-	//for (string line : lines) {
-	//	line = Utils::trim(line);
-	//	lines_list.push_back(line);
-	//}
-	//list<CQSpec*> eventcaptureSpecs = CQSpecParser::parseAllCQSpec(lines_list);
-	//for (CQSpec* spec : eventcaptureSpecs) {
-	//	CQProcess* cq = spec->instance();
-	//	//ExecuteScheduler::registerCQProcess(cq);
-	//}
-
+	//parse event capture rules
+	string str(CW2A(cq_rule.GetString()));
+	vector<string> lines = Utils::split(str, "\r\n");
+	list<string>lines_list;
+	for (string line : lines) {
+		line = Utils::trim(line);
+		lines_list.push_back(line);
+	}
+ 	CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(lines_list, outputStreamName);
+	CQProcess* cq = cqSpec->instance();
+	ExecuteScheduler::registerProcess(outputStreamName, cq);
 
 	MessageBox(_T("Add CQ rule successfully"), NULL, MB_OK);
 	cq_rule = _T("");
@@ -337,24 +335,22 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 		return;
 	}
 
-	////parse names 
-	//string name_str(CW2A(cep_name.GetString()));
-	//vector<string> names = Utils::split(name_str, " ");
+	//parse names 
+	string outputStreamName(CW2A(cep_name.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
 
-	////parse event capture rules
-	//string str(CW2A(cep_rule.GetString()));
-	//vector<string> lines = Utils::split(str, "\r\n");
-	//list<string>lines_list;
-	//for (string line : lines) {
-	//	line = Utils::trim(line);
-	//	lines_list.push_back(line);
-	//}
-	//list<CEPSpec*> eventcaptureSpecs = CEPSpecParser::parseAllCEPSpec(lines_list);
-	//for (CEPSpec* spec : eventcaptureSpecs) {
-	//	CEPProcess* cep = spec->instance();
-	//	
-	//	//ExecuteScheduler::registerCEPProcess(cep);
-	//}
+	//parse event capture rules
+	string str(CW2A(cep_rule.GetString()));
+	vector<string> lines = Utils::split(str, "\r\n");
+	list<string>lines_list;
+	for (string line : lines) {
+		line = Utils::trim(line);
+		lines_list.push_back(line);
+	}
+	CEPSpec* cepSpec = CEPSpecParser::parseOneCEPSpec(lines_list, outputStreamName);
+	CEPProcess* cep = cepSpec->instance();
+	ExecuteScheduler::registerProcess(outputStreamName, cep);
+
 
 	MessageBox(_T("Add CEP rule successfully"), NULL, MB_OK);
 	cep_name = _T("");
@@ -363,16 +359,13 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 }
 
 //the thread to run the backend of stream processing
-class ThreadWrapper {
+class ThreadOfEventFilter {
 private:
 	bool isStop = false;
 public:
 	void run() {
-		//launch a console
-		FILE* fp = NULL;
-		AllocConsole();
-		freopen_s(&fp, "CONOUT$", "w+t", stdout);
-		cout << "start stream processing..." << endl;
+		EventProcess * eventProcess = ExecuteScheduler::getEventProcess();
+
 		for (int i = 0; i < 1000000 && !isStop; i++) {
 			//Sleep(200);
 			EventPtr e = EventGenerator::generateEvent();
@@ -384,19 +377,13 @@ public:
 			if (CStreamProcessingDlg::inputstream_to_display.GetLength() > 5000)
 				CStreamProcessingDlg::inputstream_to_display.Truncate(3000);
 
-			//cout << "input: " << *e << endl;
-			//ExecuteScheduler::run(e);
-			//ExecuteScheduler::executeCEPProcess();
+			eventProcess->process(e);
 		}
-
-		fclose(stdout);
-		//fclose(stdin);
-		FreeConsole();
 	}
 
 
 	std::thread runThread() {
-		return std::thread(&ThreadWrapper::run, this);
+		return std::thread(&ThreadOfEventFilter::run, this);
 	}
 
 	void stop() {
@@ -404,19 +391,56 @@ public:
 	}
 };
 
+//the thread to run the backend of stream processing
+class ThreadOfProcessUnit {
+public:
+	void run() {
+		ExecuteScheduler::runProcessQueue();
+	}
+
+	std::thread runThread() {
+		return std::thread(&ThreadOfProcessUnit::run, this);
+	}
+};
+
+//perform CEP regularly.
+class ThreadOfTimerToPerformCEP {
+public:
+	void run() {
+		while (true) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			cout << "cep timer" << endl;
+			set<CEPProcess*> ceps = ExecuteScheduler::getCEPs();
+			for (CEPProcess * c : ceps) {
+				c->result();
+			}
+		}
+	}
+
+	std::thread runThread() {
+		return std::thread(&ThreadOfTimerToPerformCEP::run, this);
+	}
+};
+
+
 bool isStarted = false;
-ThreadWrapper *w = nullptr;//thread to run stream processing
+ThreadOfEventFilter *threadOfEventFilter = nullptr;//thread to run stream processing
 
 void CStreamProcessingDlg::OnBnClickedButtonStart(){
 	if (!isStarted) {
-		w = new ThreadWrapper();
-		std::thread tw1 = w->runThread();
-		//tw1.join();
-		tw1.detach();
+		threadOfEventFilter = new ThreadOfEventFilter();
+		threadOfEventFilter->runThread().detach();
+
+		ExecuteScheduler::initialize();
+
+		ThreadOfProcessUnit * threadOfProcessUnit = new ThreadOfProcessUnit();
+		threadOfProcessUnit->runThread().detach();
+
+		ThreadOfTimerToPerformCEP * threadOfTimerToPerformCEP = new ThreadOfTimerToPerformCEP();
+		threadOfTimerToPerformCEP->runThread().detach();
 
 		isStarted = true;
-	}
-	else {
+	}else {
 		MessageBox(_T("The processing has already started."), NULL, MB_OK);
 	}
 }
@@ -424,10 +448,10 @@ void CStreamProcessingDlg::OnBnClickedButtonStart(){
 
 void CStreamProcessingDlg::OnBnClickedButtonStop(){
 	if (isStarted) {
-		w->stop();
+		threadOfEventFilter->stop();
 		isStarted = false;
-		delete w;
-		w = nullptr;
+		delete threadOfEventFilter;
+		threadOfEventFilter = nullptr;
 	}
 }
 
@@ -450,3 +474,20 @@ void CStreamProcessingDlg::OnBnClickedButtonInputStream(){
 	}
 }
 
+
+
+void CStreamProcessingDlg::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CStreamProcessingDlg::OnEnChangeEdit2()
+{
+	// TODO:  If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialogEx::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+
+	// TODO:  Add your control notification handler code here
+}

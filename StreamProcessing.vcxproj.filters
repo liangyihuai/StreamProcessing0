@@ -324,6 +324,9 @@
     <ClInclude Include="Consts.h">
       <Filter>Header Files\backend\common</Filter>
     </ClInclude>
+    <ClInclude Include="Executor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StreamProcessing.cpp">

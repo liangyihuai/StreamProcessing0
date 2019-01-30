@@ -86,4 +86,5 @@
 #include "SinkType.h"
 #include <afxcontrolbars.h>
 #include <afxwin.h>
-#include <afxwin.h>
+
+#include "Consts.h"

@@ -18,7 +18,7 @@ class CEPSpecParser{
 
 public:
 
-	static list<CEPSpec*> parseAllCEPSpec(const list<string> allCEPSpecs);
+	//static list<CEPSpec*> parseAllCEPSpec(const list<string> allCEPSpecs);
 
 	/*
 	If distance < 20
@@ -26,7 +26,7 @@ public:
 	Window type=, len=, sliding=
 	Then WideAreaDefenceTarget
 	*/
-	static CEPSpec* parseOneCEPSpec(list<string> oneCEPSpec);
+	static CEPSpec* parseOneCEPSpec(list<string> oneCEPSpec, string outputStreamName);
 
 private:
 	//currently, assume only & conjunction

@@ -3,17 +3,20 @@
 #include "CEPProcess.h"
 #include "DerivedEventStore.h"
 
-CEPProcess::CEPProcess(int inputStreamNum, string outputStreamName) {
+CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName) {
 	this->outputStreamName = outputStreamName;
-
+	int inputStreamNum = inputStreamNames.size();
 	inputQueues = new vector<queue<EventPtr>*>();
 	for (int i = 0; i < inputStreamNum; i++) {
 		inputQueues->push_back(new queue<EventPtr>());
 		existOpVec.push_back(nullptr);//for initializing the capacity of the vector
 	}
+	this->inputStreamNames = inputStreamNames;
 }
 
 bool CEPProcess::process(int timeSlice){
+	int nonEmptyCount = 0;
+
 	for (int i = 0; i < inputQueues->size(); i++) {
 		int timeSlice_i = timeSlice;
 		queue<EventPtr> * q = (*inputQueues)[i];
@@ -22,7 +25,10 @@ bool CEPProcess::process(int timeSlice){
 			q->pop();
 			timeSlice_i--;
 		}
+		if (!q->empty()) nonEmptyCount++;
 	}
+	if (nonEmptyCount == inputQueues->size()) return false;
+	return true;
 }
 
 vector<string> CEPProcess::getInputStreamNames() {
@@ -71,6 +77,10 @@ void CEPProcess::addCondition(ExistOp * con, string inputStreamName) {
 	bool exists = false;
     //find a reader according stream name
 	for (int i = 0; i < inputQueues->size(); i++) {
+		if (inputStreamNames.size() == 0) {
+			LOG(ERROR) << "the size of inputStreamNames is equal to 0";
+			throw runtime_error("");
+		}
         if(inputStreamNames[i] == inputStreamName){
 			existOpVec[i] = con;
 			exists = true;

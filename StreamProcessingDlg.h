@@ -62,5 +62,7 @@ public:
 	static CString inputstream_to_display;
 
 	CWinThread * threadOfInputStream = nullptr;
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnEnChangeEdit2();
 };
 

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <chrono>
 #include <iostream>
 #include <future>

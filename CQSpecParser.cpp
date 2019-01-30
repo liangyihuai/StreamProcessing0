@@ -1,22 +1,22 @@
 #include "stdafx.h"
 #include "CQSpecParser.h"
 
-list<CQSpec*> CQSpecParser::parseAllCQSpec(const list<string> allCQSpecs) {
-	list<CQSpec*> result;
-	list<string> cqSpec;
-	for (string line : allCQSpecs) {
-		line = Utils::toLower(Utils::trim(line));
-		if (line.size() == 0 || line[0] == '#') continue;
-
-		cqSpec.push_back(line);
-		if (line.find("then") == 0) {
-			CQSpec* spec = parseOneCQSpec(cqSpec);
-			result.push_back(spec);
-			cqSpec.clear();
-		}
-	}
-	return result;
-}
+//list<CQSpec*> CQSpecParser::parseAllCQSpec(const list<string> allCQSpecs) {
+//	list<CQSpec*> result;
+//	list<string> cqSpec;
+//	for (string line : allCQSpecs) {
+//		line = Utils::toLower(Utils::trim(line));
+//		if (line.size() == 0 || line[0] == '#') continue;
+//
+//		cqSpec.push_back(line);
+//		if (line.find("then") == 0) {
+//			CQSpec* spec = parseOneCQSpec(cqSpec);
+//			result.push_back(spec);
+//			cqSpec.clear();
+//		}
+//	}
+//	return result;
+//}
 
 /*
 If distance < 20
@@ -24,14 +24,16 @@ From airplane
 Window type=, len=, sliding=
 Then WideAreaDefenceTarget
 */
-CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
+CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec, string outputStreamName) {
 	CQSpec * result = nullptr;
 	Predicate* condition = nullptr;
 	string inputStream;
 	string streamSource;
 
 	for (string s : oneCQSpec) {
-		if (s.size() == 0) continue;
+		s = Utils::toLower(Utils::trim(s));
+		if (s.size() == 0 || s[0] == '#') continue;
+
 		size_t index = s.find_first_of(" ", 0);
 		if (index < 0) {
 			LOG(ERROR) << "no clause";
@@ -55,7 +57,7 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 			streamSource = value;
 			result = new CQSpec();
 			result->setInputStream(inputStream);
-			result->setOutputStream(streamSource);
+			result->setOutputStream(outputStreamName);
 			result->setPredicate(condition);
 			return result;
 		}
@@ -64,5 +66,5 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 			throw "undefined CQ spec term";
 		}
 	}
-	return result;
+	return nullptr;
 }

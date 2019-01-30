@@ -6,7 +6,7 @@
 //现在暂时不支持字段的类型，暂时统一表示为string类型
 class EventCaptureSpecParser: public SpecParser {
 public:
-	static list<EventCaptureSpec*> parseAllEventCaptureSpec(const list<string> allCQSpecs) {
+	/*static list<EventCaptureSpec*> parseAllEventCaptureSpec(const list<string> allCQSpecs) {
 		list<EventCaptureSpec*> result;
 		list<string> cqSpec;
 		for (string line : allCQSpecs) {
@@ -21,7 +21,7 @@ public:
 			}
 		}
 		return result;
-	}
+	}*/
 
 	/*
 	If distance < 20
@@ -29,13 +29,16 @@ public:
 	Window type=, len=, sliding=
 	Then WideAreaDefenceTarget
 	*/
-	static EventCaptureSpec* parseOneEventCaptureSpec(list<string> oneCQSpec) {
+	static EventCaptureSpec* parseOneEventCaptureSpec(list<string> oneCQSpec, string outputStreamName) {
 		EventCaptureSpec * result = nullptr;
 		Predicate* condition = nullptr;
 		string inputStream;
 		string streamSource;
 
 		for (string s : oneCQSpec) {
+			s = Utils::toLower(Utils::trim(s));
+			if (s.size() == 0 || s[0] == '#') continue;
+
 			if (s.size() == 0) continue;
 			size_t index = s.find_first_of(" ", 0);
 			if (index < 0) {
@@ -57,10 +60,9 @@ public:
 
 			}
 			else if ("then" == clause) {
-				streamSource = value;
 				result = new EventCaptureSpec();
 				result->setInputStream(inputStream);
-				result->setOutputStream(streamSource);
+				result->setOutputStream(outputStreamName);
 				result->setCondition(condition);
 				return result;
 			}
@@ -69,6 +71,6 @@ public:
 				throw "undefined CQ spec term";
 			}
 		}
-		return result;
+		return nullptr;
 	}
 };

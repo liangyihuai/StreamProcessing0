@@ -7,7 +7,7 @@
 class CQSpecParser: public SpecParser {
 public:
 
-	static list<CQSpec*> parseAllCQSpec(const list<string> allCQSpecs);
+	//static list<CQSpec*> parseAllCQSpec(const list<string> allCQSpecs);
 
 	/*
 	If distance < 20
@@ -15,5 +15,5 @@ public:
 	Window type=, len=, sliding=
 	Then WideAreaDefenceTarget
 	*/
-	static CQSpec* parseOneCQSpec(list<string> oneCQSpec);
+	static CQSpec* parseOneCQSpec(list<string> oneCQSpec, string outputStreamName);
 };

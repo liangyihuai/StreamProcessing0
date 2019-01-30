@@ -20,7 +20,7 @@ namespace exist_op {
 		//evict time out events
 		void refresh() {
 			long long curr = Utils::getTime();
-			while (!window.front()->getTime() + timeWinLen < curr) {
+			while (!window.empty() && !window.front()->getTime() + timeWinLen < curr) {
 				window.pop_front();
 			}
 		}

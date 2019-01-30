@@ -2,30 +2,32 @@
 #include <string>
 #include "CEPSpecParser.h"
 
-list<CEPSpec*> CEPSpecParser::parseAllCEPSpec(const list<string> allCEPSpecs) {
-	list<CEPSpec*> result;
-	list<string> cqSpec;
-	for (string line : allCEPSpecs) {
-		line = Utils::toLower(Utils::trim(line));
-		if (line.size() == 0 || line[0] == '#') continue;
+//list<CEPSpec*> CEPSpecParser::parseAllCEPSpec(const list<string> allCEPSpecs) {
+//	list<CEPSpec*> result;
+//	list<string> cqSpec;
+//	for (string line : allCEPSpecs) {
+//		line = Utils::toLower(Utils::trim(line));
+//		if (line.size() == 0 || line[0] == '#') continue;
+//
+//		cqSpec.push_back(line);
+//		if (line.find("then") == 0) {
+//			CEPSpec* spec = parseOneCEPSpec(cqSpec);
+//			result.push_back(spec);
+//			cqSpec.clear();
+//		}
+//	}
+//	return result;
+//}
 
-		cqSpec.push_back(line);
-		if (line.find("then") == 0) {
-			CEPSpec* spec = parseOneCEPSpec(cqSpec);
-			result.push_back(spec);
-			cqSpec.clear();
-		}
-	}
-	return result;
-}
-
-CEPSpec* CEPSpecParser::parseOneCEPSpec(list<string> oneCEPSpec) {
+CEPSpec* CEPSpecParser::parseOneCEPSpec(list<string> oneCEPSpec, string outputStringName) {
 	CEPSpec * result = new CEPSpec();
 	//Predicate* condition = nullptr;
-	vector<string> outputStreamVec;
+	//vector<string> outputStreamVec;
 
 	for (string s : oneCEPSpec) {
-		if (s.size() == 0) continue;
+		s = Utils::toLower(Utils::trim(s));
+		if (s.size() == 0 || s[0] == '#') continue;
+
 		size_t index = s.find_first_of(" ", 0);
 		if (index < 0) {
 			LOG(ERROR) << "no clause";
@@ -50,7 +52,7 @@ CEPSpec* CEPSpecParser::parseOneCEPSpec(list<string> oneCEPSpec) {
 			for (string os : outputStreamVec) {
 				result->addOutputStream(os);
 			}*/
-			result->setOutputStreamName(value);
+			result->setOutputStreamName(outputStringName);
 			return result;
 		}
 		else {

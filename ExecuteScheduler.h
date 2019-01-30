@@ -1,7 +1,3 @@
-//
-// Created by USER on 12/5/2018.
-//
-
 #ifndef CONTINUOUSPROCESSING_EXECUTESCHEDULER_H
 #define CONTINUOUSPROCESSING_EXECUTESCHEDULER_H
 
@@ -21,26 +17,15 @@
 */
 class ExecuteScheduler {
 private:
-    //system wise id
-    // unsigned int id = 0;
-
-	//static EventProcess eventProcess;
-
- //   //stream name -> eventCapture
- //   static std::list<EventCapture*> eventCaptureList;
-
- //   //stream name -> CQProcess object
- //   static std::unordered_map<std::string, list<CQProcess*>*> cqMap;
-
- //   //stream name -> CEPProcess object
-	//static std::unordered_map<std::string, list<CEPProcess*>*> cepMap;
-
 	static std::queue<Process*> processQueue;
+	static std::set<Process*> processSet;//avoid duplicated objects in processQueue
 
-	static EventProcess eventProcess;
+	static EventProcess *eventProcess;
 
 	//output stream name -> process
 	static std::unordered_map<string, Process*> processMap;
+
+	static set<CEPProcess*> cepSet;
 
 	//connect process unit A and B. It is used to build compute graph
 	static void connectTowProcessUnit(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB);
@@ -50,19 +35,9 @@ private:
 
 public:
 	
-	static void registerEventProcess(EventProcess e);
+	static void registerEventProcess(EventProcess* e);
 
-    //static void executeEventCapture(EventPtr e);
-
-	/*static void registerEventCapture(EventCapture *);
-
-	static void registerCQProcess(CQProcess* cq);
-
-	static void registerCEPProcess(CEPProcess* cep);*/
-
-	/*static void executeCQProcess();
-
-	static void executeCEPProcess();*/
+	static void registerProcess(string outputStreamName, Process *p);
 
 	static void initialize();
 
@@ -71,6 +46,12 @@ public:
 	static void pushBackProcessQueue(Process * cp);
 
 	static void buildGraph();
+
+	static EventProcess* getEventProcess();
+
+	static void addCEP(CEPProcess * p);
+
+	static set<CEPProcess*> getCEPs();
 };
 
 #endif //CONTINUOUSPROCESSING_EXECUTESCHEDULER_H

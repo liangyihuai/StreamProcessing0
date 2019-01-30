@@ -2,7 +2,7 @@
 #include <thread>
 #include <iostream>
 
-class ThreadWrapper {
+class ThreadOfEventFilter {
 public:
 	void run() {
 		std::cout << "i am member1" << std::endl;
@@ -12,15 +12,15 @@ public:
 	}
 
 	std::thread runThread() {
-		return std::thread(&ThreadWrapper::run, this);
+		return std::thread(&ThreadOfEventFilter::run, this);
 	}
 	std::thread member2Thread(const char *arg1, unsigned arg2) {
-		return std::thread(&ThreadWrapper::member2, this, arg1, arg2);
+		return std::thread(&ThreadOfEventFilter::member2, this, arg1, arg2);
 	}
 };
 
 int main0() {
-	ThreadWrapper *w = new ThreadWrapper();
+	ThreadOfEventFilter *w = new ThreadOfEventFilter();
 	std::thread tw1 = w->runThread();
 	tw1.join();
 	w->member2Thread("hello", 100).detach();

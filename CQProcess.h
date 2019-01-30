@@ -28,7 +28,7 @@ private:
 	queue<EventPtr> * inputQueue;
 	//the input queue of other processing units.
 	set<queue<EventPtr>*> outputQueueSet;
-    // all stateless operatorPredicates and simple simple predicates share one queue reader.
+    // all stateless operatorPredicates and simple predicates share one queue reader.
 	Predicate* predicate;
 
     //sliding window, or tumble window or others

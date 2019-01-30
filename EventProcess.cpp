@@ -79,7 +79,8 @@ void EventProcess::removeOldEvent() {
 		string value = tempE->getString(deduplicationField);
 		if (set.find(value) != set.end())
 			set.erase(value);
-		queueForDeduplication.pop_front();
+		if(!queueForDeduplication.empty()) 
+			queueForDeduplication.pop_front();
 	}
 }
 

@@ -228,6 +228,7 @@
     <ClInclude Include="EventGenerator.h" />
     <ClInclude Include="EventProcess.h" />
     <ClInclude Include="ExecuteScheduler.h" />
+    <ClInclude Include="Executor.h" />
     <ClInclude Include="ExistOp.h" />
     <ClInclude Include="FileReaderUtils.h" />
     <ClInclude Include="GreaterEqualThanInt.h" />
@@ -444,7 +445,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TimerTest.cpp" />
+    <ClCompile Include="TimerTest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="TumbleCountWindow.cpp" />
     <ClCompile Include="TumbleTimeWindow.cpp" />
     <ClCompile Include="TumbleWindow.cpp" />
