@@ -27,19 +27,34 @@ void EventCapture::addOutputQueue(queue<EventPtr> * outputQueue) {
 }
 
 EventCapture::~EventCapture() {
-	delete inputQueue;
+	while (inputQueue != nullptr && !inputQueue->empty()) {
+		inputQueue->pop();
+	}
+	delete inputQueue; 
+	inputQueue = nullptr;
 	//delete outputQueue;
 }
 
 bool EventCapture::process(int timeSlice) {
+	EventPtr e = nullptr;
 	while (!inputQueue->empty() && timeSlice > 0) {
-		EventPtr e = inputQueue->front();
+		try {
+			std::lock_guard<mutex> lg(EventProcess::mutexOfEventFiler);
+			e = inputQueue->front();
+			inputQueue->pop();
+		}
+		catch (std::logic_error& e) {
+			std::cout << "[exception caught]\n";
+		}
+
+		
 		if (condition.check(e)) {
+
 			for (queue<EventPtr>* q : outputQueueSet) {
 				q->push(e);
 			}
 		}
-		inputQueue->pop();
+		
 		timeSlice--;
 	}
 	if (!inputQueue->empty()) return false;

@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "EventProcess.h"
+#include <mutex>
+#include <thread>
+
+mutex EventProcess::mutexOfEventFiler;
 
 EventProcess::EventProcess(int deduplicateBufferSize) {
 	this->deduplicateBufferSize = deduplicateBufferSize;
@@ -67,8 +71,18 @@ void EventProcess::addUnusualName(string name) {
 		}
 	}
 	
+	
 	for (queue<EventPtr>* q : outputQueueSet) {
-		q->push(e);
+		try{
+			std::lock_guard<mutex> lg(mutexOfEventFiler);
+			q->push(e);
+		}catch (std::logic_error& e) {
+			std::cout << "[exception caught]\n";
+		}
+		
+		while (q->size() >= 1000) {//1000 is a constant num, not too much matter
+			Sleep(100);
+		}
 	}
 }
 

@@ -168,7 +168,7 @@ public:
 
 	string toString() {
 		stringstream msg;
-		msg << getId() << ", type:";
+		msg << getId() << ", time:";
 		msg << getTime() << ", speed:";
 		msg << getFloat("speed") << ", lon:";
 		msg << getFloat("lon") << ", lat:";

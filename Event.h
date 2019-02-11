@@ -27,14 +27,14 @@ typedef struct EventAttribute {
 	};
 } Attribute;
 
-enum EventType {
-	EVENT_MSG, TIME_SLIDING_MSG
-};
+//enum EventType {
+//	EVENT_MSG, TIME_SLIDING_MSG
+//};
 
 class Event {
 public:
-	EventType getEventType() { return eventType; }
-	void setEventType(EventType type) { this->eventType = type; }
+	/*EventType getEventType() { return eventType; }
+	void setEventType(EventType type) { this->eventType = type; }*/
 
     virtual long getId(){ return 0L;};
 
@@ -66,7 +66,7 @@ private:
     friend std::ostream& operator<< (std::ostream& os, Event& e);
 
 	//event message or control message, event msg in default.
-	EventType eventType = EVENT_MSG;
+	//EventType eventType = EVENT_MSG;
 };
 
 

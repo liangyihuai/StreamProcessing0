@@ -8,6 +8,7 @@
 #include "EventCapture.h"
 #include "CQProcess.h"
 #include "CEPProcess.h"
+#include "Process.h"
 
 /*
 维护一个输入队列不为空的cp队列，循环消费cp中输入队列中的数据，直到cp队列为空。
@@ -28,7 +29,9 @@ private:
 	static set<CEPProcess*> cepSet;
 
 	//connect process unit A and B. It is used to build compute graph
-	static void connectTowProcessUnit(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB);
+	static void addProcessUnitToGraph(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB);
+
+	static void addProcessUnitToGraph(Process* processOfB);
 
 	//check whether the outputQueue reference of a process is nullptr.
 	static void checkGraph();
@@ -52,6 +55,10 @@ public:
 	static void addCEP(CEPProcess * p);
 
 	static set<CEPProcess*> getCEPs();
+
+public:
+	//process unit的互斥锁
+	static mutex mutexOfProcessMap;
 };
 
 #endif //CONTINUOUSPROCESSING_EXECUTESCHEDULER_H

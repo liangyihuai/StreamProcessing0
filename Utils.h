@@ -16,6 +16,8 @@
 #include <chrono>
 #include <cstring>
 
+#include <mutex>
+
 #define random(a, b) (rand() % (b-a) + a)
 #define randomInt(a, b) (rand() % b + a)
 

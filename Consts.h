@@ -18,3 +18,4 @@ enum class ValType { INT = 0, FLOAT = 1, BOOL = 2, STRING = 3 };
 namespace Consts {
 	const static char* LOG_DIR = "C:\\Users\\LIANG\\Desktop\\temp\\streamprocessingLog\\log";
 }
+

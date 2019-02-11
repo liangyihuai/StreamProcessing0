@@ -7,6 +7,7 @@
 #include <list>
 #include "Event.h"
 #include <set>
+#include <mutex>
 
 using namespace std;
 
@@ -26,7 +27,11 @@ private:
     int deduplicateBufferSize;
     list<string> unusualFieldNames;
 public:
-
+	//a mutex lock between event filter processing and event capture processing.
+	//目前所有的event filter只有一个锁，以后应该改进，使得每一个queue有一个单独的互斥锁
+	static mutex mutexOfEventFiler;
+	
+public:
 	EventProcess(int deduplicateBufferSize = 10);
 	~EventProcess();
 

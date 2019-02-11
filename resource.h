@@ -7,6 +7,8 @@
 #define IDS_ABOUTBOX                    101
 #define IDD_STREAMPROCESSING_DIALOG     102
 #define IDR_MAINFRAME                   128
+#define IDD_DIALOG_DISPLAY_OUTPUT       132
+#define IDD_DIALOG_DISPLAY_INPUT_STREAM 134
 #define IDC_EDIT_EVENT_FILTER_NAME      1000
 #define IDC_EDIT_EVENT_FILTER_RULE      1001
 #define IDC_BUTTON_EVENT_FILTER_ADD     1002
@@ -26,15 +28,20 @@
 #define IDC_BUTTON_STOP                 1023
 #define IDC_BUTTON_INPUT_STREAM         1024
 #define IDC_INPUT_STREAM                1028
-#define IDC_BUTTON1                     1029
+#define IDC_EDIT1                       1030
+#define IDC_EDIT2                       1031
+#define IDC_BUTTON1                     1032
+#define IDC_BUTTON2                     1033
+#define IDC_BUTTON3                     1034
+#define IDC_COMBOBOXEX1                 1038
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        132
+#define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1030
+#define _APS_NEXT_CONTROL_VALUE         1039
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -24,7 +24,7 @@ CEPProcess * CEPSpec::instance() {
 		throw runtime_error("");
 	}
 
-	return cep;
+ 	return cep;
 }
 
 void CEPSpec::setOutputStreamName(string name) {

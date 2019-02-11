@@ -22,7 +22,7 @@ CQProcess * CQSpec::instance() {
 	cq->setOutputStreamName(outputStream);
 	cq->setPredicate(predicate);
 	//cq->setResultListener(new CQStoreResultListener());
-	return cq;
+ 	return cq;
 }
 
 void CQSpec::setInputStream(string name) {

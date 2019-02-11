@@ -284,7 +284,13 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 	}
 	EventCaptureSpec* spec = EventCaptureSpecParser::parseOneEventCaptureSpec(lines_list, outputStreamName);
 	EventCapture* ec = spec->instance();
-	ExecuteScheduler::registerProcess(outputStreamName, ec);
+	try {
+		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
+		ExecuteScheduler::registerProcess(outputStreamName, ec);
+	}
+	catch (std::logic_error& e) {
+		std::cout << "[exception caught]\n";
+	}
 
 	MessageBox(_T("Add Event Capture rule successfully"), NULL, MB_OK);
 
@@ -317,7 +323,13 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 	}
  	CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(lines_list, outputStreamName);
 	CQProcess* cq = cqSpec->instance();
-	ExecuteScheduler::registerProcess(outputStreamName, cq);
+	try {
+		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
+		ExecuteScheduler::registerProcess(outputStreamName, cq);
+	}
+	catch (std::logic_error& e) {
+		std::cout << "[exception caught]\n";
+	}
 
 	MessageBox(_T("Add CQ rule successfully"), NULL, MB_OK);
 	cq_rule = _T("");
@@ -349,8 +361,13 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 	}
 	CEPSpec* cepSpec = CEPSpecParser::parseOneCEPSpec(lines_list, outputStreamName);
 	CEPProcess* cep = cepSpec->instance();
-	ExecuteScheduler::registerProcess(outputStreamName, cep);
-
+	try {
+		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
+		ExecuteScheduler::registerProcess(outputStreamName, cep);
+	}
+	catch (std::logic_error& e) {
+		std::cout << "[exception caught]\n";
+	}
 
 	MessageBox(_T("Add CEP rule successfully"), NULL, MB_OK);
 	cep_name = _T("");
@@ -366,16 +383,16 @@ public:
 	void run() {
 		EventProcess * eventProcess = ExecuteScheduler::getEventProcess();
 
-		for (int i = 0; i < 1000000 && !isStop; i++) {
-			//Sleep(200);
+		while(!isStop) {
+			//Sleep(500);
 			EventPtr e = EventGenerator::generateEvent();
 
 			//update the variable of "inputstream_to_display"
-			CString cstr(e->toString().c_str());
+			//CString cstr(e->toString().c_str());
 			
-			CStreamProcessingDlg::inputstream_to_display = cstr + "\r\n"+ CStreamProcessingDlg::inputstream_to_display;
-			if (CStreamProcessingDlg::inputstream_to_display.GetLength() > 5000)
-				CStreamProcessingDlg::inputstream_to_display.Truncate(3000);
+			//CStreamProcessingDlg::inputstream_to_display = cstr + "\r\n"+ CStreamProcessingDlg::inputstream_to_display;
+			//if (CStreamProcessingDlg::inputstream_to_display.GetLength() > 5000)
+			//	CStreamProcessingDlg::inputstream_to_display.Truncate(3000);
 
 			eventProcess->process(e);
 		}
@@ -428,6 +445,12 @@ ThreadOfEventFilter *threadOfEventFilter = nullptr;//thread to run stream proces
 
 void CStreamProcessingDlg::OnBnClickedButtonStart(){
 	if (!isStarted) {
+		//launch a console
+		FILE* fp = NULL;
+		AllocConsole();
+		freopen_s(&fp, "CONOUT$", "w+t", stdout);
+		cout << "start stream processing..." << endl;
+
 		threadOfEventFilter = new ThreadOfEventFilter();
 		threadOfEventFilter->runThread().detach();
 

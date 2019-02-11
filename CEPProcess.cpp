@@ -3,6 +3,8 @@
 #include "CEPProcess.h"
 #include "DerivedEventStore.h"
 
+mutex CEPProcess::mutexOfCEPResult;
+
 CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName) {
 	this->outputStreamName = outputStreamName;
 	int inputStreamNum = inputStreamNames.size();
@@ -21,6 +23,16 @@ bool CEPProcess::process(int timeSlice){
 		int timeSlice_i = timeSlice;
 		queue<EventPtr> * q = (*inputQueues)[i];
 		while (!q->empty() && timeSlice_i > 0) {
+			//debug
+			long long t = q->front()->getTime();
+
+			try {
+				std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
+				existOpVec[i]->digestEvent(q->front());
+			}catch (std::logic_error& e) {
+				std::cout << "[exception caught]\n";
+			}
+
 			existOpVec[i]->digestEvent(q->front());
 			q->pop();
 			timeSlice_i--;
@@ -58,10 +70,15 @@ void CEPProcess::result(){
 			LOG(ERROR) << "The operator ExistOp is nullptr, index is " << i << ", outputStreamName is " << outputStreamName;
 			throw runtime_error("");
 		}
-		bool resultOfExistOp = existOpVec[i]->result(nullptr)->getBool();
-		if (resultOfExistOp) {
-			satisfiedCount++;
+		try {
+			std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
+			bool resultOfExistOp = existOpVec[i]->result(nullptr)->getBool();
+			if (resultOfExistOp) {satisfiedCount++;}
+		}catch (std::logic_error& e) {
+			std::cout << "[exception caught]\n";
 		}
+
+		
 	}
 	if (satisfiedCount == existOpVec.size()) {
 		if (resultListener) {
@@ -116,6 +133,7 @@ CEPProcess::~CEPProcess(){
 
 	//delete outputQueue; outputQueue = nullptr;
 	for (ExistOp* con : existOpVec) {
-		delete con; con = nullptr;
+		delete con;
+		con = nullptr;
 	}
 }

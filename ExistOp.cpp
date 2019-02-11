@@ -15,10 +15,14 @@ bool ExistOp::digestEvent(EventPtr e) {
 }
 
 ResultPtr ExistOp::result(EventPtr event) {
-	window.refresh();
+	ResultPtr result;
+	if (!window.empty()) 
+		result = ResultPtr(new BoolResult(true));
+	else
+		result = ResultPtr(new BoolResult(false));
 
-	if (!window.empty()) return ResultPtr(new BoolResult(true));
-	else return ResultPtr(new BoolResult(false));
+	window.refresh();
+	return result;
 }
 
 

@@ -10,6 +10,8 @@ std::unordered_map<string, Process*> ExecuteScheduler::processMap;
 
 set<CEPProcess*> ExecuteScheduler::cepSet;
 
+mutex ExecuteScheduler::mutexOfProcessMap;
+
 void ExecuteScheduler::registerEventProcess(EventProcess* ep) {
 	ExecuteScheduler::eventProcess = ep;
 }
@@ -26,11 +28,12 @@ void ExecuteScheduler::initialize() {
 
 void ExecuteScheduler::runProcessQueue(){
 	//launch a console
-	FILE* fp = NULL;
+	/*FILE* fp = NULL;
 	AllocConsole();
 	freopen_s(&fp, "CONOUT$", "w+t", stdout);
-	cout << "start stream processing..." << endl;
+	cout << "start stream processing..." << endl;*/
 
+	Process * p = nullptr;
 	do {
 		/*while (!processQueue.empty()) {
 			Process* p = processQueue.front();
@@ -43,16 +46,22 @@ void ExecuteScheduler::runProcessQueue(){
 		}
 		Sleep(300);*/
 
-		//遍历所有的Process依次调用process函数
-		Process * p = nullptr;
-		for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {
-			p = iter->second;
-			p->process(100);
+		try {
+			std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
+			//遍历所有的Process依次调用process函数
+			for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {
+				p = iter->second;
+				p->process(100);
+			}
 		}
+		catch (std::logic_error& e) {
+			std::cout << "[exception caught]\n";
+		}
+		
 	} while (true);
 
-	fclose(stdout);
-	FreeConsole();
+	/*fclose(stdout);
+	FreeConsole();*/
 }
 
 void ExecuteScheduler::registerProcess(string outputStreamName, Process *p) {
@@ -61,30 +70,38 @@ void ExecuteScheduler::registerProcess(string outputStreamName, Process *p) {
 	if (CEPProcess * cep = dynamic_cast<CEPProcess*>(p)) {
 		addCEP(cep);
 	}
+
+	//add the Process Unit to the processing graph
+	addProcessUnitToGraph(p);
 }
 
-void ExecuteScheduler::connectTowProcessUnit(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB) {
+
+void ExecuteScheduler::buildGraph() {
+	for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {//iterate processes
+		Process * pro = iter->second;
+		addProcessUnitToGraph(pro);
+	}
+}
+
+void ExecuteScheduler::addProcessUnitToGraph(Process* processOfB) {
+	vector<string> inputStreamNames = processOfB->getInputStreamNames();
+	for (int i = 0; i < inputStreamNames.size(); i++) {
+		vector<queue<EventPtr>*> queues = processOfB->getInputQueues();
+		addProcessUnitToGraph(inputStreamNames[i], queues[i]);
+	}
+}
+
+void ExecuteScheduler::addProcessUnitToGraph(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB) {
 	if (eventProcess->getOutputStreamName() == inputStreamNameOfB) {
 		eventProcess->addOutputQueue(inputQueueOfB);
-	}else{
+	}
+	else {
 		for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {
 			Process * pro = iter->second;
 			string inputStreamNameOfA = pro->getOutputStreamName();
 			if (inputStreamNameOfA == inputStreamNameOfB) {
 				pro->addOutputQueue(inputQueueOfB);
 			}
-		}
-	}
-}
-
-void ExecuteScheduler::buildGraph() {
-	for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {//iterate processes
-		Process * pro = iter->second;
-		vector<string> inputNames = pro->getInputStreamNames();
-		for (int i = 0; i < inputNames.size(); i++) {//iterate input names
-			string inputStreamName = inputNames[i];
-			vector<queue<EventPtr>*> inputQueue = pro->getInputQueues();
-			connectTowProcessUnit(inputStreamName, (inputQueue)[i]);
 		}
 	}
 }

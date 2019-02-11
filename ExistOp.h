@@ -31,6 +31,10 @@ namespace exist_op {
 				return false;
 			}
 
+			if (e == nullptr) {
+				throw "the parameter is empty.";
+			}
+
 			window.push_back(e);
 			return true;
 		}

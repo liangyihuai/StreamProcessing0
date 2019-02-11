@@ -23,6 +23,7 @@ public:
 		e->setLat((float)Utils::randomFloat(35, 37));
 		e->setDirection((float)Utils::randomFloat(0, 360));
 		e->setElevation((float)Utils::randomFloat(-300, 10000));
+
 		EventPtr ep(e);
 		return ep;
 	}
