@@ -14,6 +14,7 @@
 #include "ExecuteScheduler.h"
 
 #include <future>
+#include "SpecRegister.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -61,6 +62,9 @@ END_MESSAGE_MAP()
 
 CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_STREAMPROCESSING_DIALOG, pParent)
+	, outputStreamNameForSearch(_T(""))
+	, editBoxOfRule(_T(""))
+	, outputStreamForUpdate(_T(""))
 {
 	//initialize name and value
 	event_filter_name = _T("targetData");
@@ -107,6 +111,9 @@ void CStreamProcessingDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_CEP_NAME, cep_name);
 	DDX_Text(pDX, IDC_EDIT_CEP_RULE, cep_rule);
 	DDX_Control(pDX, IDC_COMBO_SINK, sink_combobox);
+	DDX_Text(pDX, IDC_EDIT_OUTSTREAM_NAME_SEARCH, outputStreamNameForSearch);
+	DDX_Text(pDX, IDC_EDIT1, editBoxOfRule);
+	DDX_Text(pDX, IDC_EDIT_OUTSTREAM_UPDATE, outputStreamForUpdate);
 }
 
 BEGIN_MESSAGE_MAP(CStreamProcessingDlg, CDialogEx)
@@ -121,8 +128,11 @@ BEGIN_MESSAGE_MAP(CStreamProcessingDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_START, &CStreamProcessingDlg::OnBnClickedButtonStart)
 	ON_BN_CLICKED(IDC_BUTTON_STOP, &CStreamProcessingDlg::OnBnClickedButtonStop)
 	ON_BN_CLICKED(IDC_BUTTON_INPUT_STREAM, &CStreamProcessingDlg::OnBnClickedButtonInputStream)
-	ON_BN_CLICKED(IDC_BUTTON1, &CStreamProcessingDlg::OnBnClickedButton1)
-	ON_EN_CHANGE(IDC_EDIT2, &CStreamProcessingDlg::OnEnChangeEdit2)
+	ON_BN_CLICKED(IDC_BUTTON_SEARCH, &CStreamProcessingDlg::OnBnClickedButtonSearch)
+	ON_EN_CHANGE(IDC_INPUT_STREAM, &CStreamProcessingDlg::OnEnChangeInputStream)
+	ON_BN_CLICKED(IDC_BUTTON_DISPLAY_ALL_RULE, &CStreamProcessingDlg::OnBnClickedButtonDisplayAllRule)
+	ON_BN_CLICKED(IDC_BUTTON_DELETE_RULE, &CStreamProcessingDlg::OnBnClickedButtonDeleteRule)
+	ON_BN_CLICKED(IDC_BUTTON_UPDATE_RULE, &CStreamProcessingDlg::OnBnClickedButtonUpdateRule)
 END_MESSAGE_MAP()
 
 
@@ -261,6 +271,7 @@ void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd(){
 	MessageBox(_T("Add Event Filter rule successfully"), NULL, MB_OK);
 }
 
+
 //add rule specification of event capture
 void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 	UpdateData(true);
@@ -270,12 +281,22 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 		return;
 	}
 	
-	//parse names 
-	string outputStreamName(CW2A(event_capture_name.GetString()));
-	outputStreamName = Utils::toLower(outputStreamName);
+	addEventCaptureRule(event_capture_name, event_capture_rule);
 
+	MessageBox(_T("Add Event Capture rule successfully"), NULL, MB_OK);
+
+	event_capture_rule = _T("");
+	event_capture_name = _T("");
+	UpdateData(false);
+}
+
+
+void CStreamProcessingDlg::addEventCaptureRule(CString c_outputStreamName, CString c_ruleStrs) {
+	//parse names 
+	string outputStreamName(CW2A(c_outputStreamName.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
 	//parse event capture rules
-	string str(CW2A(event_capture_rule.GetString()));
+	string str(CW2A(c_ruleStrs.GetString()));
 	vector<string> lines = Utils::split(str, "\r\n");
 	list<string>lines_list;
 	for (string line : lines) {
@@ -291,12 +312,8 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
 	}
-
-	MessageBox(_T("Add Event Capture rule successfully"), NULL, MB_OK);
-
-	event_capture_rule = _T("");
-	event_capture_name = _T("");
-	UpdateData(false);
+	//store rule specification
+	SpecRegister::register_event_capture_rule(outputStreamName, str);
 }
 
 //add rule specification of CQ
@@ -309,19 +326,28 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 		return;
 	}
 
+	addCQRule(cq_name, cq_rule);
+
+	MessageBox(_T("Add CQ rule successfully"), NULL, MB_OK);
+	cq_rule = _T("");
+	cq_name = _T("");;
+	UpdateData(false);
+}
+
+void CStreamProcessingDlg::addCQRule(CString c_outputStreamName, CString c_ruleStrs) {
 	//parse names 
-	string outputStreamName(CW2A(cq_name.GetString()));
+	string outputStreamName(CW2A(c_outputStreamName.GetString()));
 	outputStreamName = Utils::toLower(outputStreamName);
 
 	//parse event capture rules
-	string str(CW2A(cq_rule.GetString()));
+	string str(CW2A(c_ruleStrs.GetString()));
 	vector<string> lines = Utils::split(str, "\r\n");
 	list<string>lines_list;
 	for (string line : lines) {
 		line = Utils::trim(line);
 		lines_list.push_back(line);
 	}
- 	CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(lines_list, outputStreamName);
+	CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(lines_list, outputStreamName);
 	CQProcess* cq = cqSpec->instance();
 	try {
 		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
@@ -330,11 +356,8 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
 	}
-
-	MessageBox(_T("Add CQ rule successfully"), NULL, MB_OK);
-	cq_rule = _T("");
-	cq_name = _T("");;
-	UpdateData(false);
+	//store rule specification
+	SpecRegister::register_cq_rule(outputStreamName, str);
 }
 
 //add rule specification of CEP
@@ -347,12 +370,21 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 		return;
 	}
 
+	addCEPRule(cep_name, cep_rule);
+
+	MessageBox(_T("Add CEP rule successfully"), NULL, MB_OK);
+	cep_name = _T("");
+	cep_rule = _T("");
+	UpdateData(false);
+}
+
+void CStreamProcessingDlg::addCEPRule(CString c_outputStreamName, CString c_ruleStrs) {
 	//parse names 
-	string outputStreamName(CW2A(cep_name.GetString()));
+	string outputStreamName(CW2A(c_outputStreamName.GetString()));
 	outputStreamName = Utils::toLower(outputStreamName);
 
 	//parse event capture rules
-	string str(CW2A(cep_rule.GetString()));
+	string str(CW2A(c_ruleStrs.GetString()));
 	vector<string> lines = Utils::split(str, "\r\n");
 	list<string>lines_list;
 	for (string line : lines) {
@@ -368,11 +400,8 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
 	}
-
-	MessageBox(_T("Add CEP rule successfully"), NULL, MB_OK);
-	cep_name = _T("");
-	cep_rule = _T("");
-	UpdateData(false);
+	//store rule specifications
+	SpecRegister::register_cep_rule(outputStreamName, str);
 }
 
 //the thread to run the backend of stream processing
@@ -384,15 +413,15 @@ public:
 		EventProcess * eventProcess = ExecuteScheduler::getEventProcess();
 
 		while(!isStop) {
-			//Sleep(500);
+			Sleep(500);
 			EventPtr e = EventGenerator::generateEvent();
 
 			//update the variable of "inputstream_to_display"
-			//CString cstr(e->toString().c_str());
+			CString cstr(e->toString().c_str());
 			
-			//CStreamProcessingDlg::inputstream_to_display = cstr + "\r\n"+ CStreamProcessingDlg::inputstream_to_display;
-			//if (CStreamProcessingDlg::inputstream_to_display.GetLength() > 5000)
-			//	CStreamProcessingDlg::inputstream_to_display.Truncate(3000);
+			CStreamProcessingDlg::inputstream_to_display = cstr + "\r\n"+ CStreamProcessingDlg::inputstream_to_display;
+			if (CStreamProcessingDlg::inputstream_to_display.GetLength() > 5000)
+				CStreamProcessingDlg::inputstream_to_display.Truncate(3000);
 
 			eventProcess->process(e);
 		}
@@ -480,12 +509,11 @@ void CStreamProcessingDlg::OnBnClickedButtonStop(){
 
 int length = 0;//store the history length of "inputstream_to_display"
 void CStreamProcessingDlg::updataPrintInputStream() {
-	if (length != inputstream_to_display.GetLength()) {\
+	if (length != inputstream_to_display.GetLength()) {
 		//change the content of edit control
 		GetDlgItem(IDC_INPUT_STREAM)->SetWindowText(inputstream_to_display);
 		length = inputstream_to_display.GetLength();
 	}
-	
 }
 
 
@@ -498,19 +526,98 @@ void CStreamProcessingDlg::OnBnClickedButtonInputStream(){
 }
 
 
-
-void CStreamProcessingDlg::OnBnClickedButton1()
-{
+void CStreamProcessingDlg::OnBnClickedButtonSearch(){
 	// TODO: Add your control notification handler code here
+	UpdateData(true);
+	string outputStreamName(CW2A(outputStreamNameForSearch.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
+	string ruleSpecification = SpecRegister::query(outputStreamName);
+
+	CString cRule(ruleSpecification.c_str());
+	editBoxOfRule = cRule;
+	outputStreamForUpdate = outputStreamNameForSearch;
+	UpdateData(false);
 }
 
 
-void CStreamProcessingDlg::OnEnChangeEdit2()
-{
-	// TODO:  If this is a RICHEDIT control, the control will not
-	// send this notification unless you override the CDialogEx::OnInitDialog()
-	// function and call CRichEditCtrl().SetEventMask()
-	// with the ENM_CHANGE flag ORed into the mask.
+void CStreamProcessingDlg::OnEnChangeInputStream(){
+}
 
-	// TODO:  Add your control notification handler code here
+
+void CStreamProcessingDlg::OnBnClickedButtonDisplayAllRule(){
+	stringstream ss;
+	list<string> allSpecs = SpecRegister::queryAll();
+	
+	auto iter = allSpecs.begin();
+	for (; iter != allSpecs.end(); iter++) {
+		string outputStreamName = *iter;
+		iter++;
+		string rule = *iter;
+		ss << rule << "\r\n\r\n" 
+			<< "output stream: " <<outputStreamName 
+			<< "\r\n--------------------------------\r\n";
+	}
+	CString cRules(ss.str().c_str());
+	editBoxOfRule = cRules;
+	UpdateData(false);
+}
+
+
+void CStreamProcessingDlg::OnBnClickedButtonDeleteRule(){
+	UpdateData(true);
+	string outputStreamName(CW2A(outputStreamNameForSearch.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
+
+	bool delete_result = SpecRegister::delete_rule(outputStreamName);
+	if (delete_result) {
+		ExecuteScheduler::deleteProcess(outputStreamName);
+		ExecuteScheduler::updateGraph();
+		MessageBox(_T("delete successfully"), NULL, MB_OK);
+	}else {
+		MessageBox(_T("no such rule specification."), NULL, MB_OK);
+	}
+	editBoxOfRule = _T("");
+	outputStreamNameForSearch = _T("");
+	UpdateData(false);
+}
+
+
+void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
+	UpdateData(true);
+	string outputStreamName(CW2A(outputStreamNameForSearch.GetString()));
+	outputStreamName = Utils::toLower(outputStreamName);
+	
+	//delete history
+	bool delete_result = SpecRegister::delete_rule(outputStreamName);
+	if (delete_result) {
+		Process * process = ExecuteScheduler::getProcess(outputStreamName);
+		int processType = 0;//1:event capture, 2:cq, 3:cep
+		if (EventCapture * ec = dynamic_cast<EventCapture*>(process)) {
+			processType = 1;
+		}else if (CQProcess * cq = dynamic_cast<CQProcess*>(process)) {
+			processType = 2;
+		}else if (CEPProcess * cep = dynamic_cast<CEPProcess*>(process)) {
+			processType = 3;
+		}
+
+		ExecuteScheduler::deleteProcess(outputStreamName);
+
+		if (processType == 1) {
+			addEventCaptureRule(outputStreamForUpdate, editBoxOfRule);
+		}
+		else if (processType == 2) {
+			addCQRule(outputStreamForUpdate, editBoxOfRule);
+		}
+		else if (processType == 3) {
+			addCEPRule(outputStreamForUpdate, editBoxOfRule);
+		}
+		ExecuteScheduler::updateGraph();
+		
+		outputStreamNameForSearch = outputStreamForUpdate;
+		UpdateData(false);
+
+		MessageBox(_T("update successfully"), NULL, MB_OK);
+	}else {
+		MessageBox(_T("no such name of output stream."), NULL, MB_OK);
+	}
 }

@@ -29,11 +29,17 @@
 #define IDC_BUTTON_INPUT_STREAM         1024
 #define IDC_INPUT_STREAM                1028
 #define IDC_EDIT1                       1030
-#define IDC_EDIT2                       1031
+#define IDC_EDIT_OUTSTREAM_NAME_SEARCH  1031
 #define IDC_BUTTON1                     1032
 #define IDC_BUTTON2                     1033
 #define IDC_BUTTON3                     1034
 #define IDC_COMBOBOXEX1                 1038
+#define IDC_BUTTON_DISPLAY_ALL_RULE     1039
+#define IDC_BUTTON_SEARCH               1040
+#define IDC_BUTTON_DELETE_RULE          1041
+#define IDC_BUTTON_UPDATE_RULE          1042
+#define IDC_EDIT2                       1043
+#define IDC_EDIT_OUTSTREAM_UPDATE       1043
 
 // Next default values for new objects
 // 
@@ -41,7 +47,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1039
+#define _APS_NEXT_CONTROL_VALUE         1044
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

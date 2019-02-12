@@ -22,7 +22,14 @@ EventProcess* ExecuteScheduler::getEventProcess() {
 
 
 void ExecuteScheduler::initialize() {
-	buildGraph();
+	try {
+		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
+
+		buildGraph();
+	}
+	catch (std::logic_error& e) {
+		std::cout << "[exception caught]\n";
+	}
 }
 
 
@@ -83,6 +90,10 @@ void ExecuteScheduler::buildGraph() {
 	}
 }
 
+void ExecuteScheduler::updateGraph() {
+	buildGraph();
+}
+
 void ExecuteScheduler::addProcessUnitToGraph(Process* processOfB) {
 	vector<string> inputStreamNames = processOfB->getInputStreamNames();
 	for (int i = 0; i < inputStreamNames.size(); i++) {
@@ -121,3 +132,35 @@ set<CEPProcess*> ExecuteScheduler::getCEPs() {
 	return cepSet;
 }
 
+bool ExecuteScheduler::deleteProcess(string outputStreamName) {
+	try {
+		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
+		
+		if (processMap.find(outputStreamName) != processMap.end()) {
+			Process* process = processMap[outputStreamName];
+			processMap.erase(outputStreamName);//delete from processMap
+			if (CEPProcess* cep = dynamic_cast<CEPProcess*>(process)) {
+				cepSet.erase(cep);//delete CEP from cepSet
+			}
+			delete process;
+			return true;
+		}
+	}catch (std::logic_error& e) {
+		std::cout << "[exception caught]\n";
+	}
+	return false;
+}
+
+
+Process * ExecuteScheduler::getProcess(string outputStreamName) {
+	try {
+		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
+
+		if (processMap.find(outputStreamName) != processMap.end()) {
+			return processMap[outputStreamName];
+		}
+	}catch (std::logic_error& e) {
+		std::cout << "[exception caught]\n";
+	}
+	return nullptr;
+}

@@ -62,7 +62,22 @@ public:
 	static CString inputstream_to_display;
 
 	CWinThread * threadOfInputStream = nullptr;
-	afx_msg void OnBnClickedButton1();
-	afx_msg void OnEnChangeEdit2();
+	afx_msg void OnBnClickedButtonSearch();
+	// use the name of output stream to search a rule specification
+	CString outputStreamNameForSearch;
+	// edit control or display rule specifications
+	CString editBoxOfRule;
+	afx_msg void OnEnChangeInputStream();
+	afx_msg void OnBnClickedButtonDisplayAllRule();
+	afx_msg void OnBnClickedButtonDeleteRule();
+	afx_msg void OnBnClickedButtonUpdateRule();
+
+private:
+	void addEventCaptureRule(CString outputStreamName, CString ruleStrs);
+	void addCQRule(CString outputStreamName, CString ruleStrs);
+	void addCEPRule(CString outputStreamName, CString ruleStrs);
+
+public:
+	CString outputStreamForUpdate;
 };
 

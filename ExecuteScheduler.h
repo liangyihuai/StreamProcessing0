@@ -37,7 +37,6 @@ private:
 	static void checkGraph();
 
 public:
-	
 	static void registerEventProcess(EventProcess* e);
 
 	static void registerProcess(string outputStreamName, Process *p);
@@ -50,11 +49,17 @@ public:
 
 	static void buildGraph();
 
+	static void updateGraph();
+
 	static EventProcess* getEventProcess();
 
 	static void addCEP(CEPProcess * p);
 
 	static set<CEPProcess*> getCEPs();
+
+	static bool deleteProcess(string outputStreamName);
+
+	static Process * getProcess(string outputStreamName);
 
 public:
 	//process unitµÄ»¥³âËø

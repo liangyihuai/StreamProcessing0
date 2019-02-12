@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <string>
 
-//store input rule specifications, in string form.
+//store input rule specifications at string form.
 class SpecRegister {
 private:
 	//output target name to string rule
@@ -22,10 +22,12 @@ public:
 	static string query_event_capture_rule(string output_target);
 	static string query_cq_rule(string output_target);
 	static string query_cep_rule(string output_target);
+	static string query(string output_target);
+	static list<string> queryAll();
 
 	static bool delete_event_filter_rule(string output_target);
 	static bool delete_event_capture(string output_target);
 	static bool delete_cq_rule(string output_target);
 	static bool delete_cep_rule(string output_target);
-
+	static bool delete_rule(string output_target);
 };
