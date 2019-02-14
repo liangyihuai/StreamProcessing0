@@ -48,6 +48,10 @@ public:
         setCurrEvent(event);
         return check();
     }
+
+	vector<Predicate*> getAllPredicate() {
+		return *(predicate->getChildren());
+	}
 };
 
 

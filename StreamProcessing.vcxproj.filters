@@ -79,6 +79,12 @@
     <Filter Include="Header Files\backend\common">
       <UniqueIdentifier>{747b22cb-1784-449c-9110-fc09a24a6166}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\backend\cqindex">
+      <UniqueIdentifier>{b36cdfb6-1d10-43bb-93e8-c3fcc16492f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\backend\cqindex">
+      <UniqueIdentifier>{b11dfd2b-7f52-4fa9-baa9-e26c6759bf22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StreamProcessing.h">
@@ -327,6 +333,15 @@
     <ClInclude Include="Executor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RTreeCQIndex.h">
+      <Filter>Header Files\backend\cqindex</Filter>
+    </ClInclude>
+    <ClInclude Include="CQIndex.h">
+      <Filter>Header Files\backend\cqindex</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessRegisterForCQIndex.h">
+      <Filter>Header Files\backend\cqindex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StreamProcessing.cpp">
@@ -517,6 +532,15 @@
     </ClCompile>
     <ClCompile Include="SpecParser.cpp">
       <Filter>Source Files\backend\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="RTreeCQIndex.cpp">
+      <Filter>Source Files\backend\cqindex</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessRegisterForCQIndex.cpp">
+      <Filter>Header Files\backend\cqindex</Filter>
+    </ClCompile>
+    <ClCompile Include="TestHybridRegion.cpp">
+      <Filter>Source Files\backend\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

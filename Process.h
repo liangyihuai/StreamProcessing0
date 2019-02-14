@@ -22,3 +22,5 @@ public:
 
 	virtual void addOutputQueue(queue<EventPtr>* outputQueue) = 0;
 };
+
+
