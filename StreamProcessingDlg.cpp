@@ -79,18 +79,19 @@ CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 		\r\nFrom targetData\
 		\r\nThen allytarget");
 
-	cq_name = _T("flyingTarget");
+	cq_name = _T("flyingAllyTarget");
 
-	cq_rule = _T("If iff = ally & speed>500\
+	cq_rule = _T("If speed > 500 & elevation > 200\
 		\r\nFrom allytarget\
-		\r\nThen flyingTarget");
+		\r\nThen flyingAllyTarget");
 
 	cep_name = _T("cepTarget1");
 
-	cep_rule = _T("If exist(flyingTarget)\
-		\r\nFrom flyingTarget\
+	cep_rule = _T("If exist(flyingAllyTarget)\
+		\r\nFrom flyingAllyTarget\
 		\r\nThen cepTarget1");
-
+	
+		
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
