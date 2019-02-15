@@ -8,11 +8,9 @@
 class CQIndex {
 public:
 	//
-	virtual void buildIndex(Condition*) = 0;
+	virtual void buildIndex(Condition*, int64_t regionId) = 0;
 
 	virtual list<Process*> filter(EventPtr) = 0;
-
-	//virtual list<Process*> refine(list<Process*>) = 0;
 
 };
 

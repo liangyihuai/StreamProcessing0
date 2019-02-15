@@ -342,6 +342,9 @@
     <ClInclude Include="ProcessRegisterForCQIndex.h">
       <Filter>Header Files\backend\cqindex</Filter>
     </ClInclude>
+    <ClInclude Include="CQIndexUtils.h">
+      <Filter>Header Files\backend\cqindex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StreamProcessing.cpp">
@@ -541,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="TestHybridRegion.cpp">
       <Filter>Source Files\backend\test</Filter>
+    </ClCompile>
+    <ClCompile Include="CQIndexUtils.cpp">
+      <Filter>Source Files\backend\cqindex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

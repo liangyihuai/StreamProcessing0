@@ -40,12 +40,51 @@ void RTreeCQIndex::initialize() {
 	this->idx = idx;
 }
 
-void RTreeCQIndex::buildIndex(Condition* condition) {
-	
+void RTreeCQIndex::buildIndex(Condition* condition, int64_t regionId) {
+	vector<cqindex::PredicateDecomposition> pdVec = CQIndexUtils::decomposeCondition(condition);
+	double* lowCoords = new double[dimension];
+	double* highCoords = new double[dimension];
+	for (int i = 0; i < pdVec.size(); i++) {
+		cqindex::PredicateDecomposition pd = pdVec[i];
+		double lowValue = MIN_BOUNDARY;
+		double hightValue = SIZE_MAX;
+		if (pd.isValid == true) {
+			if (pd.isStringEqual) {
+				hightValue = lowValue = Utils::hashFun(pd.strValue);
+			}else {
+				if (pd.existLeftValue) {
+					lowValue = pd.leftValue;
+				}
+				if (pd.existRightValue) {
+					hightValue = pd.rightValue;
+				}
+			}
+		}
+		lowCoords[i] = lowValue;
+		highCoords[i] = hightValue;
+	}
+	Point lowPoint(lowCoords, dimension);
+	Point highPoint(highCoords, dimension);
+
+	addRegion(lowPoint, highPoint, regionId);//add the condition to CQ index.
 }
 
+
+void RTreeCQIndex::addRegion(SpatialIndex::Point low, SpatialIndex::Point high, int64_t id) {
+	uint8_t * pData = 0;
+	uint32_t nDataLength = 0;
+
+	SpatialIndex::IShape* shape = new SpatialIndex::Region(low, high);
+
+	idx->index().insertData(nDataLength, pData, *shape, id);
+
+	cout << "Rectangle " << id << " inserted into index." << endl;
+	delete shape;
+}
+
+
 list<Process*> RTreeCQIndex::filter(EventPtr e) {
-	Point* point = transformEventToPoint(e);
+	Point* point = CQIndexUtils::transformEventToPoint(e);
 
 	ObjVisitor* visitor = new ObjVisitor;
 	IShape* r = point;
@@ -64,39 +103,7 @@ list<Process*> RTreeCQIndex::filter(EventPtr e) {
 }
 
 
-void RTreeCQIndex::addRegion(SpatialIndex::Point low, SpatialIndex::Point high, int64_t id) {
-	uint8_t * pData = 0;
-	uint32_t nDataLength = 0;
-
-	SpatialIndex::IShape* shape = new SpatialIndex::Region(low, high);
-
-	idx->index().insertData(nDataLength, pData, *shape, id);
-
-	cout << "Rectangle " << id << " inserted into index." << endl;
-	delete shape;
+RTreeCQIndex::~RTreeCQIndex() {
+	delete idx;
 }
-
-vector<IData*>* RTreeCQIndex::getIntersectedRegion(Point * p) {
-	ObjVisitor* visitor = new ObjVisitor;
-
-	IShape* r = p;
-
-	idx->index().intersectsWithQuery(*r, *visitor);
-
-	int64_t nResultCount;
-	nResultCount = visitor->GetResultCount();
-
-	vector<IData*>& results = visitor->GetResults();
-	vector<IData*> * resultsCopy = new vector<IData*>();
-
-	for (int64_t i = 0; i < nResultCount; i++) {
-		resultsCopy->push_back(dynamic_cast<IData*>(results[i]->clone()));
-	}
-
-	delete visitor;
-	cout << "found " << nResultCount << " results. " << endl;
-
-	return resultsCopy;
-}
-
 

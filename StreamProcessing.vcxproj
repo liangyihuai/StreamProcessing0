@@ -213,6 +213,7 @@
     <ClInclude Include="Condition.h" />
     <ClInclude Include="Consts.h" />
     <ClInclude Include="Count.h" />
+    <ClInclude Include="CQIndexUtils.h" />
     <ClInclude Include="CQProcess.h" />
     <ClInclude Include="CQSpec.h" />
     <ClInclude Include="CQSpecParser.h" />
@@ -314,6 +315,7 @@
     </ClCompile>
     <ClCompile Include="Condition.cpp" />
     <ClCompile Include="Count.cpp" />
+    <ClCompile Include="CQIndexUtils.cpp" />
     <ClCompile Include="CQProcess.cpp" />
     <ClCompile Include="CQSpec.cpp" />
     <ClCompile Include="CQSpecParser.cpp" />

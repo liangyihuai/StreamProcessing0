@@ -5,6 +5,8 @@
 #include <spatialindex/capi/sidx_impl.h>
 #include <spatialindex/capi/sidx_config.h>
 
+#include "CQIndexUtils.h"
+
 using namespace SpatialIndex;
 
 class RTreeCQIndex: public CQIndex{
@@ -17,7 +19,7 @@ public:
 	//--------------------------
 	//interface CQIndex
 	//--------------------------
-	void buildIndex(Condition*) override;
+	void buildIndex(Condition*, int64_t regionId) override;
 
 	list<Process*> filter(EventPtr) override;
 
@@ -27,11 +29,11 @@ public:
 	//---------------------------
 	void initialize();
 
-	Point* transformEventToPoint(EventPtr);
-
 private:
 	void RTreeCQIndex::addRegion(SpatialIndex::Point low, SpatialIndex::Point high, int64_t id);
 	vector<IData*>* getIntersectedRegion(Point * p);
+
+	const int MIN_BOUNDARY = -999999;
 private:
 	Index * idx;
 

@@ -1,9 +1,7 @@
 //
 // Created by USER on 12/5/2018.
 //
-
-#ifndef CONTINUOUSPROCESSING_GREATERTHANFLOAT_H
-#define CONTINUOUSPROCESSING_GREATERTHANFLOAT_H
+#pragma once
 
 #include "Predicate.h"
 #include "Event.h"
@@ -29,9 +27,16 @@ public:
         return e->getFloat(attrName) > value;
     }
 
+	string getFieldName() {
+		return this->attrName;
+	}
+
+	float getPredicateValue() {
+		return this->value;
+	}
+
     vector<Predicate*>* getChildren() { return nullptr; };
     void setChildren(vector<Predicate*>* children) {};
     string getTreeObjectName() { return nullptr; };
     void setTreeObjectName(string objectName) {};
 };
-#endif //CONTINUOUSPROCESSING_GREATERTHANFLOAT_H

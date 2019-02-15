@@ -32,6 +32,8 @@ public:
 
     //static string getTimeStr();
 
+	static std::hash<string> hashFun;
+
     static double randomFloat(int min, int max);
 
     static string getRandomGroupName(int startRange = 0, int endRange = 100);

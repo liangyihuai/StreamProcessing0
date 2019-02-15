@@ -30,6 +30,14 @@ public:
         return e->getInt(fieldName) >= value;
     }
 
+	string getFieldName() {
+		return this->fieldName;
+	}
+
+	int getPredicateValue() {
+		return this->value;
+	}
+
     vector<Predicate*>* getChildren() { return nullptr; };
     void setChildren(vector<Predicate*>* children) {};
     string getTreeObjectName() { return nullptr; };
