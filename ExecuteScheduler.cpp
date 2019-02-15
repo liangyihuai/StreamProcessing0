@@ -105,8 +105,7 @@ void ExecuteScheduler::addProcessUnitToGraph(Process* processOfB) {
 void ExecuteScheduler::addProcessUnitToGraph(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB) {
 	if (eventProcess->getOutputStreamName() == inputStreamNameOfB) {
 		eventProcess->addOutputQueue(inputQueueOfB);
-	}
-	else {
+	}else {
 		for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {
 			Process * pro = iter->second;
 			string inputStreamNameOfA = pro->getOutputStreamName();

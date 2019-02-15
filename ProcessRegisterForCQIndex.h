@@ -2,6 +2,7 @@
 
 #include "Process.h"
 #include <vector>
+#include <list>
 
 class ProcessRegisterForCQIndex {
 public:
@@ -14,6 +15,8 @@ public:
 	static bool deleteProcess(int index);
 
 	static bool deleteProcess(Process*);
+
+
 
 private:
 	static vector<Process*> processVector;

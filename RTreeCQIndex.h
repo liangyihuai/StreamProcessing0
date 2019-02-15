@@ -31,7 +31,6 @@ public:
 
 private:
 	void RTreeCQIndex::addRegion(SpatialIndex::Point low, SpatialIndex::Point high, int64_t id);
-	vector<IData*>* getIntersectedRegion(Point * p);
 
 	const int MIN_BOUNDARY = -999999;
 private:

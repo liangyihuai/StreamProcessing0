@@ -3,7 +3,9 @@
 #include "string"
 #include <vector>
 #include "Condition.h"
-#include <spatialindex/Point.h>
+#include <spatialindex/capi/sidx_api.h>
+#include <spatialindex/capi/sidx_impl.h>
+#include <spatialindex/capi/sidx_config.h>
 
 using namespace std;
 

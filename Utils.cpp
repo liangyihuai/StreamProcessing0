@@ -7,6 +7,8 @@
 
 unsigned long Utils::id = 0;
 
+std::hash<string> Utils::hashFun;
+
 long long Utils::getTime() {
     std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now().time_since_epoch());
