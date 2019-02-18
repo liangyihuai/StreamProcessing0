@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Condition.h"
+#include "Predicate.h"
 #include "Event.h"
 #include <list>
 
@@ -8,7 +8,7 @@
 class CQIndex {
 public:
 	//
-	virtual void buildIndex(Condition*, int64_t regionId) = 0;
+	virtual void buildIndex(Predicate*, int64_t regionId) = 0;
 
 	virtual list<Process*> filter(EventPtr) = 0;
 

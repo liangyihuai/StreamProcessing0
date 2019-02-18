@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 #include "ProcessRegisterForCQIndex.h"
+#include "CQIndex.h"
+#include "RTreeCQIndex.h"
 
 vector<Process*> ProcessRegisterForCQIndex::processVector;
 
@@ -20,6 +22,15 @@ list<Process*> ProcessRegisterForCQIndex::getProcess(vector<int64_t> indexes) {
 		processList.push_back(processVector[index]);
 	}
 	return processList;
+}
+
+int ProcessRegisterForCQIndex::getId(Process* process) {
+	for (int i = 0; i < processVector.size(); i++) {
+		if (process == processVector[i]) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 void ProcessRegisterForCQIndex::addProcess(Process* p) {
@@ -45,7 +56,41 @@ bool ProcessRegisterForCQIndex::deleteProcess(Process* pro) {
 }
 
 
-
+void ProcessRegisterForCQIndex::buildIndexGraph(
+			unordered_map<string, Process*> processMap, int minConnection, int dimension_index){
+	//----------------------------------
+	//find relation among CQProcess
+	//----------------------------------
+	map<Process*, set<CQProcess*>*> relations;//a process unit can connect to multiple other process units.
+	for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {//for each all process
+		if (CQProcess* cq = dynamic_cast<CQProcess*>(iter->second)) {//filter CQ process
+			vector<string> inputStreamNames = cq->getInputStreamNames();
+			for (string s : inputStreamNames) {//for each input stream for current process unit
+				Process* cq_in = processMap[s];
+				if (relations.find(cq_in) == relations.end())
+					relations[cq_in] = new set<CQProcess*>;
+				relations[cq_in]->insert(cq);//build the relation
+			}
+		}
+	}
+	//--------------------------------
+	//build index
+	//--------------------------------
+	for (auto iter = relations.begin(); iter != relations.end(); iter++) {
+		//filter the process units that have enough connection with others.
+		if (iter->second->size() >= minConnection) {
+			CQIndex* index = new RTreeCQIndex(dimension_index);
+			for (CQProcess* cq_index : *(iter->second)) {
+				Predicate* predicate = cq_index->getPredicate();
+				int regionInIndex = getId(cq_index);
+				index->buildIndex(predicate, regionInIndex);
+			}
+			Process* cq = iter->first;
+			indexedProcessSet.insert(cq);//register the indexed process unit.
+			processIndexMap[cq] = index;
+		}
+	}
+}
 
 
 

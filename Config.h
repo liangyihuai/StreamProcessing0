@@ -1,4 +1,5 @@
 #pragma once
 
-#define useCQIndex true
+#define USE_CQ_INDEX true
+
 

@@ -54,5 +54,6 @@ public:
 	void setInputStreamName(string name);
     queue<EventPtr>* getInputQueue();
     void setWindow(Window *w);
+	Predicate* getPredicate();
 };
 #endif //CONTINUOUSPROCESSING_CQPROCESS_H

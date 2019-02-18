@@ -6,14 +6,15 @@
 #include "EqualString.h"
 #include "LessThanFloat.h"
 
+
 string CQIndexUtils::sortedFieldNames[] = { "iff", "electromagnetic", "speed", "elevation", "dir", "lon", "lat" };
 
-vector<cqindex::PredicateDecomposition> CQIndexUtils::decomposeCondition(Condition* con) {
+vector<cqindex::PredicateDecomposition> CQIndexUtils::decomposeCondition(Predicate* con) {
 	vector<cqindex::PredicateDecomposition> result;
 
-	vector<Predicate*> predicateList = con->getAllPredicate();
+	vector<Predicate*> *predicateList = con->getChildren();
 
-	for (Predicate* pre : predicateList) {
+	for (Predicate* pre : *predicateList) {
 		if (EqualString* es = dynamic_cast<EqualString*>(pre)) {
 			cqindex::PredicateDecomposition predicateDecomposition;
 			predicateDecomposition.fieldName = es->getFieldName();

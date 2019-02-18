@@ -68,6 +68,10 @@ void CQProcess::setWindow(Window *w){
     this->win = w;
 }
 
+Predicate* CQProcess::getPredicate() {
+	return this->predicate;
+}
+
 CQProcess::~CQProcess(){
 	delete predicate; predicate = nullptr;
     delete win; win = nullptr;

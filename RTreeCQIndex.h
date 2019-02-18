@@ -11,19 +11,14 @@ using namespace SpatialIndex;
 
 class RTreeCQIndex: public CQIndex{
 public:
-	RTreeCQIndex(int dimension, string eventType);
-
+	RTreeCQIndex(int dimension);
 	~RTreeCQIndex();
-
 
 	//--------------------------
 	//interface CQIndex
 	//--------------------------
-	void buildIndex(Condition*, int64_t regionId) override;
-
+	void buildIndex(Predicate*, int64_t regionId) override;
 	list<Process*> filter(EventPtr) override;
-
-
 	//---------------------------
 	//others
 	//---------------------------
@@ -35,10 +30,7 @@ private:
 	const int MIN_BOUNDARY = -999999;
 private:
 	Index * idx;
-
 	int dimension;
-
-	string eventType;
 };
 
 

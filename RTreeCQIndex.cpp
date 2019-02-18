@@ -3,9 +3,8 @@
 #include "RTreeCQIndex.h"
 #include "ProcessRegisterForCQIndex.h"
 
-RTreeCQIndex::RTreeCQIndex(int dimension, string eventType) {
+RTreeCQIndex::RTreeCQIndex(int dimension) {
 	this->dimension = dimension;
-	this->eventType = eventType;
 
 	initialize();
 }
@@ -40,7 +39,7 @@ void RTreeCQIndex::initialize() {
 	this->idx = idx;
 }
 
-void RTreeCQIndex::buildIndex(Condition* condition, int64_t regionId) {
+void RTreeCQIndex::buildIndex(Predicate* condition, int64_t regionId) {
 	vector<cqindex::PredicateDecomposition> pdVec = CQIndexUtils::decomposeCondition(condition);
 	double* lowCoords = new double[dimension];
 	double* highCoords = new double[dimension];

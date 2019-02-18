@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ExecuteScheduler.h"
 #include <thread>
+#include "ProcessRegisterForCQIndex.h"
 
 
 std::queue<Process*> ExecuteScheduler::processQueue;
@@ -87,6 +88,10 @@ void ExecuteScheduler::buildGraph() {
 	for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {//iterate processes
 		Process * pro = iter->second;
 		addProcessUnitToGraph(pro);
+	}
+
+	if (USE_CQ_INDEX) {
+		ProcessRegisterForCQIndex::buildIndexGraph(processMap, 5, 7);
 	}
 }
 

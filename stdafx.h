@@ -88,3 +88,5 @@
 #include <afxwin.h>
 
 #include "Consts.h"
+
+#include "Config.h"
