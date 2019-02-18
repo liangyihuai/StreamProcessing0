@@ -66,6 +66,9 @@ void RTreeCQIndex::buildIndex(Predicate* condition, int64_t regionId) {
 	Point highPoint(highCoords, dimension);
 
 	addRegion(lowPoint, highPoint, regionId);//add the condition to CQ index.
+
+	delete[]lowCoords;
+	delete[] highCoords;
 }
 
 

@@ -28,6 +28,8 @@ private:
 	queue<EventPtr> * inputQueue;
 	//the input queue of other processing units.
 	set<queue<EventPtr>*> outputQueueSet;
+	//the output names of process that connects to this process unit.
+	set<string> connectedOutputNameSet;
     // all stateless operatorPredicates and simple predicates share one queue reader.
 	Predicate* predicate;
 
@@ -41,7 +43,8 @@ public:
 	//implemented methods
 	//-------------------------
 	bool process(int timeSlice);
-	void addOutputQueue(queue<EventPtr> *outputQueue);
+	//string outputStreamNameOfProcess, the output stream name connected to this process unit.
+	void addOutputQueue(queue<EventPtr> *outputQueue, string outputStreamNameOfProcess);
 	vector<string> getInputStreamNames();
 	vector<queue<EventPtr>*> getInputQueues();
 	string getOutputStreamName();
@@ -55,5 +58,7 @@ public:
     queue<EventPtr>* getInputQueue();
     void setWindow(Window *w);
 	Predicate* getPredicate();
+	set<string> getConnectedOutputNameSet();
+	void addEventToQueue(EventPtr e);
 };
 #endif //CONTINUOUSPROCESSING_CQPROCESS_H

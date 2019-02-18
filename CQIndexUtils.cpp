@@ -22,19 +22,22 @@ vector<cqindex::PredicateDecomposition> CQIndexUtils::decomposeCondition(Predica
 			predicateDecomposition.isStringEqual = true;
 			result.push_back(predicateDecomposition);
 		}else if (GreaterThanFloat* gtf = dynamic_cast<GreaterThanFloat*>(pre)) {
-			cqindex::PredicateDecomposition predicateDecomposition;
+			cqindex::PredicateDecomposition * predicateDecomposition = new cqindex::PredicateDecomposition();
 			bool exist = false;
 			for (int i = 0; i < result.size(); i++) {
 				if (result[i].fieldName == gtf->getFieldName()) {
 					exist = true;
-					predicateDecomposition = result[i];
+					predicateDecomposition = &result[i];
 				}
 			}
-			predicateDecomposition.fieldName = gtf->getFieldName();
-			predicateDecomposition.leftValue = gtf->getPredicateValue();
-			predicateDecomposition.existLeftValue = true;
+			string fieldName = gtf->getFieldName();
+			double value = gtf->getPredicateValue();
+
+			predicateDecomposition->fieldName = fieldName;
+			predicateDecomposition->leftValue = value;
+			predicateDecomposition->existLeftValue = true;
 			if (!exist) 
-				result.push_back(predicateDecomposition);
+				result.push_back(*predicateDecomposition);
 		}else if (GreaterEqualThanInt* geti = dynamic_cast<GreaterEqualThanInt*>(pre)) {
 			cqindex::PredicateDecomposition predicateDecomposition;
 			bool exist = false;

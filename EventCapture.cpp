@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "EventCapture.h"
+#include "ProcessRegisterForCQIndex.h"
 
 EventCapture::EventCapture(string _outputStreamName) {
 	inputQueue = new queue<EventPtr>();
@@ -22,8 +23,9 @@ string EventCapture::getOutputStreamName() {
 	return outputStreamName;
 }
 
-void EventCapture::addOutputQueue(queue<EventPtr> * outputQueue) {
+void EventCapture::addOutputQueue(queue<EventPtr> * outputQueue, string outputStreamNameOfProcess) {
 	outputQueueSet.insert(outputQueue);
+	connectedOutputNameSet.insert(outputStreamNameOfProcess);
 }
 
 EventCapture::~EventCapture() {
@@ -39,22 +41,27 @@ bool EventCapture::process(int timeSlice) {
 	EventPtr e = nullptr;
 	while (!inputQueue->empty() && timeSlice > 0) {
 		try {
-			std::lock_guard<mutex> lg(EventProcess::mutexOfEventFiler);
+			lock_guard<mutex> lg(EventProcess::mutexOfEventFiler);
 			e = inputQueue->front();
 			inputQueue->pop();
-		}
-		catch (std::logic_error& e) {
+		}catch (std::logic_error& e) {
 			std::cout << "[exception caught]\n";
 		}
-
-		
 		if (condition.check(e)) {
-
-			for (queue<EventPtr>* q : outputQueueSet) {
-				q->push(e);
+			//use CQ index
+			if (USE_CQ_INDEX && ProcessRegisterForCQIndex::isIndexed(this)) {
+				list<Process*> processList = ProcessRegisterForCQIndex::getIndexByProcess(this)->filter(e);
+				CQProcess * cq = nullptr;
+				for (Process* p : processList) {
+					cq = dynamic_cast<CQProcess*>(p);
+					cq->addEventToQueue(e);
+				}
+			}else {
+				for (queue<EventPtr>* q : outputQueueSet) {
+					q->push(e);
+				}
 			}
 		}
-		
 		timeSlice--;
 	}
 	if (!inputQueue->empty()) return false;
@@ -75,4 +82,8 @@ void EventCapture::setInputStreamName(string name) {
 
 void EventCapture::setOutputStreamName(string name) {
 	this->outputStreamName = name;
+}
+
+set<string> EventCapture::getConnectedOutputNameSet() {
+	return this->connectedOutputNameSet;
 }

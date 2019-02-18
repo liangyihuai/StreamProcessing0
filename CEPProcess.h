@@ -41,7 +41,8 @@ public:
 	vector<string> getInputStreamNames();
 	vector<queue<EventPtr>*> getInputQueues();
 	string getOutputStreamName();
-	void addOutputQueue(queue<EventPtr>* outputQueue);
+	void addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess);
+	set<string> getConnectedOutputNameSet();
 
 	//---------------------------
 	//other

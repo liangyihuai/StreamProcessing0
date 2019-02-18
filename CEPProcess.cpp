@@ -55,7 +55,12 @@ string CEPProcess::getOutputStreamName() {
 	return outputStreamName;
 }
 
-void CEPProcess::addOutputQueue(queue<EventPtr>* outputQueue) {
+void CEPProcess::addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess) {
+	LOG(ERROR) << "not implemented method addOutputQueue";
+	throw runtime_error("");
+}
+
+set<string> CEPProcess::getConnectedOutputNameSet() {
 	LOG(ERROR) << "not implemented method addOutputQueue";
 	throw runtime_error("");
 }

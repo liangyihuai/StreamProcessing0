@@ -91,7 +91,7 @@ void ExecuteScheduler::buildGraph() {
 	}
 
 	if (USE_CQ_INDEX) {
-		ProcessRegisterForCQIndex::buildIndexGraph(processMap, 5, 7);
+		ProcessRegisterForCQIndex::buildIndexGraph(processMap, MAX_CONNECTION_FOR_INDEX, 7);
 	}
 }
 
@@ -103,11 +103,12 @@ void ExecuteScheduler::addProcessUnitToGraph(Process* processOfB) {
 	vector<string> inputStreamNames = processOfB->getInputStreamNames();
 	for (int i = 0; i < inputStreamNames.size(); i++) {
 		vector<queue<EventPtr>*> queues = processOfB->getInputQueues();
-		addProcessUnitToGraph(inputStreamNames[i], queues[i]);
+		addProcessUnitToGraph(inputStreamNames[i], queues[i], processOfB->getOutputStreamName());
 	}
 }
 
-void ExecuteScheduler::addProcessUnitToGraph(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB) {
+void ExecuteScheduler::addProcessUnitToGraph(string inputStreamNameOfB, 
+					queue<EventPtr> * inputQueueOfB, string outputNameOfB) {
 	if (eventProcess->getOutputStreamName() == inputStreamNameOfB) {
 		eventProcess->addOutputQueue(inputQueueOfB);
 	}else {
@@ -115,7 +116,7 @@ void ExecuteScheduler::addProcessUnitToGraph(string inputStreamNameOfB, queue<Ev
 			Process * pro = iter->second;
 			string inputStreamNameOfA = pro->getOutputStreamName();
 			if (inputStreamNameOfA == inputStreamNameOfB) {
-				pro->addOutputQueue(inputQueueOfB);
+				pro->addOutputQueue(inputQueueOfB, outputNameOfB);
 			}
 		}
 	}

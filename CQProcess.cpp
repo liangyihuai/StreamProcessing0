@@ -4,22 +4,33 @@
 #include "stdafx.h"
 #include "CQProcess.h"
 #include "DerivedEventStore.h"
+#include "ProcessRegisterForCQIndex.h"
 
 CQProcess::CQProcess(string outputStreamName) {
 	this->inputQueue = new queue<EventPtr>();
 	this->outputStreamName = outputStreamName;
 }
 
-void CQProcess::addOutputQueue(queue<EventPtr> *outputQueue) {
+void CQProcess::addOutputQueue(queue<EventPtr> *outputQueue, string outputStreamNameOfProcess) {
 	outputQueueSet.insert(outputQueue);
+	connectedOutputNameSet.insert(outputStreamNameOfProcess);
 }
 
 bool CQProcess::process(int timeSlice){
 	while (!inputQueue->empty() && timeSlice > 0) {
 		EventPtr e = inputQueue->front();
 		if (predicate->check(e)) {
-			for (queue<EventPtr>* q : outputQueueSet) {
-				q->push(e);
+			if (USE_CQ_INDEX && ProcessRegisterForCQIndex::isIndexed(this)) {
+				list<Process*> processList = ProcessRegisterForCQIndex::getIndexByProcess(this)->filter(e);
+				CQProcess * cq = nullptr;
+				for (Process* p : processList) {
+					cq = dynamic_cast<CQProcess*>(p);
+					cq->addEventToQueue(e);
+				}
+			}else {
+				for (queue<EventPtr>* q : outputQueueSet) {
+					q->push(e);
+				}
 			}
 		}
 		timeSlice--;
@@ -70,6 +81,14 @@ void CQProcess::setWindow(Window *w){
 
 Predicate* CQProcess::getPredicate() {
 	return this->predicate;
+}
+
+set<string> CQProcess::getConnectedOutputNameSet() {
+	return this->connectedOutputNameSet;
+}
+
+void CQProcess::addEventToQueue(EventPtr e) {
+	inputQueue->push(e);
 }
 
 CQProcess::~CQProcess(){

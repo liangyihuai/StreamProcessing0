@@ -6,6 +6,10 @@
 
 vector<Process*> ProcessRegisterForCQIndex::processVector;
 
+unordered_map<Process*, CQIndex*> ProcessRegisterForCQIndex::processIndexMap;
+
+unordered_set<Process*> ProcessRegisterForCQIndex::indexedProcessSet;
+
 Process* ProcessRegisterForCQIndex::getProcess(int index) {
 	if (index < 0 || index >= processVector.size())
 		throw "the parameter of index is out of bound.";
@@ -63,13 +67,15 @@ void ProcessRegisterForCQIndex::buildIndexGraph(
 	//----------------------------------
 	map<Process*, set<CQProcess*>*> relations;//a process unit can connect to multiple other process units.
 	for (auto iter = processMap.begin(); iter != processMap.end(); iter++) {//for each all process
-		if (CQProcess* cq = dynamic_cast<CQProcess*>(iter->second)) {//filter CQ process
-			vector<string> inputStreamNames = cq->getInputStreamNames();
-			for (string s : inputStreamNames) {//for each input stream for current process unit
-				Process* cq_in = processMap[s];
-				if (relations.find(cq_in) == relations.end())
-					relations[cq_in] = new set<CQProcess*>;
-				relations[cq_in]->insert(cq);//build the relation
+		Process* processA = iter->second;
+		if (dynamic_cast<CQProcess*>(processA) || dynamic_cast<EventCapture*>(processA)) {
+			set<string> connectedOuputNames = processA->getConnectedOutputNameSet();
+			relations[processA] = new set<CQProcess*>;
+			for (string s : connectedOuputNames) {//for each output stream for current process unit
+				Process* processB = processMap[s];
+				if (CQProcess* cq = dynamic_cast<CQProcess*>(processB)) {//filter CQ process
+					relations[processA]->insert(cq);//build the relation
+				}
 			}
 		}
 	}
@@ -92,6 +98,18 @@ void ProcessRegisterForCQIndex::buildIndexGraph(
 	}
 }
 
+bool ProcessRegisterForCQIndex::isIndexed(Process* pro) {
+	return indexedProcessSet.find(pro) != indexedProcessSet.end();
+}
+
+
+CQIndex* ProcessRegisterForCQIndex::getIndexByProcess(Process * pro) {
+	if (processIndexMap.find(pro) != processIndexMap.end()) {
+		return processIndexMap[pro];
+	}else {
+		return nullptr;
+	}
+}
 
 
 

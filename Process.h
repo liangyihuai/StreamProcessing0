@@ -20,7 +20,10 @@ public:
 
 	virtual string getOutputStreamName() = 0;
 
-	virtual void addOutputQueue(queue<EventPtr>* outputQueue) = 0;
+	//string outputStreamNameOfProcess, the output stream name connected to this process unit.
+	virtual void addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess) = 0;
+	//the output stream names connected to this process unit.
+	virtual set<string> getConnectedOutputNameSet() = 0;
 };
 
 

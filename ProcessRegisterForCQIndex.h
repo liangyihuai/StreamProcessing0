@@ -25,6 +25,11 @@ public:
 	//if exist, return number >= 0, else return -1;
 	static int getId(Process*);
 
+	//check if the process is indexed.
+	static bool isIndexed(Process* pro);
+
+	static CQIndex* getIndexByProcess(Process * pro);
+
 private:
 	static vector<Process*> processVector;
 	static unordered_map<Process*, CQIndex*> processIndexMap;

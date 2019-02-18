@@ -29,7 +29,8 @@ private:
 	static set<CEPProcess*> cepSet;
 
 	//connect process unit A and B. It is used to build compute graph
-	static void addProcessUnitToGraph(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB);
+	static void addProcessUnitToGraph(string inputStreamNameOfB, 
+							queue<EventPtr> * inputQueueOfB, string outputNameOfB);
 
 	static void addProcessUnitToGraph(Process* processOfB);
 
