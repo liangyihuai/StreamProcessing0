@@ -383,6 +383,7 @@
     <ClCompile Include="Min.cpp" />
     <ClCompile Include="OperatorRegister.cpp" />
     <ClCompile Include="OutsideAreaOp.cpp" />
+    <ClCompile Include="ProcessFlowDrawing.cpp" />
     <ClCompile Include="ProcessRegisterForCQIndex.cpp" />
     <ClCompile Include="QueueReader.cpp" />
     <ClCompile Include="QueueWriter.cpp" />

@@ -551,6 +551,9 @@
     <ClCompile Include="ProcessRegisterForCQIndex.cpp">
       <Filter>Source Files\backend\cqindex</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessFlowDrawing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StreamProcessing.rc">

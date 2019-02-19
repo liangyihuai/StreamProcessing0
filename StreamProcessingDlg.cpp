@@ -91,7 +91,6 @@ CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 		\r\nFrom flyingAllyTarget\
 		\r\nThen cepTarget1");
 	
-		
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -202,8 +201,10 @@ void CStreamProcessingDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CStreamProcessingDlg::OnPaint()
-{
+void CStreamProcessingDlg::OnPaint(){
+
+	gui::ProcessFlowDrawing drawing(this);
+
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // device context for painting

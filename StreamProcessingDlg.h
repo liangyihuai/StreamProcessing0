@@ -72,6 +72,12 @@ public:
 	afx_msg void OnBnClickedButtonDeleteRule();
 	afx_msg void OnBnClickedButtonUpdateRule();
 
+
+	/*void DrawEllipse(CDC *pDC);
+	void DrawRect(CDC *pDC);*/
+	//CPen m_pen;
+	//CPoint m_point;
+
 private:
 	void addEventCaptureRule(CString outputStreamName, CString ruleStrs);
 	void addCQRule(CString outputStreamName, CString ruleStrs);
@@ -81,3 +87,26 @@ public:
 	CString outputStreamForUpdate;
 };
 
+namespace gui {
+	//to paint the processing flow graph
+	class ProcessFlowDrawing {
+	public:
+		ProcessFlowDrawing(CStreamProcessingDlg* dlg);
+
+		void DrawEllipse(CDC *pDC, CPoint &relative_center, int radius, CString text);
+		void DrawEllipse(CDC *pDC, int x_off, int y_off, int width, int length, CString text);
+		
+		void DrawRect(CDC *pDC);
+		void DrawArrow(CDC* pdc, CPoint &point1, CPoint &point2, int nFlag);
+		void DrawLine(CDC *pDC, const CPoint &p1, const CPoint &p2);
+		void DrawText(CDC *pDC, int x, int y, CString str);
+
+		void paintStaticGraph(CDC *pDC);
+	private:
+		CPen m_pen;
+		CPoint m_point;
+		int x;
+		int y;
+		CStreamProcessingDlg* dlg;
+	};
+}
