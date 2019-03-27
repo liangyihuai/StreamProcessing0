@@ -126,9 +126,6 @@
     <ClInclude Include="src\execution\event\DerivedEvent.h">
       <Filter>Header Files\backend\execution\event</Filter>
     </ClInclude>
-    <ClInclude Include="src\execution\event\HashEvent.h">
-      <Filter>Header Files\backend\execution\event</Filter>
-    </ClInclude>
     <ClInclude Include="src\execution\event\RadarDerivedEvent.h">
       <Filter>Header Files\backend\execution\event</Filter>
     </ClInclude>
@@ -351,6 +348,9 @@
     <ClInclude Include="src\common\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\common\HashEvent.h">
+      <Filter>Header Files\backend\execution\event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\buffer\DerivedEventStore.cpp">
@@ -376,9 +376,6 @@
     </ClCompile>
     <ClCompile Include="src\cqindex\RTreeCQIndex.cpp">
       <Filter>Source Files\backend\cqindex</Filter>
-    </ClCompile>
-    <ClCompile Include="src\execution\event\HashEvent.cpp">
-      <Filter>Source Files\backend\execution\event</Filter>
     </ClCompile>
     <ClCompile Include="src\execution\event\RadarEvent.cpp">
       <Filter>Source Files\backend\execution\event</Filter>
@@ -556,6 +553,9 @@
     </ClCompile>
     <ClCompile Include="src\util\CQIndexUtils.cpp">
       <Filter>Source Files\backend\cqindex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\HashEvent.cpp">
+      <Filter>Source Files\backend\execution\event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

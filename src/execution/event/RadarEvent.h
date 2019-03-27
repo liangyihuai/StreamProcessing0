@@ -29,163 +29,65 @@ private:
 public:
     RadarEvent(){}
 
-	RadarEvent(long id, long long time) {
-		this->id = id;
-		this->time = time;
-	}
+	RadarEvent(long id, long long time);
 
 
-    void setId(long id) {
-        RadarEvent::id = id;
-    }
+	void setId(long id);
 
-    void setTime(long long int time) {
-        RadarEvent::time = time;
-    }
+	void setTime(long long int time);
 
-    float getSpeed() const {
-        return speed;
-    }
+	float getSpeed() const;
 
-    void setSpeed(float s){
-        this->speed = s;
-    }
+	void setSpeed(float s);
 
-    float getDirection() const {
-        return direction;
-    }
+	float getDirection() const;
 
-    float getElevation() const {
-        return elevation;
-    }
+	float getElevation() const;
 
-    float getElevationAngle() const {
-        return elevationAngle;
-    }
+	float getElevationAngle() const;
 
-    void setElevationAngle(float elevationAngle) {
-        RadarEvent::elevationAngle = elevationAngle;
-    }
+	void setElevationAngle(float elevationAngle);
 
-    float getElectromagnetic() const {
-        return electromagnetic;
-    }
+	float getElectromagnetic() const;
 
-    void setElectromagnetic(float electromagnetic) {
-        RadarEvent::electromagnetic = electromagnetic;
-    }
+	void setElectromagnetic(float electromagnetic);
 
-    void setElevation(float elevation) {
-        RadarEvent::elevation = elevation;
-    }
+	void setElevation(float elevation);
 
-    void setLon(float lon) {
-        RadarEvent::lon = lon;
-    }
+	void setLon(float lon);
 
-    void setLat(float lat) {
-        RadarEvent::lat = lat;
-    }
+	void setLat(float lat);
 
-    void setDirection(float dir){
-        this->direction = dir;
-    }
+	void setDirection(float dir);
 
-    string getIff() const {
-        return iff;
-    }
+	string getIff() const;
 
-    void setIff(string iff) {
-        RadarEvent::iff = iff;
-    }
+	void setIff(string iff);
 
-    float getLon() const {
-        return lon;
-    }
+	float getLon() const;
 
-    float getLat() const {
-        return lat;
-    }
+	float getLat() const;
 
-	long getId() {
-		return id;
-	}
+	long getId();
 
-	long long getTime() {
-		return time;
-	}
+	long long getTime();
 
-	int getInt(string attrName) {
-		std::cout << "no such attribute or not float type, the attrName is: "<<attrName;
-		throw runtime_error("");
-	}
+	int getInt(string attrName);
 
-	float getFloat(string attrName) {
-		if ("lon" == attrName) {
-			return this->lon;
-		}
-		else if ("lat" == attrName) {
-			return this->lat;
-		}
-		else if ("ele" == attrName || "elevation" == attrName) {
-			return this->elevation;
-		}
-		else if ("speed" == attrName) {
-			return this->speed;
-		}
-		else if ("dir" == attrName || "direction" == attrName) {
-			return this->direction;
-		}else if("elevationAngle" == attrName){
-		    return this->elevationAngle;
-		}else if("electromagnetic" == attrName){
-		    return this->electromagnetic;
-		}else if("iff" == attrName){
-		    //return this->iff;
-			std::cout << "the type of IFF is string, it is: " << attrName;
-		    throw runtime_error("");
-		}else {
-			std::cout << "no such attribute or not float type, the attrName is: " << attrName;
-			throw "";
-		}
-	}
+	float getFloat(string attrName);
 
-	string getString(string attrName) {
-        if(attrName == "iff") return iff;
+	string getString(string attrName);
 
-        string result;
-        if(attrName=="id"){
-			return to_string(id);
-        }else if(attrName == "time"){
-			return to_string(time);
-		}else {
-			stringstream ss;
-			ss << getFloat(attrName);
-			ss >> result;
-			return result;
-		}
-	}
-
-	string toString() {
-		stringstream msg;
-		msg << getId() << ", time:";
-		msg << getTime() << ", speed:";
-		msg << getFloat("speed") << ", lon:";
-		msg << getFloat("lon") << ", lat:";
-		msg << getFloat("lat") << ", ele:";
-		msg << getFloat("ele") << ", dir:";
-		msg << getFloat("dir") << ", eleAngle:";
-		msg << getFloat("elevationAngle") << ", elec:";
-		msg << getFloat("electromagnetic") << ", iff:";
-		msg << getString("iff") << ",";
-		return msg.str();
-	}
-
+	string toString();
 
 	//friend ostream& operator << (ostream&, RadarEvent&);
 
-	void print(ostream& out) {
-		out << toString();
-	}
+	void print(ostream& out);
+
+	void setDestination(string _destination);
+
+	//add more attributes "extendedEntry" to the copy of current event.
+	Event* extend(const map<string, string>& extendedEntry);
 };
 
 

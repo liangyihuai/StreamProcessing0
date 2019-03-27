@@ -9,8 +9,7 @@ using namespace std;
 
 
 // CStreamProcessingDlg dialog
-class CStreamProcessingDlg : public CDialogEx
-{
+class CStreamProcessingDlg : public CDialogEx{
 // Construction
 public:
 	CStreamProcessingDlg(CWnd* pParent = nullptr);	// standard constructor
@@ -71,12 +70,6 @@ public:
 	afx_msg void OnBnClickedButtonDisplayAllRule();
 	afx_msg void OnBnClickedButtonDeleteRule();
 	afx_msg void OnBnClickedButtonUpdateRule();
-
-
-	/*void DrawEllipse(CDC *pDC);
-	void DrawRect(CDC *pDC);*/
-	//CPen m_pen;
-	//CPoint m_point;
 
 private:
 	void addEventCaptureRule(CString outputStreamName, CString ruleStrs);

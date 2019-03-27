@@ -39,12 +39,12 @@ public:
         throw runtime_error("not implemented");
     }
 
-    virtual DerivedEventPtr getDerivedEvent(){
+    virtual EventPtr getDerivedEvent(){
 		std::cout << "function is not implemented";
         throw runtime_error("not implemented");
     }
 
-    virtual vector<DerivedEventPtr> getDerivedEventVec(){
+    virtual vector<EventPtr> getDerivedEventVec(){
 		std::cout << "function is not implemented";
         throw runtime_error("not implemented");
     }

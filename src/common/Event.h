@@ -8,6 +8,7 @@
 #include <set>
 #include <memory>
 #include "Consts.h"
+#include <map>
 
 using namespace std;
 //using namespace google;
@@ -37,35 +38,46 @@ public:
 
     virtual long getId(){ return 0L;};
 
+	virtual string getDestination() {
+		return this->destination;
+	};
+
     virtual long long getTime() {return 0LL;};
 
     virtual int getInt(string attrName){
-		std::cout << "function size is not implemented";
+		std::cout << "function size is not implemented" << endl;
         throw runtime_error("");
     }
 
     virtual float getFloat(string attrName){
-		std::cout << "function size is not implemented";
+		std::cout << "function size is not implemented" << endl;
         throw runtime_error("");
     }
 
     virtual string getString(string attrName){
-		std::cout << "function size is not implemented";
+		std::cout << "function size is not implemented" << endl;
         throw runtime_error("");
     }
 
     virtual void print(ostream& out){
-		std::cout << "function size is not implemented";
+		std::cout << "function size is not implemented" << endl;
         throw runtime_error("");
     }
 
 	virtual string toString() = 0;
+
+	virtual void setDestination(string destination) = 0;
+
+	//add more attributes "extendedEntry" to the copy of current event. The current evnet does not change.
+	virtual Event* extend(const map<string, string>& extendedEntry) = 0;
 
 private:
     friend std::ostream& operator<< (std::ostream& os, Event& e);
 
 	//event message or control message, event msg in default.
 	//EventType eventType = EVENT_MSG;
+protected:
+	string destination = "";//the destination the event will be passed to.
 };
 
 

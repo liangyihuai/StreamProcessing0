@@ -10,9 +10,9 @@ public:
 	// CQStoreResultListener(string streamName): stream(streamName){}
 
 	void update(ResultPtr result) {
-		vector<DerivedEventPtr> eventVec = result->getDerivedEventVec();
-		for (DerivedEventPtr ePtr : eventVec) {
-			string streamName = ePtr->getStreamName();
+		vector<EventPtr> eventVec = result->getDerivedEventVec();
+		for (EventPtr ePtr : eventVec) {
+			string streamName = ePtr->getDestination();
 			cout << "----------> time: " << Utils::getTime() << ", complexEvent: " << streamName << endl;
 
 			//cout << endl << streamName << ", " << *(ePtr->getEvent()) << endl;

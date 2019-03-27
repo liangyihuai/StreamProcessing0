@@ -17,8 +17,9 @@ public:
         this->e = eventPtr;
     }
 
-    DerivedEventPtr getDerivedEvent(){
-        return DerivedEventPtr(new DerivedEvent(e, streamName));
+	EventPtr getDerivedEvent(){
+		Event* event = e->extend(map<string, string>());
+		return EventPtr(event);
     }
 };
 #endif //CONTINUOUSPROCESSING_ENHANCEEVENTRESULT_H

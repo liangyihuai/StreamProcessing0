@@ -15,8 +15,8 @@ public:
    // CQStoreResultListener(string streamName): stream(streamName){}
 
     void update(ResultPtr result){
-        DerivedEventPtr derivedEventPtr = result->getDerivedEvent();
-        DerivedEventStore::addEvent(derivedEventPtr->getStreamName(), derivedEventPtr->getEvent());
+        EventPtr derivedEventPtr = result->getDerivedEvent();
+        DerivedEventStore::addEvent(derivedEventPtr->getDestination(), derivedEventPtr);
     }
 
 };

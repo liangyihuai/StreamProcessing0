@@ -68,29 +68,21 @@ CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 {
 	//initialize name and value
 	event_filter_name = _T("targetData");
-
 	event_filter_rule = _T("If not duplicate(id) & not unusual(speed)\
 		\r\nFrom rawData\
 		\r\nThen targetData");
-
 	event_capture_name = _T("allytarget");
-
 	event_capture_rule = _T("If target.iff = ally\
 		\r\nFrom targetData\
 		\r\nThen allytarget");
-
 	cq_name = _T("flyingAllyTarget");
-
 	cq_rule = _T("If speed > 500 & elevation > 200\
 		\r\nFrom allytarget\
 		\r\nThen flyingAllyTarget");
-
 	cep_name = _T("cepTarget1");
-
 	cep_rule = _T("If exist(flyingAllyTarget)\
 		\r\nFrom flyingAllyTarget\
 		\r\nThen cepTarget1");
-	
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -155,14 +147,12 @@ BOOL CStreamProcessingDlg::OnInitDialog(){
 	ASSERT(IDM_ABOUTBOX < 0xF000);
 
 	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != nullptr)
-	{
+	if (pSysMenu != nullptr){
 		BOOL bNameValid;
 		CString strAboutMenu;
 		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
 		ASSERT(bNameValid);
-		if (!strAboutMenu.IsEmpty())
-		{
+		if (!strAboutMenu.IsEmpty()){
 			pSysMenu->AppendMenu(MF_SEPARATOR);
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
@@ -175,19 +165,14 @@ BOOL CStreamProcessingDlg::OnInitDialog(){
 
 	// TODO: Add extra initialization here
 
-
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
-void CStreamProcessingDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
-	{
+void CStreamProcessingDlg::OnSysCommand(UINT nID, LPARAM lParam){
+	if ((nID & 0xFFF0) == IDM_ABOUTBOX){
 		CAboutDlg dlgAbout;
 		dlgAbout.DoModal();
-	}
-	else
-	{
+	}else{
 		CDialogEx::OnSysCommand(nID, lParam);
 	}
 }
@@ -197,11 +182,9 @@ void CStreamProcessingDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  this is automatically done for you by the framework.
 
 void CStreamProcessingDlg::OnPaint(){
-
 	gui::ProcessFlowDrawing drawing(this);
 
-	if (IsIconic())
-	{
+	if (IsIconic()){
 		CPaintDC dc(this); // device context for painting
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
@@ -216,9 +199,7 @@ void CStreamProcessingDlg::OnPaint(){
 
 		// Draw the icon
 		dc.DrawIcon(x, y, m_hIcon);
-	}
-	else
-	{
+	}else{
 		CDialogEx::OnPaint();
 	}
 }

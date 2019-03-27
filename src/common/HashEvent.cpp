@@ -1,9 +1,19 @@
 //
 // Created by USER on 12/4/2018.
 //
-#include "../../stdafx.h"
+#include "../stdafx.h"
 #include "HashEvent.h"
 
+HashEvent::HashEvent(long id, long long time) {
+	stringstream ss;
+	ss << id;
+	addAttr("id", ss.str());
+	stringstream stream;
+	stream << time;
+	string timeStr;
+	stream >> timeStr;
+	addAttr("time", timeStr);
+}
 
 int HashEvent::getInt(string attrName)  {
     if (attrMap.find(attrName) != attrMap.end()) {
@@ -14,7 +24,7 @@ int HashEvent::getInt(string attrName)  {
         return int_temp;
     }
     else {
-		std::cout << "no this element";
+		std::cout << "no this element, attrName is " << attrName;
         throw "";
     }
 }
@@ -27,7 +37,7 @@ float HashEvent::getFloat(string attrName)  {
         return int_temp;
     }
     else {
-		std::cout << "no this element";
+		std::cout << "no this element, attrName is " << attrName;
         throw "";
     }
 }
@@ -37,7 +47,7 @@ string HashEvent::getString(string attrName)  {
         return attrMap[attrName];
     }
     else {
-		std::cout << "no this element";
+		std::cout << "no this element, attrName is "  << attrName;
         throw "no this element";
     }
 }
@@ -66,14 +76,6 @@ void HashEvent::addAttr(string attrName, string value) {
     attrMap[attrName] = value;
 }
 
-void HashEvent::setGroupName(string groupName) {
-    this->eventGroupName = groupName;
-}
-
-bool HashEvent::belongToGroup(string groupName) {
-    return this->eventGroupName == groupName;
-}
-
 long long HashEvent::getTime() {
     string timeStr = getString("time");
     stringstream s(timeStr);
@@ -86,8 +88,6 @@ void HashEvent::print(ostream& out) {
     stringstream msg;
     msg << this->getId() << ",";
     msg <<this->getTime() << ",";
-    msg << this->getEventType() << ",";
-    msg << this->getGroupName();
     msg << "," << attrMap["dir"];
     msg << "," << attrMap["speed"];
     msg << "," << attrMap["ele"];
@@ -96,23 +96,34 @@ void HashEvent::print(ostream& out) {
     out << msg.str();
 }
 
-//
-//void HashEvent::print(ostream& out) {
-//	stringstream msg;
-//	msg << this->getId() << ", ";
-//	msg << this->getEventType() << ", ";
-//	msg << this->getTime() << ", group[";
-//	for (string g : this->groups) {
-//		msg << g << ", ";
-//	}
-//	msg << "]";
-//
-//	map<string, string>::iterator iter = this->attrMap.begin();
-//	while (iter != this->attrMap.end()) {
-//		if (iter->first != "id" && iter->first != "eventType" && iter->first != "time") {
-//			msg << ", " << iter->first << ":" << iter->second;
-//		}
-//		iter++;
-//	}
-//	out << msg.str();
-//}
+string HashEvent::toString() {
+	stringstream msg;
+	msg << getId() << ", time:";
+	msg << getTime() << ", speed:";
+	msg << getFloat("speed") << ", lon:";
+	msg << getFloat("lon") << ", lat:";
+	msg << getFloat("lat") << ", ele:";
+	msg << getFloat("elevation") << ", dir:";
+	msg << getFloat("dir") << ", eleAngle:";
+	msg << getFloat("elevationAngle") << ", elec:";
+	msg << getFloat("electromagnetic") << ", iff:";
+	msg << getString("iff") << ",";
+	return msg.str();
+}
+
+void HashEvent::setDestination(string _destination) {
+	destination = _destination;
+}
+
+Event* HashEvent::extend(const map<string, string>& extendedEntry) {
+	HashEvent* he = new HashEvent(getId(), getTime());
+
+	for (auto iter = extendedEntry.begin(); iter != extendedEntry.end(); iter++) {
+		he->attrMap[iter->first] = iter->second;
+	}
+	for (auto iter = attrMap.begin(); iter != attrMap.end(); iter++) {
+		he->attrMap[iter->first] = iter->second;
+	}
+	
+	return he;
+}

@@ -11,20 +11,20 @@
 
 //the result contains multiple derived events with different stream name.
 class MulStreamResult: public Result{
-    vector<DerivedEventPtr> derivedEvents;
+    vector<EventPtr> derivedEvents;
 public:
-    vector<DerivedEventPtr> getDerivedEventVec(){
+    vector<EventPtr> getDerivedEventVec(){
         return derivedEvents;
     }
 
-    void addDeriveEventPtr(DerivedEventPtr e){
+    void addDeriveEventPtr(EventPtr e){
         derivedEvents.push_back(e);
     }
 
     void addDeriveEventPtr(string s){
 		EventPtr newEvent(new RadarEvent(Utils::id++, Utils::getTime()));
-		DerivedEventPtr e(new DerivedEvent(newEvent, s));
-		derivedEvents.push_back(e);
+		newEvent->setDestination(s);
+		derivedEvents.push_back(newEvent);
     }
 };
 
