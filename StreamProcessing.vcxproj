@@ -212,13 +212,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\common\Logger.h" />
+    <ClInclude Include="src\execution\result\BoolResult.h" />
+    <ClInclude Include="src\execution\result\CEPPrintResultListener.h" />
+    <ClInclude Include="src\execution\result\CEPStoreResultListener.h" />
+    <ClInclude Include="src\execution\result\CQStoreResultListener.h" />
+    <ClInclude Include="src\execution\result\DoubleResult.h" />
+    <ClInclude Include="src\execution\result\EnhanceEventResult.h" />
+    <ClInclude Include="src\execution\result\LongResult.h" />
+    <ClInclude Include="src\execution\result\MulStreamResult.h" />
+    <ClInclude Include="src\execution\result\Result.h" />
+    <ClInclude Include="src\execution\result\ResultListener.h" />
     <ClInclude Include="src\expression\And.h" />
     <ClInclude Include="src\op\Average.h" />
-    <ClInclude Include="src\execution\result\BoolResult.h" />
     <ClInclude Include="src\execution\CEPProcess.h" />
     <ClInclude Include="src\spec\CEPSpec.h" />
     <ClInclude Include="src\spec\CEPSpecParser.h" />
-    <ClInclude Include="src\execution\result\CEPStoreResultListener.h" />
     <ClInclude Include="src\expression\Condition.h" />
     <ClInclude Include="src\common\Config.h" />
     <ClInclude Include="src\common\Consts.h" />
@@ -227,12 +235,8 @@
     <ClInclude Include="src\execution\CQProcess.h" />
     <ClInclude Include="src\spec\CQSpec.h" />
     <ClInclude Include="src\spec\CQSpecParser.h" />
-    <ClInclude Include="src\execution\result\CQStoreResultListener.h" />
-    <ClInclude Include="src\execution\event\DerivedEvent.h" />
     <ClInclude Include="src\buffer\DerivedEventStore.h" />
     <ClInclude Include="src\op\DistanceOp.h" />
-    <ClInclude Include="src\execution\result\DoubleResult.h" />
-    <ClInclude Include="src\execution\result\EnhanceEventResult.h" />
     <ClInclude Include="src\expression\EqualString.h" />
     <ClInclude Include="src\common\Event.h" />
     <ClInclude Include="src\execution\EventCapture.h" />
@@ -253,10 +257,8 @@
     <ClInclude Include="src\cqindex\CQIndex.h" />
     <ClInclude Include="src\expression\LessThanFloat.h" />
     <ClInclude Include="src\expression\LessThanOpPreDouble.h" />
-    <ClInclude Include="src\execution\result\LongResult.h" />
     <ClInclude Include="src\op\Max.h" />
     <ClInclude Include="src\op\Min.h" />
-    <ClInclude Include="src\execution\result\MulStreamResult.h" />
     <ClInclude Include="src\op\Operator.h" />
     <ClInclude Include="src\expression\OperatorPredicate.h" />
     <ClInclude Include="src\op\OperatorRegister.h" />
@@ -268,14 +270,8 @@
     <ClInclude Include="src\buffer\Queue.h" />
     <ClInclude Include="src\buffer\QueueReader.h" />
     <ClInclude Include="src\buffer\QueueWriter.h" />
-    <ClInclude Include="src\execution\event\RadarDerivedEvent.h" />
-    <ClInclude Include="src\execution\event\RadarEvent.h" />
     <ClInclude Include="src\Resource.h" />
-    <ClInclude Include="src\execution\result\Result.h" />
-    <ClInclude Include="src\execution\result\ResultListener.h" />
     <ClInclude Include="src\cqindex\RTreeCQIndex.h" />
-    <ClInclude Include="src\buffer\SharedQueueReader.h" />
-    <ClInclude Include="src\buffer\SharedQueueWriter.h" />
     <ClInclude Include="src\common\SinkType.h" />
     <ClInclude Include="src\execution\win\SlidingWindow.h" />
     <ClInclude Include="src\execution\win\SlidingWindowOfCount.h" />
@@ -396,10 +392,7 @@
     <ClCompile Include="src\cqindex\ProcessRegisterForCQIndex.cpp" />
     <ClCompile Include="src\buffer\QueueReader.cpp" />
     <ClCompile Include="src\buffer\QueueWriter.cpp" />
-    <ClCompile Include="src\execution\event\RadarEvent.cpp" />
     <ClCompile Include="src\cqindex\RTreeCQIndex.cpp" />
-    <ClCompile Include="src\buffer\SharedQueueReader.cpp" />
-    <ClCompile Include="src\buffer\SharedQueueWriter.cpp" />
     <ClCompile Include="src\execution\win\SlidingWindow.cpp" />
     <ClCompile Include="src\spec\SpecParser.cpp" />
     <ClCompile Include="src\spec\SpecRegister.cpp" />

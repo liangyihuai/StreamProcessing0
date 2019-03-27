@@ -7,17 +7,16 @@
 
 #include "ResultListener.h"
 #include "../../buffer/DerivedEventStore.h"
-#include "../event/DerivedEvent.h"
 
-class CQStoreResultListener: public ResultListener{
-    //string stream;
+class CQStoreResultListener : public ResultListener {
+	//string stream;
 public:
-   // CQStoreResultListener(string streamName): stream(streamName){}
+	// CQStoreResultListener(string streamName): stream(streamName){}
 
-    void update(ResultPtr result){
-        EventPtr derivedEventPtr = result->getDerivedEvent();
-        DerivedEventStore::addEvent(derivedEventPtr->getDestination(), derivedEventPtr);
-    }
+	void update(ResultPtr result) {
+		EventPtr derivedEventPtr = result->getDerivedEvent();
+		DerivedEventStore::addEvent(derivedEventPtr->getDestination(), derivedEventPtr);
+	}
 
 };
 

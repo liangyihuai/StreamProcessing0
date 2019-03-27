@@ -52,8 +52,6 @@
 #include "execution/result/DoubleResult.h"
 #include "execution/result/LongResult.h"
 #include "execution/result/BoolResult.h"
-#include "execution/event/RadarEvent.h"
-
 #include "common/Event.h"
 #include "util/Utils.h"
 #include "util/EventGenerator.h"

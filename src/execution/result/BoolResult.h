@@ -17,5 +17,4 @@ public:
 	bool getBool() {
 		return value;
 	};
-
 };

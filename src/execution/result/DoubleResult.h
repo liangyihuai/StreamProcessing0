@@ -7,21 +7,21 @@
 
 #include "Result.h"
 
-class DoubleResult: public Result{
+class DoubleResult : public Result {
 private:
-    double value;
+	double value;
 public:
-    DoubleResult() {}
+	DoubleResult() {}
 
-    DoubleResult(double value) : value(value) {}
+	DoubleResult(double value) : value(value) {}
 
-    void setValue(double v){
-        this->value = v;
-    }
+	void setValue(double v) {
+		this->value = v;
+	}
 
-    double getDouble(){
-        return value;
-    };
+	double getDouble() {
+		return value;
+	};
 
 };
 

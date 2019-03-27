@@ -7,22 +7,22 @@
 
 #include "Result.h"
 
-class LongResult: public Result {
+class LongResult : public Result {
 private:
-    long value;
+	long value;
 public:
-    LongResult() {}
+	LongResult() {}
 
-    LongResult(long value) : value(value) {}
+	LongResult(long value) : value(value) {}
 
 
-    void setValue(long v){
-        this->value = v;
-    }
+	void setValue(long v) {
+		this->value = v;
+	}
 
-    long getLong(){
-        return value;
-    }
+	long getLong() {
+		return value;
+	}
 };
 
 

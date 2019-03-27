@@ -9,7 +9,7 @@
 
 class ResultListener {
 public:
-    virtual void update(ResultPtr result) = 0;
+	virtual void update(ResultPtr result) = 0;
 };
 
 #endif //CONTINUOUSPROCESSING_RESULTLISTENER_H

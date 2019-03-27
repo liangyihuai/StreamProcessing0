@@ -99,12 +99,6 @@
     <ClInclude Include="src\buffer\QueueWriter.h">
       <Filter>Header Files\backend\buffer</Filter>
     </ClInclude>
-    <ClInclude Include="src\buffer\SharedQueueReader.h">
-      <Filter>Header Files\backend\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\buffer\SharedQueueWriter.h">
-      <Filter>Header Files\backend\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="src\common\Event.h">
       <Filter>Header Files\backend\common</Filter>
     </ClInclude>
@@ -122,15 +116,6 @@
     </ClInclude>
     <ClInclude Include="src\cqindex\RTreeCQIndex.h">
       <Filter>Header Files\backend\cqindex</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\event\DerivedEvent.h">
-      <Filter>Header Files\backend\execution\event</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\event\RadarDerivedEvent.h">
-      <Filter>Header Files\backend\execution\event</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\event\RadarEvent.h">
-      <Filter>Header Files\backend\execution\event</Filter>
     </ClInclude>
     <ClInclude Include="src\execution\win\SlidingWindow.h">
       <Filter>Header Files\backend\execution\win</Filter>
@@ -312,33 +297,6 @@
     <ClInclude Include="src\util\CQIndexUtils.h">
       <Filter>Header Files\backend\cqindex</Filter>
     </ClInclude>
-    <ClInclude Include="src\execution\result\BoolResult.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\CEPStoreResultListener.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\CQStoreResultListener.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\DoubleResult.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\EnhanceEventResult.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\LongResult.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\MulStreamResult.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\Result.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\ResultListener.h">
-      <Filter>Header Files\backend\execution\results</Filter>
-    </ClInclude>
     <ClInclude Include="src\util\EventGenerator.h">
       <Filter>Header Files\backend</Filter>
     </ClInclude>
@@ -351,6 +309,36 @@
     <ClInclude Include="src\common\HashEvent.h">
       <Filter>Header Files\backend\execution\event</Filter>
     </ClInclude>
+    <ClInclude Include="src\execution\result\BoolResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\LongResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\CEPStoreResultListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\CQStoreResultListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\DoubleResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\EnhanceEventResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\Result.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\ResultListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\MulStreamResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\CEPPrintResultListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\buffer\DerivedEventStore.cpp">
@@ -362,12 +350,6 @@
     <ClCompile Include="src\buffer\QueueWriter.cpp">
       <Filter>Source Files\backend\buffer</Filter>
     </ClCompile>
-    <ClCompile Include="src\buffer\SharedQueueReader.cpp">
-      <Filter>Source Files\backend\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\buffer\SharedQueueWriter.cpp">
-      <Filter>Source Files\backend\buffer</Filter>
-    </ClCompile>
     <ClCompile Include="src\common\Event.cpp">
       <Filter>Source Files\backend\execution\event</Filter>
     </ClCompile>
@@ -376,9 +358,6 @@
     </ClCompile>
     <ClCompile Include="src\cqindex\RTreeCQIndex.cpp">
       <Filter>Source Files\backend\cqindex</Filter>
-    </ClCompile>
-    <ClCompile Include="src\execution\event\RadarEvent.cpp">
-      <Filter>Source Files\backend\execution\event</Filter>
     </ClCompile>
     <ClCompile Include="src\execution\win\SlidingWindow.cpp">
       <Filter>Source Files\backend\execution\win</Filter>

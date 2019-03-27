@@ -9,45 +9,44 @@
 #include <memory>
 #include <stdexcept>
 #include "../../common/Event.h"
-#include "../event/DerivedEvent.h"
 #include <vector>
 
-class Result{
+class Result {
 public:
-    virtual double getDouble(){
+	virtual double getDouble() {
 		std::cout << "function is not implemented";
-        throw runtime_error("not implemented");
-    };
+		throw runtime_error("not implemented");
+	};
 
-    virtual long getLong(){
+	virtual long getLong() {
 		std::cout << "function is not implemented";
-        throw runtime_error("not implemented");
-    }
+		throw runtime_error("not implemented");
+	}
 
-    virtual bool getBool(){
+	virtual bool getBool() {
 		std::cout << "function is not implemented";
-        throw runtime_error("not implemented");
-    }
+		throw runtime_error("not implemented");
+	}
 
-    virtual EventPtr getEvent(){
+	virtual EventPtr getEvent() {
 		std::cout << "function is not implemented";
-        throw runtime_error("not implemented");
-    }
+		throw runtime_error("not implemented");
+	}
 
-    virtual vector<EventPtr> getEventVec(){
+	virtual vector<EventPtr> getEventVec() {
 		std::cout << "function is not implemented";
-        throw runtime_error("not implemented");
-    }
+		throw runtime_error("not implemented");
+	}
 
-    virtual EventPtr getDerivedEvent(){
+	virtual EventPtr getDerivedEvent() {
 		std::cout << "function is not implemented";
-        throw runtime_error("not implemented");
-    }
+		throw runtime_error("not implemented");
+	}
 
-    virtual vector<EventPtr> getDerivedEventVec(){
+	virtual vector<EventPtr> getDerivedEventVec() {
 		std::cout << "function is not implemented";
-        throw runtime_error("not implemented");
-    }
+		throw runtime_error("not implemented");
+	}
 
 };
 
