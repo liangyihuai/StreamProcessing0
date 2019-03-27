@@ -88,7 +88,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -99,8 +99,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\glob_lib;C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>spatialindex-32.lib;glog.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>spatialindex-32.lib;</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -115,7 +115,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -126,8 +126,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\glob_lib;C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>spatialindex-32.lib;glog.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>spatialindex-32.lib;</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -142,7 +142,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -157,8 +157,8 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\glob_lib;C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>spatialindex-32.lib;glog.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>spatialindex-32.lib;</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -173,7 +173,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -188,8 +188,8 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\glob_lib;C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>spatialindex-32.lib;glog.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>spatialindex-32.lib;</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -203,278 +203,279 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="And.h" />
-    <ClInclude Include="Average.h" />
-    <ClInclude Include="BoolResult.h" />
-    <ClInclude Include="CEPProcess.h" />
-    <ClInclude Include="CEPSpec.h" />
-    <ClInclude Include="CEPSpecParser.h" />
-    <ClInclude Include="CEPStoreResultListener.h" />
-    <ClInclude Include="Condition.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="Consts.h" />
-    <ClInclude Include="Count.h" />
-    <ClInclude Include="CQIndexUtils.h" />
-    <ClInclude Include="CQProcess.h" />
-    <ClInclude Include="CQSpec.h" />
-    <ClInclude Include="CQSpecParser.h" />
-    <ClInclude Include="CQStoreResultListener.h" />
-    <ClInclude Include="DerivedEvent.h" />
-    <ClInclude Include="DerivedEventStore.h" />
-    <ClInclude Include="DistanceOp.h" />
-    <ClInclude Include="DoubleResult.h" />
-    <ClInclude Include="EnhanceEventResult.h" />
-    <ClInclude Include="EqualString.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="EventCapture.h" />
-    <ClInclude Include="EventCaptureSpec.h" />
-    <ClInclude Include="EventCaptureSpecParser.h" />
-    <ClInclude Include="EventFilterSpec.h" />
-    <ClInclude Include="EventFilterSpecParser.h" />
-    <ClInclude Include="EventGenerator.h" />
-    <ClInclude Include="EventProcess.h" />
-    <ClInclude Include="ExecuteScheduler.h" />
-    <ClInclude Include="Executor.h" />
-    <ClInclude Include="ExistOp.h" />
-    <ClInclude Include="FileReaderUtils.h" />
-    <ClInclude Include="GreaterEqualThanInt.h" />
-    <ClInclude Include="GreaterThanFloat.h" />
-    <ClInclude Include="GreatThanOpPreDouble.h" />
-    <ClInclude Include="HashEvent.h" />
-    <ClInclude Include="CQIndex.h" />
-    <ClInclude Include="LessThanFloat.h" />
-    <ClInclude Include="LessThanOpPreDouble.h" />
-    <ClInclude Include="LongResult.h" />
-    <ClInclude Include="Max.h" />
-    <ClInclude Include="Min.h" />
-    <ClInclude Include="MulStreamResult.h" />
-    <ClInclude Include="Operator.h" />
-    <ClInclude Include="OperatorPredicate.h" />
-    <ClInclude Include="OperatorRegister.h" />
-    <ClInclude Include="OutsideAreaOp.h" />
-    <ClInclude Include="Predicate.h" />
-    <ClInclude Include="PredicateBase.h" />
-    <ClInclude Include="Process.h" />
-    <ClInclude Include="ProcessRegisterForCQIndex.h" />
-    <ClInclude Include="Queue.h" />
-    <ClInclude Include="QueueReader.h" />
-    <ClInclude Include="QueueWriter.h" />
-    <ClInclude Include="RadarDerivedEvent.h" />
-    <ClInclude Include="RadarEvent.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="Result.h" />
-    <ClInclude Include="ResultListener.h" />
-    <ClInclude Include="RTreeCQIndex.h" />
-    <ClInclude Include="SharedQueueReader.h" />
-    <ClInclude Include="SharedQueueWriter.h" />
-    <ClInclude Include="SinkType.h" />
-    <ClInclude Include="SlidingWindow.h" />
-    <ClInclude Include="SlidingWindowOfCount.h" />
-    <ClInclude Include="SlidingWindowOfTime.h" />
-    <ClInclude Include="Spec.h" />
-    <ClInclude Include="SpecParser.h" />
-    <ClInclude Include="SpecRegister.h" />
-    <ClInclude Include="SpecUtils.h" />
-    <ClInclude Include="StatefulOperator.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="StreamProcessing.h" />
-    <ClInclude Include="StreamProcessingDlg.h" />
-    <ClInclude Include="Sum.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="ThreadOfInputStreamPrint.h" />
-    <ClInclude Include="TruePredicate.h" />
-    <ClInclude Include="TumbleCountWindow.h" />
-    <ClInclude Include="TumbleTimeWindow.h" />
-    <ClInclude Include="TumbleWindow.h" />
-    <ClInclude Include="Utils.h" />
-    <ClInclude Include="Window.h" />
-    <ClInclude Include="WindowBase.h" />
-    <ClInclude Include="WithinAreaOp.h" />
+    <ClInclude Include="src\common\Logger.h" />
+    <ClInclude Include="src\expression\And.h" />
+    <ClInclude Include="src\op\Average.h" />
+    <ClInclude Include="src\execution\result\BoolResult.h" />
+    <ClInclude Include="src\execution\CEPProcess.h" />
+    <ClInclude Include="src\spec\CEPSpec.h" />
+    <ClInclude Include="src\spec\CEPSpecParser.h" />
+    <ClInclude Include="src\execution\result\CEPStoreResultListener.h" />
+    <ClInclude Include="src\expression\Condition.h" />
+    <ClInclude Include="src\common\Config.h" />
+    <ClInclude Include="src\common\Consts.h" />
+    <ClInclude Include="src\op\Count.h" />
+    <ClInclude Include="src\util\CQIndexUtils.h" />
+    <ClInclude Include="src\execution\CQProcess.h" />
+    <ClInclude Include="src\spec\CQSpec.h" />
+    <ClInclude Include="src\spec\CQSpecParser.h" />
+    <ClInclude Include="src\execution\result\CQStoreResultListener.h" />
+    <ClInclude Include="src\execution\event\DerivedEvent.h" />
+    <ClInclude Include="src\buffer\DerivedEventStore.h" />
+    <ClInclude Include="src\op\DistanceOp.h" />
+    <ClInclude Include="src\execution\result\DoubleResult.h" />
+    <ClInclude Include="src\execution\result\EnhanceEventResult.h" />
+    <ClInclude Include="src\expression\EqualString.h" />
+    <ClInclude Include="src\common\Event.h" />
+    <ClInclude Include="src\execution\EventCapture.h" />
+    <ClInclude Include="src\spec\EventCaptureSpec.h" />
+    <ClInclude Include="src\spec\EventCaptureSpecParser.h" />
+    <ClInclude Include="src\spec\EventFilterSpec.h" />
+    <ClInclude Include="src\spec\EventFilterSpecParser.h" />
+    <ClInclude Include="src\util\EventGenerator.h" />
+    <ClInclude Include="src\execution\EventProcess.h" />
+    <ClInclude Include="src\execution\ExecuteScheduler.h" />
+    <ClInclude Include="src\execution\Executor.h" />
+    <ClInclude Include="src\op\ExistOp.h" />
+    <ClInclude Include="src\util\FileReaderUtils.h" />
+    <ClInclude Include="src\expression\GreaterEqualThanInt.h" />
+    <ClInclude Include="src\expression\GreaterThanFloat.h" />
+    <ClInclude Include="src\expression\GreatThanOpPreDouble.h" />
+    <ClInclude Include="src\execution\event\HashEvent.h" />
+    <ClInclude Include="src\cqindex\CQIndex.h" />
+    <ClInclude Include="src\expression\LessThanFloat.h" />
+    <ClInclude Include="src\expression\LessThanOpPreDouble.h" />
+    <ClInclude Include="src\execution\result\LongResult.h" />
+    <ClInclude Include="src\op\Max.h" />
+    <ClInclude Include="src\op\Min.h" />
+    <ClInclude Include="src\execution\result\MulStreamResult.h" />
+    <ClInclude Include="src\op\Operator.h" />
+    <ClInclude Include="src\expression\OperatorPredicate.h" />
+    <ClInclude Include="src\op\OperatorRegister.h" />
+    <ClInclude Include="src\op\OutsideAreaOp.h" />
+    <ClInclude Include="src\expression\Predicate.h" />
+    <ClInclude Include="src\expression\PredicateBase.h" />
+    <ClInclude Include="src\execution\Process.h" />
+    <ClInclude Include="src\cqindex\ProcessRegisterForCQIndex.h" />
+    <ClInclude Include="src\buffer\Queue.h" />
+    <ClInclude Include="src\buffer\QueueReader.h" />
+    <ClInclude Include="src\buffer\QueueWriter.h" />
+    <ClInclude Include="src\execution\event\RadarDerivedEvent.h" />
+    <ClInclude Include="src\execution\event\RadarEvent.h" />
+    <ClInclude Include="src\Resource.h" />
+    <ClInclude Include="src\execution\result\Result.h" />
+    <ClInclude Include="src\execution\result\ResultListener.h" />
+    <ClInclude Include="src\cqindex\RTreeCQIndex.h" />
+    <ClInclude Include="src\buffer\SharedQueueReader.h" />
+    <ClInclude Include="src\buffer\SharedQueueWriter.h" />
+    <ClInclude Include="src\common\SinkType.h" />
+    <ClInclude Include="src\execution\win\SlidingWindow.h" />
+    <ClInclude Include="src\execution\win\SlidingWindowOfCount.h" />
+    <ClInclude Include="src\execution\win\SlidingWindowOfTime.h" />
+    <ClInclude Include="src\spec\Spec.h" />
+    <ClInclude Include="src\spec\SpecParser.h" />
+    <ClInclude Include="src\spec\SpecRegister.h" />
+    <ClInclude Include="src\util\SpecUtils.h" />
+    <ClInclude Include="src\op\StatefulOperator.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\gui\StreamProcessing.h" />
+    <ClInclude Include="src\gui\StreamProcessingDlg.h" />
+    <ClInclude Include="src\op\Sum.h" />
+    <ClInclude Include="src\targetver.h" />
+    <ClInclude Include="src\gui\ThreadOfInputStreamPrint.h" />
+    <ClInclude Include="src\expression\TruePredicate.h" />
+    <ClInclude Include="src\execution\win\TumbleCountWindow.h" />
+    <ClInclude Include="src\execution\win\TumbleTimeWindow.h" />
+    <ClInclude Include="src\execution\win\TumbleWindow.h" />
+    <ClInclude Include="src\util\Utils.h" />
+    <ClInclude Include="src\execution\win\Window.h" />
+    <ClInclude Include="src\execution\win\WindowBase.h" />
+    <ClInclude Include="src\op\WithinAreaOp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Average.cpp" />
-    <ClCompile Include="CEPProcess.cpp" />
-    <ClCompile Include="CEPSpec.cpp" />
-    <ClCompile Include="CEPSpecParser.cpp" />
-    <ClCompile Include="CEPTest_Spec1.cpp">
+    <ClCompile Include="src\op\Average.cpp" />
+    <ClCompile Include="src\execution\CEPProcess.cpp" />
+    <ClCompile Include="src\spec\CEPSpec.cpp" />
+    <ClCompile Include="src\spec\CEPSpecParser.cpp" />
+    <ClCompile Include="src\test\CEPTest_Spec1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="CEPTest_Spec2.cpp">
+    <ClCompile Include="src\test\CEPTest_Spec2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="CEP_SpecTest.cpp">
+    <ClCompile Include="src\test\CEP_SpecTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Condition.cpp" />
-    <ClCompile Include="Count.cpp" />
-    <ClCompile Include="CQIndexUtils.cpp" />
-    <ClCompile Include="CQProcess.cpp" />
-    <ClCompile Include="CQSpec.cpp" />
-    <ClCompile Include="CQSpecParser.cpp" />
-    <ClCompile Include="CQ_SpecTest.cpp">
+    <ClCompile Include="src\expression\Condition.cpp" />
+    <ClCompile Include="src\op\Count.cpp" />
+    <ClCompile Include="src\util\CQIndexUtils.cpp" />
+    <ClCompile Include="src\execution\CQProcess.cpp" />
+    <ClCompile Include="src\spec\CQSpec.cpp" />
+    <ClCompile Include="src\spec\CQSpecParser.cpp" />
+    <ClCompile Include="src\test\CQ_SpecTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="CQ_SpecTest2.cpp">
+    <ClCompile Include="src\test\CQ_SpecTest2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="DerivedEventStore.cpp" />
-    <ClCompile Include="DistanceOp.cpp" />
-    <ClCompile Include="Event.cpp" />
-    <ClCompile Include="EventCapture.cpp" />
-    <ClCompile Include="EventCaptureSpec.cpp" />
-    <ClCompile Include="EventCapture_SpecTest.cpp">
+    <ClCompile Include="src\buffer\DerivedEventStore.cpp" />
+    <ClCompile Include="src\op\DistanceOp.cpp" />
+    <ClCompile Include="src\common\Event.cpp" />
+    <ClCompile Include="src\execution\EventCapture.cpp" />
+    <ClCompile Include="src\spec\EventCaptureSpec.cpp" />
+    <ClCompile Include="src\test\EventCapture_SpecTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="EventFilterSpec.cpp" />
-    <ClCompile Include="EventFilterSpecParser.cpp" />
-    <ClCompile Include="EventFilter_SpecTest.cpp">
+    <ClCompile Include="src\spec\EventFilterSpec.cpp" />
+    <ClCompile Include="src\spec\EventFilterSpecParser.cpp" />
+    <ClCompile Include="src\test\EventFilter_SpecTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="EventProcess.cpp" />
-    <ClCompile Include="EventProcessTest.cpp">
+    <ClCompile Include="src\execution\EventProcess.cpp" />
+    <ClCompile Include="src\test\EventProcessTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="ExecuteScheduler.cpp" />
-    <ClCompile Include="ExistOp.cpp" />
-    <ClCompile Include="GlogTest.cpp">
+    <ClCompile Include="src\execution\ExecuteScheduler.cpp" />
+    <ClCompile Include="src\op\ExistOp.cpp" />
+    <ClCompile Include="src\test\GlogTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="HashEvent.cpp" />
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\execution\event\HashEvent.cpp" />
+    <ClCompile Include="src\test\main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Main2.cpp">
+    <ClCompile Include="src\test\Main2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Max.cpp" />
-    <ClCompile Include="Min.cpp" />
-    <ClCompile Include="OperatorRegister.cpp" />
-    <ClCompile Include="OutsideAreaOp.cpp" />
-    <ClCompile Include="ProcessFlowDrawing.cpp" />
-    <ClCompile Include="ProcessRegisterForCQIndex.cpp" />
-    <ClCompile Include="QueueReader.cpp" />
-    <ClCompile Include="QueueWriter.cpp" />
-    <ClCompile Include="RadarEvent.cpp" />
-    <ClCompile Include="RTreeCQIndex.cpp" />
-    <ClCompile Include="SharedQueueReader.cpp" />
-    <ClCompile Include="SharedQueueWriter.cpp" />
-    <ClCompile Include="SlidingWindow.cpp" />
-    <ClCompile Include="SpecParser.cpp" />
-    <ClCompile Include="SpecRegister.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="src\op\Max.cpp" />
+    <ClCompile Include="src\op\Min.cpp" />
+    <ClCompile Include="src\op\OperatorRegister.cpp" />
+    <ClCompile Include="src\op\OutsideAreaOp.cpp" />
+    <ClCompile Include="src\gui\ProcessFlowDrawing.cpp" />
+    <ClCompile Include="src\cqindex\ProcessRegisterForCQIndex.cpp" />
+    <ClCompile Include="src\buffer\QueueReader.cpp" />
+    <ClCompile Include="src\buffer\QueueWriter.cpp" />
+    <ClCompile Include="src\execution\event\RadarEvent.cpp" />
+    <ClCompile Include="src\cqindex\RTreeCQIndex.cpp" />
+    <ClCompile Include="src\buffer\SharedQueueReader.cpp" />
+    <ClCompile Include="src\buffer\SharedQueueWriter.cpp" />
+    <ClCompile Include="src\execution\win\SlidingWindow.cpp" />
+    <ClCompile Include="src\spec\SpecParser.cpp" />
+    <ClCompile Include="src\spec\SpecRegister.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="StreamProcessing.cpp" />
-    <ClCompile Include="StreamProcessingDlg.cpp" />
-    <ClCompile Include="Sum.cpp" />
-    <ClCompile Include="TestCQProcess.cpp">
+    <ClCompile Include="src\gui\StreamProcessing.cpp" />
+    <ClCompile Include="src\gui\StreamProcessingDlg.cpp" />
+    <ClCompile Include="src\op\Sum.cpp" />
+    <ClCompile Include="src\test\TestCQProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestEventCapture.cpp">
+    <ClCompile Include="src\test\TestEventCapture.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestEventCapture_CQ_CEP.cpp">
+    <ClCompile Include="src\test\TestEventCapture_CQ_CEP.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestEventProcess.cpp">
+    <ClCompile Include="src\test\TestEventProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestHybridRegion.cpp">
+    <ClCompile Include="src\test\TestHybridRegion.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestOperatorPredicate.cpp">
+    <ClCompile Include="src\test\TestOperatorPredicate.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestSharedQueue.cpp">
+    <ClCompile Include="src\test\TestSharedQueue.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TestSharedQueue2.cpp">
+    <ClCompile Include="src\test\TestSharedQueue2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Test_largetObject2.cpp">
+    <ClCompile Include="src\test\Test_largetObject2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="ThreadOfInputStreamPrint.cpp" />
-    <ClCompile Include="ThreadTest1.cpp">
+    <ClCompile Include="src\gui\ThreadOfInputStreamPrint.cpp" />
+    <ClCompile Include="src\test\ThreadTest1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TimerTest.cpp">
+    <ClCompile Include="src\test\TimerTest.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TumbleCountWindow.cpp" />
-    <ClCompile Include="TumbleTimeWindow.cpp" />
-    <ClCompile Include="TumbleWindow.cpp" />
-    <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="WithinAreaOp.cpp" />
+    <ClCompile Include="src\execution\win\TumbleCountWindow.cpp" />
+    <ClCompile Include="src\execution\win\TumbleTimeWindow.cpp" />
+    <ClCompile Include="src\execution\win\TumbleWindow.cpp" />
+    <ClCompile Include="src\util\Utils.cpp" />
+    <ClCompile Include="src\op\WithinAreaOp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StreamProcessing.rc" />
@@ -486,18 +487,18 @@
     <Image Include="res\StreamProcessing.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="CEPSpec.txt" />
-    <Text Include="cep_spec.txt" />
-    <Text Include="cep_spec2.txt" />
-    <Text Include="CQSpec.txt" />
-    <Text Include="CQSpecTest2.txt" />
-    <Text Include="cq_spec.txt" />
-    <Text Include="cq_spec2.txt" />
-    <Text Include="EventCaptureSpec.txt" />
-    <Text Include="EventFilterSpec.txt" />
-    <Text Include="event_capture_spec.txt" />
-    <Text Include="event_capture_spec2.txt" />
-    <Text Include="GUI1.txt" />
+    <Text Include="src\spec_text\CEPSpec.txt" />
+    <Text Include="src\spec_text\cep_spec.txt" />
+    <Text Include="src\spec_text\cep_spec2.txt" />
+    <Text Include="src\spec_text\CQSpec.txt" />
+    <Text Include="src\spec_text\CQSpecTest2.txt" />
+    <Text Include="src\spec_text\cq_spec.txt" />
+    <Text Include="src\spec_text\cq_spec2.txt" />
+    <Text Include="src\spec_text\EventCaptureSpec.txt" />
+    <Text Include="src\spec_text\EventFilterSpec.txt" />
+    <Text Include="src\spec_text\event_capture_spec.txt" />
+    <Text Include="src\spec_text\event_capture_spec2.txt" />
+    <Text Include="src\spec_text\GUI1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
