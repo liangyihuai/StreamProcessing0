@@ -10,10 +10,9 @@
 #include "Process.h"
 #include <vector>
 #include "../expression/Condition.h"
-#include "../op/Operator.h"
+#include "../op/inter/Operator.h"
 #include "win/Window.h"
 #include "../expression/OperatorPredicate.h"
-#include "result/EnhanceEventResult.h"
 #include <unordered_map>
 #include <queue>
 #include <set>

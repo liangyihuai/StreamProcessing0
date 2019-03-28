@@ -49,3 +49,7 @@ StatefulOperator* Average::clone() {
 	}
 	return newSumOp;
 }
+
+void Average::setWindow(Window *win) {
+	this->window = win;
+}

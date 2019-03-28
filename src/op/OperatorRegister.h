@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../stdafx.h"
-#include "Operator.h"
+#include "inter/Operator.h"
 #include "DistanceOp.h"
 #include "Count.h"
 #include "Sum.h"

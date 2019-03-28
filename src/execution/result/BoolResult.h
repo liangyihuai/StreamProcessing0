@@ -14,7 +14,7 @@ public:
 		this->value = v;
 	}
 
-	bool getBool() {
+	bool getBool() override{
 		return value;
 	};
 };

@@ -1,12 +1,6 @@
-//
-// Created by USER on 12/5/2018.
-//
+#pragma once
 
-#ifndef CONTINUOUSPROCESSING_MAX_H
-#define CONTINUOUSPROCESSING_MAX_H
-
-
-#include "StatefulOperator.h"
+#include "inter/StatefulOperator.h"
 #include "../execution/result/Result.h"
 #include "../execution/result/DoubleResult.h"
 
@@ -30,5 +24,3 @@ public:
 };
 
 
-
-#endif //CONTINUOUSPROCESSING_MAX_H

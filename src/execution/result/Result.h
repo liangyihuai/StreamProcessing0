@@ -5,7 +5,6 @@
 #ifndef CONTINUOUSPROCESSING_RESULT_H
 #define CONTINUOUSPROCESSING_RESULT_H
 
-
 #include <memory>
 #include <stdexcept>
 #include "../../common/Event.h"
@@ -34,16 +33,6 @@ public:
 	}
 
 	virtual vector<EventPtr> getEventVec() {
-		std::cout << "function is not implemented";
-		throw runtime_error("not implemented");
-	}
-
-	virtual EventPtr getDerivedEvent() {
-		std::cout << "function is not implemented";
-		throw runtime_error("not implemented");
-	}
-
-	virtual vector<EventPtr> getDerivedEventVec() {
 		std::cout << "function is not implemented";
 		throw runtime_error("not implemented");
 	}

@@ -5,7 +5,7 @@
 #ifndef CONTINUOUSPROCESSING_DISTANCEOP_H
 #define CONTINUOUSPROCESSING_DISTANCEOP_H
 
-#include "Operator.h"
+#include "inter/Operator.h"
 
 //DoubleResult
 class DistanceOp : public Operator{

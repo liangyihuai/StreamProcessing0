@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../buffer/QueueReader.h"
+#include "../../common/Event.h"
 
 class WindowBase {
 public:
@@ -10,6 +10,6 @@ public:
 	virtual bool isEmpty() = 0;
 	virtual EventPtr next() = 0;
 	virtual WindowBase * clone() = 0;
-	virtual QueueReader* getReader() = 0;
-	virtual void setReader(QueueReader* reader) = 0;
+	//virtual QueueReader* getReader() = 0;
+	//virtual void setReader(QueueReader* reader) = 0;
 };

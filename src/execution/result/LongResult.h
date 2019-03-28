@@ -20,7 +20,7 @@ public:
 		this->value = v;
 	}
 
-	long getLong() {
+	long getLong() override {
 		return value;
 	}
 };

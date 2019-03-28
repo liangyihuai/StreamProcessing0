@@ -6,8 +6,8 @@
 #define CONTINUOUSPROCESSING_OPGREATHANDOUBLE_H
 
 #include "OperatorPredicate.h"
-#include "../op/Operator.h"
-#include "../op/StatefulOperator.h"
+#include "../op/inter/Operator.h"
+#include "../op/inter/StatefulOperator.h"
 
 
 class GreatThanOpPreDouble: public OperatorPredicate{

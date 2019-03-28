@@ -5,7 +5,7 @@
 #ifndef CONTINUOUSPROCESSING_COUNT_H
 #define CONTINUOUSPROCESSING_COUNT_H
 
-#include "StatefulOperator.h"
+#include "inter/StatefulOperator.h"
 
 class Count : public StatefulOperator {
 private:

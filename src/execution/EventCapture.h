@@ -4,7 +4,6 @@
 
 #include "../expression/Condition.h"
 #include "result/ResultListener.h"
-#include "../buffer/DerivedEventStore.h"
 #include "Process.h"
 #include <queue>
 #include <set>

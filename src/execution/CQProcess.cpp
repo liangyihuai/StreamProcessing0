@@ -3,7 +3,6 @@
 //
 #include "../stdafx.h"
 #include "CQProcess.h"
-#include "../buffer/DerivedEventStore.h"
 #include "../cqindex/ProcessRegisterForCQIndex.h"
 #include "win/Window.h"
 

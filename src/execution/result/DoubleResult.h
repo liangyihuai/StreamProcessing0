@@ -19,7 +19,7 @@ public:
 		this->value = v;
 	}
 
-	double getDouble() {
+	double getDouble()override {
 		return value;
 	};
 

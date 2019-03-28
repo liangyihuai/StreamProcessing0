@@ -1,7 +1,7 @@
 #pragma once
 
 #include "OperatorPredicate.h"
-#include "../op/Operator.h"
+#include "../op/inter/Operator.h"
 
 class BoolOpPredicate: public OperatorPredicate{
 private:

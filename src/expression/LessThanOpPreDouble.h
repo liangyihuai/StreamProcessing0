@@ -1,12 +1,8 @@
-//
-// Created by USER on 12/6/2018.
-//
+#pragma once
 
-#ifndef CONTINUOUSPROCESSING_LESSTHANOPPREDOUBLE_H
-#define CONTINUOUSPROCESSING_LESSTHANOPPREDOUBLE_H
 
 #include "OperatorPredicate.h"
-#include "../op/Operator.h"
+#include "../op/inter/Operator.h"
 
 class LessThanOpPreDouble: public OperatorPredicate{
 private:
@@ -25,4 +21,3 @@ public:
     }
 };
 
-#endif //CONTINUOUSPROCESSING_LESSTHANOPPREDOUBLE_H

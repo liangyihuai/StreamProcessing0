@@ -87,18 +87,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\buffer\DerivedEventStore.h">
-      <Filter>Header Files\backend\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\buffer\Queue.h">
-      <Filter>Header Files\backend\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\buffer\QueueReader.h">
-      <Filter>Header Files\backend\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\buffer\QueueWriter.h">
-      <Filter>Header Files\backend\buffer</Filter>
-    </ClInclude>
     <ClInclude Include="src\common\Event.h">
       <Filter>Header Files\backend\common</Filter>
     </ClInclude>
@@ -124,12 +112,6 @@
       <Filter>Header Files\backend\execution\win</Filter>
     </ClInclude>
     <ClInclude Include="src\execution\win\SlidingWindowOfTime.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\win\TumbleCountWindow.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\win\TumbleTimeWindow.h">
       <Filter>Header Files\backend\execution\win</Filter>
     </ClInclude>
     <ClInclude Include="src\execution\win\TumbleWindow.h">
@@ -195,13 +177,7 @@
     <ClInclude Include="src\op\Min.h">
       <Filter>Header Files\backend\op</Filter>
     </ClInclude>
-    <ClInclude Include="src\op\Operator.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
     <ClInclude Include="src\op\OutsideAreaOp.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
-    <ClInclude Include="src\op\StatefulOperator.h">
       <Filter>Header Files\backend\op</Filter>
     </ClInclude>
     <ClInclude Include="src\op\Sum.h">
@@ -312,25 +288,13 @@
     <ClInclude Include="src\execution\result\LongResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\execution\result\CEPStoreResultListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\CQStoreResultListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\execution\result\DoubleResult.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\EnhanceEventResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\execution\result\Result.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\execution\result\ResultListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\result\MulStreamResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\execution\result\CEPPrintResultListener.h">
@@ -342,17 +306,23 @@
     <ClInclude Include="src\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\execution\result\MultEventResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\result\SingleEventResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\inter\Operator.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\inter\StatefulOperator.h">
+      <Filter>Header Files\backend\op</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\inter\AggregateOperator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\buffer\DerivedEventStore.cpp">
-      <Filter>Source Files\backend\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\buffer\QueueReader.cpp">
-      <Filter>Source Files\backend\buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\buffer\QueueWriter.cpp">
-      <Filter>Source Files\backend\buffer</Filter>
-    </ClCompile>
     <ClCompile Include="src\common\Event.cpp">
       <Filter>Source Files\backend\execution\event</Filter>
     </ClCompile>
@@ -363,12 +333,6 @@
       <Filter>Source Files\backend\cqindex</Filter>
     </ClCompile>
     <ClCompile Include="src\execution\win\SlidingWindow.cpp">
-      <Filter>Source Files\backend\execution\win</Filter>
-    </ClCompile>
-    <ClCompile Include="src\execution\win\TumbleCountWindow.cpp">
-      <Filter>Source Files\backend\execution\win</Filter>
-    </ClCompile>
-    <ClCompile Include="src\execution\win\TumbleTimeWindow.cpp">
       <Filter>Source Files\backend\execution\win</Filter>
     </ClCompile>
     <ClCompile Include="src\execution\win\TumbleWindow.cpp">

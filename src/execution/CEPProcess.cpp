@@ -1,8 +1,7 @@
 #include "../stdafx.h"
 
 #include "CEPProcess.h"
-#include "../buffer/DerivedEventStore.h"
-#include "result/MulStreamResult.h"
+#include "result/MultEventResult.h"
 #include "../op/ExistOp.h"
 #include "result/ResultListener.h"
 
@@ -85,12 +84,10 @@ void CEPProcess::result(){
 		}catch (std::logic_error& e) {
 			std::cout << "[exception caught]\n";
 		}
-
-		
 	}
 	if (satisfiedCount == existOpVec.size()) {
 		if (resultListener) {
-			MulStreamResult * result = new MulStreamResult();
+			MultEventResult * result = new MultEventResult();
 			result->addDeriveEventPtr(outputStreamName);
 
 			resultListener->update(ResultPtr(result));

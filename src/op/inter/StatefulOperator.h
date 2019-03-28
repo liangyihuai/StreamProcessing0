@@ -6,7 +6,7 @@
 
 #include "Operator.h"
 #include <list>
-#include "../execution/win/Window.h"
+#include "../../execution/win/Window.h"
 
 class Window;//避免相互嵌套引用，比如A包含了B，B又包含了A
 

@@ -48,7 +48,6 @@
 
 
 #include "execution/result/Result.h"
-#include "execution/result/EnhanceEventResult.h"
 #include "execution/result/DoubleResult.h"
 #include "execution/result/LongResult.h"
 #include "execution/result/BoolResult.h"
@@ -60,10 +59,6 @@
 
 #include <iostream>
 #include <string>
-
-#include "buffer/QueueWriter.h"
-
-#include "buffer/QueueReader.h"
 
 #include "Process.h"
 

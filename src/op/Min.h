@@ -7,7 +7,7 @@
 
 #include "../execution/result/Result.h"
 #include "../common/Event.h"
-#include "StatefulOperator.h"
+#include "inter/StatefulOperator.h"
 #include "../execution/result/DoubleResult.h"
 
 class Min : public StatefulOperator {

@@ -5,7 +5,6 @@
 #include "../execution/win/Window.h"
 #include "../util/Utils.h"
 #include "../execution/CQProcess.h"
-#include "../execution/result/CQStoreResultListener.h"
 
 class CQSpec : public Spec{
 private:

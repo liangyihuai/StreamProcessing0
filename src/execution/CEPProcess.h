@@ -12,11 +12,11 @@
 #include <vector>
 //#include "QueueReader.h"
 #include "../expression/Condition.h"
-#include "../op/Operator.h"
+#include "../op/inter/Operator.h"
 #include "result/ResultListener.h"
 #include "win/WindowBase.h"
 #include "../expression/OperatorPredicate.h"
-#include "result/MulStreamResult.h"
+#include "result/MultEventResult.h"
 #include <unordered_map>
 #include <mutex>
 

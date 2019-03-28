@@ -1,8 +1,6 @@
 #ifndef CONTINUOUSPROCESSING_EXECUTESCHEDULER_H
 #define CONTINUOUSPROCESSING_EXECUTESCHEDULER_H
 
-
-#include "../buffer/DerivedEventStore.h"
 #include <unordered_map>
 #include "EventProcess.h"
 #include "EventCapture.h"

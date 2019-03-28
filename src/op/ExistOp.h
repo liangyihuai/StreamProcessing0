@@ -5,13 +5,13 @@
 #ifndef CONTINUOUSPROCESSING_EXISTOP_H
 #define CONTINUOUSPROCESSING_EXISTOP_H
 
-#include "Operator.h"
+#include "inter/Operator.h"
 
 #include <list>
 #include "../execution/result/BoolResult.h"
 
 namespace exist_op {
-	class Window{
+	class TimeSlidingWindow{
 	public:
 		void setTimeLen(int _timeWinLen) {
 			this->timeWinLen = _timeWinLen;
@@ -72,7 +72,7 @@ public:
 private:
 	string streamName;
 
-	exist_op::Window window;
+	exist_op::TimeSlidingWindow window;
 };
 
 

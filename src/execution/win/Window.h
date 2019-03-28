@@ -6,7 +6,7 @@
 #define CONTINUOUSPROCESSING_QUERYWINDOW_H
 
 #include "../../common/Event.h"
-#include "../../op/StatefulOperator.h"
+#include "../../op/inter/StatefulOperator.h"
 
 class StatefulOperator;
 

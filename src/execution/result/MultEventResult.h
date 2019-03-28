@@ -9,11 +9,12 @@
 #include "../../util/Utils.h"
 #include "../../common/HashEvent.h"
 
-//the result contains multiple derived events with different stream name.
-class MulStreamResult : public Result {
+//the result contains multiple derived events may with different stream names.
+class MultEventResult : public Result {
 	vector<EventPtr> derivedEvents;
+
 public:
-	vector<EventPtr> getDerivedEventVec() {
+	vector<EventPtr> getEventVec()override {
 		return derivedEvents;
 	}
 
@@ -28,6 +29,6 @@ public:
 	}
 };
 
-typedef shared_ptr<MulStreamResult> MulStreamResultPtr;
+typedef shared_ptr<MultEventResult> MultEventResultPtr;
 
 #endif //CONTINUOUSPROCESSING_MULSTREAMRESULT_H
