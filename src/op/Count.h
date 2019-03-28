@@ -1,31 +1,16 @@
-//
-// Created by USER on 12/5/2018.
-//
+#pragma once
 
-#ifndef CONTINUOUSPROCESSING_COUNT_H
-#define CONTINUOUSPROCESSING_COUNT_H
+#include "inter/AggregateOperator.h"
 
-#include "inter/StatefulOperator.h"
-
-class Count : public StatefulOperator {
+class Count : public AggregateOperator<long> {
 private:
     long count = 0;
-    Window * window = nullptr;
-
+   
 public:
     Count() {}
-    ~Count();
+	~Count() {};
 
-    //override
-    void setWindow(Window* win) {
-        this->window = win;
-    }
-
-    ResultPtr result(EventPtr event);
-    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset);
-
-    StatefulOperator* clone();
+    ResultPtr<long> result(EventPtr event) override;
+    ResultPtr<long> resultMultEvents(list<EventPtr> *eventList, bool isReset)override;
 };
 
-
-#endif //CONTINUOUSPROCESSING_COUNT_H

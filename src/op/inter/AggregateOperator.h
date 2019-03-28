@@ -6,7 +6,9 @@
 /*
 Interface of Aggregate Operators
 */
-class AggregateOperator: public StatefulOperator {
+
+template <class T>
+class AggregateOperator: public StatefulOperator<T> {
 public:
 	
 };

@@ -2,7 +2,7 @@
 
 #include "Result.h"
 
-class BoolResult : public Result {
+class BoolResult : public Result<bool> {
 private:
 	bool value;
 public:
@@ -14,7 +14,7 @@ public:
 		this->value = v;
 	}
 
-	bool getBool() override{
+	bool getResult() override{
 		return value;
 	};
 };

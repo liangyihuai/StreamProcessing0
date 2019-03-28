@@ -105,24 +105,6 @@
     <ClInclude Include="src\cqindex\RTreeCQIndex.h">
       <Filter>Header Files\backend\cqindex</Filter>
     </ClInclude>
-    <ClInclude Include="src\execution\win\SlidingWindow.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\win\SlidingWindowOfCount.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\win\SlidingWindowOfTime.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\win\TumbleWindow.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\win\Window.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
-    <ClInclude Include="src\execution\win\WindowBase.h">
-      <Filter>Header Files\backend\execution\win</Filter>
-    </ClInclude>
     <ClInclude Include="src\expression\And.h">
       <Filter>Header Files\backend\expression</Filter>
     </ClInclude>
@@ -165,25 +147,7 @@
     <ClInclude Include="src\op\Count.h">
       <Filter>Header Files\backend\op</Filter>
     </ClInclude>
-    <ClInclude Include="src\op\DistanceOp.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
     <ClInclude Include="src\op\ExistOp.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
-    <ClInclude Include="src\op\Max.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
-    <ClInclude Include="src\op\Min.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
-    <ClInclude Include="src\op\OutsideAreaOp.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
-    <ClInclude Include="src\op\Sum.h">
-      <Filter>Header Files\backend\op</Filter>
-    </ClInclude>
-    <ClInclude Include="src\op\WithinAreaOp.h">
       <Filter>Header Files\backend\op</Filter>
     </ClInclude>
     <ClInclude Include="src\spec\CEPSpec.h">
@@ -321,6 +285,30 @@
     <ClInclude Include="src\op\inter\AggregateOperator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\op\win\Window.h">
+      <Filter>Header Files\backend\execution\win</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\win\NaiveTimeSlidingWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\Sum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\WithinAreaOp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\OutsideAreaOp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\DistanceOp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\Max.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\op\Min.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\Event.cpp">
@@ -332,12 +320,6 @@
     <ClCompile Include="src\cqindex\RTreeCQIndex.cpp">
       <Filter>Source Files\backend\cqindex</Filter>
     </ClCompile>
-    <ClCompile Include="src\execution\win\SlidingWindow.cpp">
-      <Filter>Source Files\backend\execution\win</Filter>
-    </ClCompile>
-    <ClCompile Include="src\execution\win\TumbleWindow.cpp">
-      <Filter>Source Files\backend\execution\win</Filter>
-    </ClCompile>
     <ClCompile Include="src\expression\Condition.cpp">
       <Filter>Source Files\backend\op</Filter>
     </ClCompile>
@@ -347,25 +329,7 @@
     <ClCompile Include="src\op\Count.cpp">
       <Filter>Source Files\backend\op</Filter>
     </ClCompile>
-    <ClCompile Include="src\op\DistanceOp.cpp">
-      <Filter>Source Files\backend\op</Filter>
-    </ClCompile>
     <ClCompile Include="src\op\ExistOp.cpp">
-      <Filter>Source Files\backend\op</Filter>
-    </ClCompile>
-    <ClCompile Include="src\op\Max.cpp">
-      <Filter>Source Files\backend\op</Filter>
-    </ClCompile>
-    <ClCompile Include="src\op\Min.cpp">
-      <Filter>Source Files\backend\op</Filter>
-    </ClCompile>
-    <ClCompile Include="src\op\OutsideAreaOp.cpp">
-      <Filter>Source Files\backend\op</Filter>
-    </ClCompile>
-    <ClCompile Include="src\op\Sum.cpp">
-      <Filter>Source Files\backend\op</Filter>
-    </ClCompile>
-    <ClCompile Include="src\op\WithinAreaOp.cpp">
       <Filter>Source Files\backend\op</Filter>
     </ClCompile>
     <ClCompile Include="src\spec\CEPSpec.cpp">
@@ -502,6 +466,27 @@
     </ClCompile>
     <ClCompile Include="src\common\HashEvent.cpp">
       <Filter>Source Files\backend\execution\event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\funcTest\TestSlidingWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\op\Sum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\op\WithinAreaOp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\op\OutsideAreaOp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\op\DistanceOp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\op\Max.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\op\Min.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -5,11 +5,11 @@
 #include "../../util/Utils.h"
 #include "../../common/HashEvent.h"
 
-class SingleEventResult : public Result {
+class SingleEventResult : public Result<EventPtr> {
 private:
 	EventPtr event;
 public:
-	EventPtr getEvent() override {
+	EventPtr getResult() override {
 		return event;
 	}
 
@@ -17,5 +17,3 @@ public:
 		this->event = e;
 	}
 };
-
-typedef shared_ptr<SingleEventResult> SingleEventResultPtr;

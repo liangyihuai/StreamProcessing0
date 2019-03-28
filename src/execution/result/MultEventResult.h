@@ -1,20 +1,15 @@
-//
-// Created by USER on 12/6/2018.
-//
-
-#ifndef CONTINUOUSPROCESSING_MULSTREAMRESULT_H
-#define CONTINUOUSPROCESSING_MULSTREAMRESULT_H
+#pragma once
 
 #include "Result.h"
 #include "../../util/Utils.h"
 #include "../../common/HashEvent.h"
 
 //the result contains multiple derived events may with different stream names.
-class MultEventResult : public Result {
+class MultEventResult : public Result<EventPtr> {
 	vector<EventPtr> derivedEvents;
 
 public:
-	vector<EventPtr> getEventVec()override {
+	vector<EventPtr> getResultVec()override {
 		return derivedEvents;
 	}
 
@@ -28,7 +23,3 @@ public:
 		derivedEvents.push_back(newEvent);
 	}
 };
-
-typedef shared_ptr<MultEventResult> MultEventResultPtr;
-
-#endif //CONTINUOUSPROCESSING_MULSTREAMRESULT_H

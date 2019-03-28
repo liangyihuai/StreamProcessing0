@@ -1,44 +1,21 @@
-//
-// Created by USER on 12/5/2018.
-//
+#pragma once
 
-#ifndef CONTINUOUSPROCESSING_RESULT_H
-#define CONTINUOUSPROCESSING_RESULT_H
-
-#include <memory>
-#include <stdexcept>
 #include "../../common/Event.h"
 #include <vector>
 
+template <typename T>
 class Result {
 public:
-	virtual double getDouble() {
-		std::cout << "function is not implemented";
-		throw runtime_error("not implemented");
+	virtual T getResult() {
+		cout << "not implemented" << endl;
+		throw runtime_error("");
 	};
 
-	virtual long getLong() {
-		std::cout << "function is not implemented";
-		throw runtime_error("not implemented");
+	virtual vector<T> getResultVec() {
+		cout << "not implemented" << endl;
+		throw runtime_error("");
 	}
-
-	virtual bool getBool() {
-		std::cout << "function is not implemented";
-		throw runtime_error("not implemented");
-	}
-
-	virtual EventPtr getEvent() {
-		std::cout << "function is not implemented";
-		throw runtime_error("not implemented");
-	}
-
-	virtual vector<EventPtr> getEventVec() {
-		std::cout << "function is not implemented";
-		throw runtime_error("not implemented");
-	}
-
 };
 
-typedef shared_ptr<Result> ResultPtr;
-
-#endif //CONTINUOUSPROCESSING_RESULT_H
+template<typename T>
+using ResultPtr = std::shared_ptr<Result<T>>;

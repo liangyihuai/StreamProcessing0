@@ -79,7 +79,7 @@ void CEPProcess::result(){
 		}
 		try {
 			std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
-			bool resultOfExistOp = existOpVec[i]->result(nullptr)->getBool();
+			bool resultOfExistOp = existOpVec[i]->result(nullptr)->getResult();
 			if (resultOfExistOp) {satisfiedCount++;}
 		}catch (std::logic_error& e) {
 			std::cout << "[exception caught]\n";
@@ -90,7 +90,7 @@ void CEPProcess::result(){
 			MultEventResult * result = new MultEventResult();
 			result->addDeriveEventPtr(outputStreamName);
 
-			resultListener->update(ResultPtr(result));
+			resultListener->update(ResultPtr<EventPtr>(result));
 		}
 	}
 }
@@ -118,7 +118,7 @@ void CEPProcess::setInputStreamNames(vector<string> names) {
 	this->inputStreamNames = names;
 }
 
-void CEPProcess::setResultListener(ResultListener* listener){
+void CEPProcess::setResultListener(ResultListener<EventPtr>* listener){
     this->resultListener = listener;
 }
 

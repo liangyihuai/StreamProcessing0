@@ -4,11 +4,10 @@
 #include "../stdafx.h"
 #include "DistanceOp.h"
 
-ResultPtr DistanceOp::result(EventPtr event) {
+ResultPtr<double> DistanceOp::result(EventPtr event) {
 	float x = event->getFloat(nameX);
 	float y = event->getFloat(nameY);
 	float result = sqrtf(powf(x - fixedPointX, 2) + powf(y - fixedPointY, 2));
 
-	ResultPtr r(new DoubleResult(result));
-	return r;
+	return ResultPtr<double>(new DoubleResult(result));
 }

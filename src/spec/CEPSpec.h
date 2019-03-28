@@ -2,7 +2,6 @@
 
 #include "Spec.h"
 #include <vector>
-#include "../execution/win/WindowBase.h"
 #include "../execution/CEPProcess.h"
 #include "../common/SinkType.h"
 
@@ -15,8 +14,6 @@ private:
 	//vector<Predicate*> predicateVec;
 	vector<ExistOp*> predicateVec;
 	vector<string> precessedStreamVec;
-
-	WindowBase * win;
 
 	SinkType sinkType;
 

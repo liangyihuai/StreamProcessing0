@@ -10,22 +10,17 @@
 #include "inter/StatefulOperator.h"
 #include "../execution/result/DoubleResult.h"
 
-class Min : public StatefulOperator {
+class Min : public StatefulOperator<double> {
     float min = 99999;
-    Window * window = nullptr;
     string attr;
 public:
     Min(string attrName) :attr(attrName) {}
-    ~Min() { delete window; }
+    ~Min() { }
 
     //override
-    void setWindow(Window* win) { this->window = win; }
+    ResultPtr<double> result(EventPtr event);
     //override
-    ResultPtr result(EventPtr event);
-    //override
-    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset);
-    //override
-    StatefulOperator* clone();
+    ResultPtr<double> resultMultEvents(list<EventPtr> *eventList, bool isReset);
 };
 
 #endif //CONTINUOUSPROCESSING_MIN_H

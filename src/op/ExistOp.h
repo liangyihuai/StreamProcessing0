@@ -6,7 +6,7 @@
 #define CONTINUOUSPROCESSING_EXISTOP_H
 
 #include "inter/Operator.h"
-
+#include "../util/Utils.h"
 #include <list>
 #include "../execution/result/BoolResult.h"
 
@@ -57,7 +57,7 @@ namespace exist_op {
 	};
 };
 
-class ExistOp:public Operator{
+class ExistOp:public Operator<bool>{
 
 public:
 	ExistOp(string _streamName, int _timeWinLen=1000);
@@ -67,7 +67,7 @@ public:
 	bool digestEvent(EventPtr e);
 
 	//this is overrided function. to get rusults. In this class, the parameter is nullptr.
-	ResultPtr result(EventPtr event);
+	ResultPtr<bool> result(EventPtr event);
 
 private:
 	string streamName;

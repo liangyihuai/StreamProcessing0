@@ -6,30 +6,26 @@
 #define CONTINUOUSPROCESSING_SUM_H
 
 
-#include "../execution/win/Window.h"
+#include "win/Window.h"
 #include "../execution/result/DoubleResult.h"
+#include "inter/AggregateOperator.h"
 
-class Sum: public StatefulOperator{
+class Sum: public AggregateOperator<double>{
 private:
     double sum = 0.0;
     string attrName;
-    Window * window = nullptr;
 
 public:
     Sum(string attrName):attrName(attrName) {}
 
-    //override
-    void setWindow(Window *win) {
-        this->window = win;
-    }
 
-    ResultPtr result(EventPtr event);
+    ResultPtr<double> result(EventPtr event);
 
-    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset);
+    ResultPtr<double> resultMultEvents(list<EventPtr> *eventList, bool isReset);
 
     StatefulOperator* clone();
 
-    ~Sum() {delete window;}
+    ~Sum() {}
 };
 
 #endif //CONTINUOUSPROCESSING_SUM_H

@@ -4,7 +4,6 @@
 #include "../execution/CEPProcess.h"
 
 CEPSpec::CEPSpec() {
-	win = nullptr;
 	sinkType = SinkType::PRINT_OUT;//the default sink type is print out.
 }
 

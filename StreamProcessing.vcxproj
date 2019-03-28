@@ -223,7 +223,14 @@
     <ClInclude Include="src\expression\And.h" />
     <ClInclude Include="src\op\Average.h" />
     <ClInclude Include="src\execution\CEPProcess.h" />
+    <ClInclude Include="src\op\DistanceOp.h" />
     <ClInclude Include="src\op\inter\AggregateOperator.h" />
+    <ClInclude Include="src\op\Max.h" />
+    <ClInclude Include="src\op\Min.h" />
+    <ClInclude Include="src\op\OutsideAreaOp.h" />
+    <ClInclude Include="src\op\Sum.h" />
+    <ClInclude Include="src\op\win\NaiveTimeSlidingWindow.h" />
+    <ClInclude Include="src\op\WithinAreaOp.h" />
     <ClInclude Include="src\resource.h" />
     <ClInclude Include="src\spec\CEPSpec.h" />
     <ClInclude Include="src\spec\CEPSpecParser.h" />
@@ -235,7 +242,6 @@
     <ClInclude Include="src\execution\CQProcess.h" />
     <ClInclude Include="src\spec\CQSpec.h" />
     <ClInclude Include="src\spec\CQSpecParser.h" />
-    <ClInclude Include="src\op\DistanceOp.h" />
     <ClInclude Include="src\expression\EqualString.h" />
     <ClInclude Include="src\common\Event.h" />
     <ClInclude Include="src\execution\EventCapture.h" />
@@ -256,21 +262,15 @@
     <ClInclude Include="src\cqindex\CQIndex.h" />
     <ClInclude Include="src\expression\LessThanFloat.h" />
     <ClInclude Include="src\expression\LessThanOpPreDouble.h" />
-    <ClInclude Include="src\op\Max.h" />
-    <ClInclude Include="src\op\Min.h" />
     <ClInclude Include="src\op\inter\Operator.h" />
     <ClInclude Include="src\expression\OperatorPredicate.h" />
     <ClInclude Include="src\op\OperatorRegister.h" />
-    <ClInclude Include="src\op\OutsideAreaOp.h" />
     <ClInclude Include="src\expression\Predicate.h" />
     <ClInclude Include="src\expression\PredicateBase.h" />
     <ClInclude Include="src\execution\Process.h" />
     <ClInclude Include="src\cqindex\ProcessRegisterForCQIndex.h" />
     <ClInclude Include="src\cqindex\RTreeCQIndex.h" />
     <ClInclude Include="src\common\SinkType.h" />
-    <ClInclude Include="src\execution\win\SlidingWindow.h" />
-    <ClInclude Include="src\execution\win\SlidingWindowOfCount.h" />
-    <ClInclude Include="src\execution\win\SlidingWindowOfTime.h" />
     <ClInclude Include="src\spec\Spec.h" />
     <ClInclude Include="src\spec\SpecParser.h" />
     <ClInclude Include="src\spec\SpecRegister.h" />
@@ -279,19 +279,21 @@
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\gui\StreamProcessing.h" />
     <ClInclude Include="src\gui\StreamProcessingDlg.h" />
-    <ClInclude Include="src\op\Sum.h" />
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\gui\ThreadOfInputStreamPrint.h" />
     <ClInclude Include="src\expression\TruePredicate.h" />
-    <ClInclude Include="src\execution\win\TumbleWindow.h" />
     <ClInclude Include="src\util\Utils.h" />
-    <ClInclude Include="src\execution\win\Window.h" />
-    <ClInclude Include="src\execution\win\WindowBase.h" />
-    <ClInclude Include="src\op\WithinAreaOp.h" />
+    <ClInclude Include="src\op\win\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\op\Average.cpp" />
     <ClCompile Include="src\execution\CEPProcess.cpp" />
+    <ClCompile Include="src\op\DistanceOp.cpp" />
+    <ClCompile Include="src\op\Max.cpp" />
+    <ClCompile Include="src\op\Min.cpp" />
+    <ClCompile Include="src\op\OutsideAreaOp.cpp" />
+    <ClCompile Include="src\op\Sum.cpp" />
+    <ClCompile Include="src\op\WithinAreaOp.cpp" />
     <ClCompile Include="src\spec\CEPSpec.cpp" />
     <ClCompile Include="src\spec\CEPSpecParser.cpp" />
     <ClCompile Include="src\test\CEPTest_Spec1.cpp">
@@ -314,6 +316,7 @@
     </ClCompile>
     <ClCompile Include="src\expression\Condition.cpp" />
     <ClCompile Include="src\op\Count.cpp" />
+    <ClCompile Include="src\test\funcTest\TestSlidingWindow.cpp" />
     <ClCompile Include="src\util\CQIndexUtils.cpp" />
     <ClCompile Include="src\execution\CQProcess.cpp" />
     <ClCompile Include="src\spec\CQSpec.cpp" />
@@ -330,7 +333,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\op\DistanceOp.cpp" />
     <ClCompile Include="src\common\Event.cpp" />
     <ClCompile Include="src\execution\EventCapture.cpp" />
     <ClCompile Include="src\spec\EventCaptureSpec.cpp" />
@@ -376,14 +378,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\op\Max.cpp" />
-    <ClCompile Include="src\op\Min.cpp" />
     <ClCompile Include="src\op\OperatorRegister.cpp" />
-    <ClCompile Include="src\op\OutsideAreaOp.cpp" />
     <ClCompile Include="src\gui\ProcessFlowDrawing.cpp" />
     <ClCompile Include="src\cqindex\ProcessRegisterForCQIndex.cpp" />
     <ClCompile Include="src\cqindex\RTreeCQIndex.cpp" />
-    <ClCompile Include="src\execution\win\SlidingWindow.cpp" />
     <ClCompile Include="src\spec\SpecParser.cpp" />
     <ClCompile Include="src\spec\SpecRegister.cpp" />
     <ClCompile Include="src\stdafx.cpp">
@@ -394,7 +392,6 @@
     </ClCompile>
     <ClCompile Include="src\gui\StreamProcessing.cpp" />
     <ClCompile Include="src\gui\StreamProcessingDlg.cpp" />
-    <ClCompile Include="src\op\Sum.cpp" />
     <ClCompile Include="src\test\TestCQProcess.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -462,9 +459,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\execution\win\TumbleWindow.cpp" />
     <ClCompile Include="src\util\Utils.cpp" />
-    <ClCompile Include="src\op\WithinAreaOp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\StreamProcessing.rc" />

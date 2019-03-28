@@ -10,7 +10,7 @@ bool OperatorRegister::isOperator(string name) {
 	return false;
 }
 
-Operator * OperatorRegister::getInstance(string opName, vector<string> params) {
+Operator<void> * OperatorRegister::getInstance(string opName, vector<string> params) {
 	if (!isOperator(opName)) return nullptr;
 
 	if (opName == "distance") {
@@ -25,7 +25,7 @@ Operator * OperatorRegister::getInstance(string opName, vector<string> params) {
 			ss.clear();
 			ss << params[1];
 			ss >> f2;
-			return new DistanceOp(lon, lat, f1, f2);
+			return dynamic_cast<Operator<void>*>(new DistanceOp(lon, lat, f1, f2));
 		}
 		else if (params.size() == 4) {
 			stringstream ss;
@@ -34,7 +34,7 @@ Operator * OperatorRegister::getInstance(string opName, vector<string> params) {
 			ss.clear();
 			ss << params[3];
 			ss >> f2;
-			return new DistanceOp(params[0], params[1], f1, f2);
+			return dynamic_cast<Operator<void>*>(new DistanceOp(params[0], params[1], f1, f2));
 		}
 		else {
 			std::cout << "illegal parameters for operator distance()";
@@ -42,22 +42,22 @@ Operator * OperatorRegister::getInstance(string opName, vector<string> params) {
 		}
 	}
 	else if ("count" == opName) {
-		return new Count();
+		return dynamic_cast<Operator<void>*>(new Count());
 	}
 	else if ("sum" == opName) {
-		return new Sum(params[0]);
+		return dynamic_cast<Operator<void>*>(new Sum(params[0]));
 	}
 	else if ("max" == opName) {
-		return new Max(params[0]);
+		return dynamic_cast<Operator<void>*>(new Max(params[0]));
 	}
 	else if ("min" == opName) {
-		return new Min(params[0]);
+		return dynamic_cast<Operator<void>*>(new Min(params[0]));
 	}
 	else if ("ave" == opName || "average" == opName) {
-		return new Average(params[0]);
+		return dynamic_cast<Operator<void>*>(new Average(params[0]));
 	}
 	else if ("exist" == opName) {
-		return new ExistOp(params[0]);
+		return dynamic_cast<Operator<void>*>(new ExistOp(params[0]));
 	}
 	else {
 		std::cout << "undefined operator! the opName is " << opName;

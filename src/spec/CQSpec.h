@@ -2,7 +2,7 @@
 
 #include "Spec.h"
 #include "../expression/Predicate.h"
-#include "../execution/win/Window.h"
+#include "../op/win/Window.h"
 #include "../util/Utils.h"
 #include "../execution/CQProcess.h"
 

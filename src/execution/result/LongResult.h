@@ -1,13 +1,8 @@
-//
-// Created by USER on 12/5/2018.
-//
-
-#ifndef CONTINUOUSPROCESSING_LONGRESULT_H
-#define CONTINUOUSPROCESSING_LONGRESULT_H
+#pragma once
 
 #include "Result.h"
 
-class LongResult : public Result {
+class LongResult : public Result<long> {
 private:
 	long value;
 public:
@@ -15,15 +10,12 @@ public:
 
 	LongResult(long value) : value(value) {}
 
-
 	void setValue(long v) {
 		this->value = v;
 	}
 
-	long getLong() override {
+	long getResult() override {
 		return value;
 	}
 };
 
-
-#endif //CONTINUOUSPROCESSING_LONGRESULT_H

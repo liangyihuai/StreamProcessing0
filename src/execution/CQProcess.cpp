@@ -4,7 +4,7 @@
 #include "../stdafx.h"
 #include "CQProcess.h"
 #include "../cqindex/ProcessRegisterForCQIndex.h"
-#include "win/Window.h"
+#include "../op/win/Window.h"
 
 CQProcess::CQProcess(string outputStreamName) {
 	this->inputQueue = new queue<EventPtr>();
@@ -75,10 +75,6 @@ queue<EventPtr>* CQProcess::getInputQueue() {
 	return this->inputQueue;
 }
 
-void CQProcess::setWindow(Window *w){
-    this->win = w;
-}
-
 Predicate* CQProcess::getPredicate() {
 	return this->predicate;
 }
@@ -93,6 +89,5 @@ void CQProcess::addEventToQueue(EventPtr e) {
 
 CQProcess::~CQProcess(){
 	delete predicate; predicate = nullptr;
-    delete win; win = nullptr;
 	delete inputQueue; inputQueue = nullptr;
 }

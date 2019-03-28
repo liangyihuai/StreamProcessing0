@@ -14,7 +14,6 @@
 #include "../expression/Condition.h"
 #include "../op/inter/Operator.h"
 #include "result/ResultListener.h"
-#include "win/WindowBase.h"
 #include "../expression/OperatorPredicate.h"
 #include "result/MultEventResult.h"
 #include <unordered_map>
@@ -48,7 +47,7 @@ public:
 	//other
 	//----------------------------
     void addCondition(ExistOp * con, string inputStreamName);
-    void setResultListener(ResultListener* listener);
+    void setResultListener(ResultListener<EventPtr>* listener);
     void setWindow(int timeWindowLen);
 	void result();
 	void setInputStreamNames(vector<string> names);
@@ -60,7 +59,7 @@ private:
 	string outputStreamName;
 	//queue<EventPtr> *outputQueue;
 	//set up callback function to process the result of this query
-	ResultListener* resultListener = nullptr;
+	ResultListener<EventPtr>* resultListener = nullptr;
 	int windowLen = 1000; //1 second
 
 public:

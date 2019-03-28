@@ -12,17 +12,17 @@
 
 class GreatThanOpPreDouble: public OperatorPredicate{
 private:
-    Operator *op;
+    Operator<double> *op;
     double value;
 public:
 
-    GreatThanOpPreDouble(Operator * o, double value){
+    GreatThanOpPreDouble(Operator<double> * o, double value){
         this->op = o;
     }
 
     bool check(EventPtr e){
-        ResultPtr result = op->result(e);
-        return result->getDouble() > value;
+        ResultPtr<double> result = op->result(e);
+        return result->getResult() > value;
     }
 
 };

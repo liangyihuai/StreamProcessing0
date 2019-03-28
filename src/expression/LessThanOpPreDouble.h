@@ -6,18 +6,18 @@
 
 class LessThanOpPreDouble: public OperatorPredicate{
 private:
-    Operator * op;
+    Operator<double> * op;
     double value;
 public:
 
-    LessThanOpPreDouble(Operator * o, double value){
+    LessThanOpPreDouble(Operator<double> * o, double value){
         this->op = o;
 		this->value = value;
     }
 
     bool check(EventPtr e){
-        ResultPtr result = op->result(e);
-        return result->getDouble() < value;
+        ResultPtr<double> result = op->result(e);
+        return result->getResult() < value;
     }
 };
 

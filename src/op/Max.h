@@ -5,22 +5,18 @@
 #include "../execution/result/DoubleResult.h"
 
 //use doubleResult to get the result
-class Max : public StatefulOperator {
+class Max : public StatefulOperator<double> {
     float max = -99999999;
-    Window * window = nullptr;
     string attr;
 public:
     Max(string attrName):attr(attrName) {}
-    ~Max() { delete window; }
+    ~Max() { }
 
+   
     //override
-    void setWindow(Window* win) {this->window = win;}
+    ResultPtr<double> result(EventPtr event);
     //override
-    ResultPtr result(EventPtr event);
-    //override
-    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset);
-    //override
-    StatefulOperator* clone();
+    ResultPtr<double> resultMultEvents(list<EventPtr> *eventList, bool isReset);
 };
 
 

@@ -5,32 +5,17 @@
 #include "Count.h"
 #include "../execution/result/LongResult.h"
 
-ResultPtr Count::result(EventPtr event) {
-    LongResult * result1 = new LongResult();
-    count++;
-    if (window == nullptr) {
-        result1->setValue(count);
-    }else {
-        result1->setValue(window->aggregateLongValue(event, this));
-    }
-    return ResultPtr(result1);
+ResultPtr<long> Count::result(EventPtr event) {
+	cout << "not implement function 'result' of class Count" << endl;
+	throw runtime_error("");
 }
 
-ResultPtr Count::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
-    long tempCount = 0;
-    if (!isReset) tempCount = this->count;
-
-    tempCount += eventList->size();
-
-    if (!isReset) this->count = tempCount;
-
-    ResultPtr result(new LongResult(tempCount));
-    return result;
+ResultPtr<long> Count::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
+	if (!isReset) {
+		this->count += eventList->size();
+	}else {
+		this->count = eventList->size();
+	}
+	return ResultPtr<long>(new LongResult(count));
 }
 
-StatefulOperator* Count::clone() {
-    Count * newSumOp = new Count();
-    if(window != nullptr)
-        newSumOp->window = window->clone();
-    return newSumOp;
-}

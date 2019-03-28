@@ -11,7 +11,6 @@
 #include <vector>
 #include "../expression/Condition.h"
 #include "../op/inter/Operator.h"
-#include "win/Window.h"
 #include "../expression/OperatorPredicate.h"
 #include <unordered_map>
 #include <queue>
@@ -31,9 +30,6 @@ private:
 	set<string> connectedOutputNameSet;
     // all stateless operatorPredicates and simple predicates share one queue reader.
 	Predicate* predicate;
-
-    //sliding window, or tumble window or others
-    Window * win;
 public:
 	CQProcess(string outputStreamName);
 	~CQProcess();
@@ -55,7 +51,7 @@ public:
     void setOutputStreamName(string name);
 	void setInputStreamName(string name);
     queue<EventPtr>* getInputQueue();
-    void setWindow(Window *w);
+    //void setWindow(Window *w);
 	Predicate* getPredicate();
 	set<string> getConnectedOutputNameSet();
 	void addEventToQueue(EventPtr e);
