@@ -49,7 +49,6 @@ public:
 	afx_msg void OnBnClickedButtonCaptureAdd();
 	afx_msg void OnBnClickedButtonCqAdd();
 	afx_msg void OnBnClickedButtonCepAdd();
-	CComboBox sink_combobox;
 	afx_msg void OnBnClickedButtonStart();
 	afx_msg void OnBnClickedButtonStop();
 	afx_msg void OnBnClickedButtonInputStream();
@@ -78,6 +77,7 @@ private:
 
 public:
 	CString outputStreamForUpdate;
+	afx_msg void OnBnClickedButton1();
 };
 
 namespace gui {

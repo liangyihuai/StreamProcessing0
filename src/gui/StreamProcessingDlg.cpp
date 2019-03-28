@@ -102,7 +102,6 @@ void CStreamProcessingDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_CQ_RULE, cq_rule);
 	DDX_Text(pDX, IDC_EDIT_CEP_NAME, cep_name);
 	DDX_Text(pDX, IDC_EDIT_CEP_RULE, cep_rule);
-	DDX_Control(pDX, IDC_COMBO_SINK, sink_combobox);
 	DDX_Text(pDX, IDC_EDIT_OUTSTREAM_NAME_SEARCH, outputStreamNameForSearch);
 	DDX_Text(pDX, IDC_EDIT1, editBoxOfRule);
 	DDX_Text(pDX, IDC_EDIT_OUTSTREAM_UPDATE, outputStreamForUpdate);
@@ -125,6 +124,7 @@ BEGIN_MESSAGE_MAP(CStreamProcessingDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_DISPLAY_ALL_RULE, &CStreamProcessingDlg::OnBnClickedButtonDisplayAllRule)
 	ON_BN_CLICKED(IDC_BUTTON_DELETE_RULE, &CStreamProcessingDlg::OnBnClickedButtonDeleteRule)
 	ON_BN_CLICKED(IDC_BUTTON_UPDATE_RULE, &CStreamProcessingDlg::OnBnClickedButtonUpdateRule)
+	ON_BN_CLICKED(IDC_BUTTON1, &CStreamProcessingDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -133,12 +133,6 @@ END_MESSAGE_MAP()
 BOOL CStreamProcessingDlg::OnInitDialog(){
 
 	CDialogEx::OnInitDialog();
-
-	//initialize combo box for data sinking.
-	sink_combobox.AddString(_T("print out"));
-	sink_combobox.AddString(_T("save to file"));
-	sink_combobox.SetCurSel(0);
-
 
 	// Add "About..." menu item to system menu.
 
@@ -599,3 +593,10 @@ void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
 		MessageBox(_T("no such name of output stream."), NULL, MB_OK);
 	}
 }
+
+
+void CStreamProcessingDlg::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+}
+

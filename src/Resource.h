@@ -1,4 +1,4 @@
-//{{NO_DEPENDENCIES}}
+﻿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by StreamProcessing.rc
 //
@@ -33,6 +33,9 @@
 #define IDC_BUTTON1                     1032
 #define IDC_BUTTON2                     1033
 #define IDC_BUTTON3                     1034
+#define IDC_BUTTON4                     1035
+#define IDC_BUTTON5                     1036
+#define IDC_BUTTON6                     1037
 #define IDC_COMBOBOXEX1                 1038
 #define IDC_BUTTON_DISPLAY_ALL_RULE     1039
 #define IDC_BUTTON_SEARCH               1040

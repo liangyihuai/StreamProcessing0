@@ -59,8 +59,8 @@ ProcessFlowDrawing::ProcessFlowDrawing(CStreamProcessingDlg* dlg) {
 	//set pen to draw a eclipse
 	m_pen.CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
 	
-	this->x = 360;
-	this->y = 250;
+	this->x = 370;
+	this->y = 260;
 
 	m_point.x = x;
 	m_point.y = y;
