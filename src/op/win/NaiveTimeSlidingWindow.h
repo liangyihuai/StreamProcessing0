@@ -5,6 +5,9 @@
 #include "../../common/Event.h"
 #include "../../op/inter/StatefulOperator.h"
 
+/*
+the type of template T indicates the result's of stateful operator. 
+*/
 template <typename T>
 class NaiveTimeSlidingWindow :public Window<T> {
 public:

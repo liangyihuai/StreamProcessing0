@@ -18,18 +18,6 @@
 
 //the ResultListener return DerivedEventPtr.
 class CQProcess: public Process{
-
-private:
-	string inputStreamName;
-	//the result name of stream after processing
-	string outputStreamName;
-	queue<EventPtr> * inputQueue;
-	//the input queue of other processing units.
-	set<queue<EventPtr>*> outputQueueSet;
-	//the output names of process that connects to this process unit.
-	set<string> connectedOutputNameSet;
-    // all stateless operatorPredicates and simple predicates share one queue reader.
-	Predicate* predicate;
 public:
 	CQProcess(string outputStreamName);
 	~CQProcess();
@@ -37,12 +25,13 @@ public:
 	//---------------------------
 	//implemented methods
 	//-------------------------
-	bool process(int timeSlice);
+	bool process(int timeSlice)override;
 	//string outputStreamNameOfProcess, the output stream name connected to this process unit.
-	void addOutputQueue(queue<EventPtr> *outputQueue, string outputStreamNameOfProcess);
-	vector<string> getInputStreamNames();
-	vector<queue<EventPtr>*> getInputQueues();
-	string getOutputStreamName();
+	void addOutputQueue(queue<EventPtr> *outputQueue, string outputStreamNameOfProcess)override;
+	vector<string> getInputStreamNames()override;
+	vector<queue<EventPtr>*> getInputQueues()override;
+	string getOutputStreamName()override;
+	set<string> getConnectedOutputNameSet()override;
    
 	//--------------------------------
 	//other
@@ -53,7 +42,18 @@ public:
     queue<EventPtr>* getInputQueue();
     //void setWindow(Window *w);
 	Predicate* getPredicate();
-	set<string> getConnectedOutputNameSet();
 	void addEventToQueue(EventPtr e);
+
+private:
+	string inputStreamName;
+	//the result name of stream after processing
+	string outputStreamName;
+	queue<EventPtr> * inputQueue;
+	//the input queue of other processing units.
+	set<queue<EventPtr>*> outputQueueSet;
+	//the output names of process that connects to this process unit.
+	set<string> connectedOutputNameSet;
+	// all stateless operatorPredicates and simple predicates share one queue reader.
+	Predicate* predicate;
 };
 #endif //CONTINUOUSPROCESSING_CQPROCESS_H

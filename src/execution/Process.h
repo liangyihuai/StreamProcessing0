@@ -10,8 +10,7 @@ class Process {
 public:
 	/*insert event to the window of operator from input queues.
 	this function is called by a time scheduler. 
-	Return false, the process needs to push back to the CP queue.
-	*/
+	Return false, the process needs to push back to the CP queue.*/
 	virtual bool process(int timeSlice) = 0;
 
 	virtual vector<string> getInputStreamNames() = 0;
@@ -22,8 +21,8 @@ public:
 
 	//string outputStreamNameOfProcess, the output stream name connected to this process unit.
 	virtual void addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess) = 0;
-	//the output stream names connected to this process unit.
+
+	//The current process unit might be referenced by others. 
+	//Hereby, we get the outputName of those other process units.
 	virtual set<string> getConnectedOutputNameSet() = 0;
 };
-
-

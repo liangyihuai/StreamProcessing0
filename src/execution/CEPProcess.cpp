@@ -23,27 +23,26 @@ CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName)
 
 bool CEPProcess::process(int timeSlice){
 	int nonEmptyCount = 0;
+	Window<bool> *input_queue_win = nullptr;
 
 	for (int i = 0; i < inputQueues->size(); i++) {
 		int timeSlice_i = timeSlice;
 		queue<EventPtr> * q = (*inputQueues)[i];
 		while (!q->empty() && timeSlice_i > 0) {
-			//debug
-			//long long t = q->front()->getTime();
 			try {
 				std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
-				timeSlidingWinForExistOpVec[i]->push_back(q->front());
+				input_queue_win = timeSlidingWinForExistOpVec[i];
+				input_queue_win->push_back(q->front());
 			}catch (std::logic_error& e) {
 				std::cout << "[exception caught]\n";
 			}
-
-			timeSlidingWinForExistOpVec[i]->push_back(q->front());
 			q->pop();
 			timeSlice_i--;
 		}
 		if (!q->empty()) nonEmptyCount++;
 	}
-	if (nonEmptyCount == inputQueues->size()) return false;
+	if (nonEmptyCount == inputQueues->size()) 
+		return false;
 	return true;
 }
 

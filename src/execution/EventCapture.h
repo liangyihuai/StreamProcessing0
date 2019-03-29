@@ -10,18 +10,6 @@
 
 
 class EventCapture: public Process{
-private:
-	//
-	queue<EventPtr>* inputQueue;
-	
-	//the input queue of other processing unit, so this class should not maintain deallocate it memory
-	set<queue<EventPtr>*> outputQueueSet;
-	//the output names of process that connects to this process unit.
-	set<string> connectedOutputNameSet;
-
-    Condition condition;
-	string inputStreamName;
-    string outputStreamName;
 public:
 	EventCapture(string _outputStreamName);
 	~EventCapture();
@@ -29,12 +17,18 @@ public:
 	//---------------------------
 	//implemented methods
 	//---------------------------
-	bool process(int timeSlice = 100);
-	vector<string> getInputStreamNames();
-	vector<queue<EventPtr>*> getInputQueues();
-	string getOutputStreamName();
+	bool process(int timeSlice = 100)override;
+
+	vector<string> getInputStreamNames()override;
+
+	vector<queue<EventPtr>*> getInputQueues()override;
+
+	string getOutputStreamName()override;
+
 	//string outputStreamNameOfProcess, the output stream name connected to this process unit.
-	void addOutputQueue(queue<EventPtr> * outputQueue, string outputStreamNameOfProcess);
+	void addOutputQueue(queue<EventPtr> * outputQueue, string outputStreamNameOfProcess)override;
+
+	set<string> getConnectedOutputNameSet()override;
 
 	//--------------------------
 	//other methods
@@ -44,7 +38,18 @@ public:
 	void setOutputStreamName(string name);
 	queue<EventPtr>* getInputQueue();
 
-	set<string> getConnectedOutputNameSet();
+private:
+	queue<EventPtr>* inputQueue;
+
+	//the input queue of other processing unit, so this class should not maintain deallocate it memory
+	set<queue<EventPtr>*> outputQueueSet;
+
+	//the output names of process that connects to this process unit.
+	set<string> connectedOutputNameSet;
+
+	Condition condition;
+	string inputStreamName;
+	string outputStreamName;
 };
 
 #endif //CONTINUOUSPROCESSING_EVENTCAPTURE_H
