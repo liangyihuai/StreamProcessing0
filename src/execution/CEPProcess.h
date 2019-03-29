@@ -36,24 +36,22 @@ public:
 	//------------------------------
 	/*insert event to the window of operator from input queues.
 	this function is called by a time scheduler*/
-    bool process(int timeSlice);
-	vector<string> getInputStreamNames();
-	vector<queue<EventPtr>*> getInputQueues();
-	string getOutputStreamName();
-	void addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess);
-	set<string> getConnectedOutputNameSet();
+    bool process(int timeSlice) override;
+	vector<string> getInputStreamNames()override;
+	vector<queue<EventPtr>*> getInputQueues()override;
+	string getOutputStreamName()override;
+	void addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess)override;
+	set<string> getConnectedOutputNameSet()override;
 
 	//---------------------------
 	//other
 	//----------------------------
-    void addCondition(ExistOp * con, string inputStreamName);
     void setResultListener(ResultListener<EventPtr>* listener);
-    void setWindow(int timeWindowLen);
 	void result();
 	void setInputStreamNames(vector<string> names);
     
 private:
-	vector<ExistOp*> existOpVec;
+	vector<Window<bool>*> timeSlidingWinForExistOpVec;
 	vector<string> inputStreamNames;
 	vector<queue<EventPtr>*>* inputQueues;
 	string outputStreamName;
@@ -66,6 +64,5 @@ public:
 	//CEP结果的互斥锁，目前所有的CEP只有一个锁，以后应该改进，使得每一个queue有一个单独的互斥锁
 	static mutex mutexOfCEPResult;
 };
-
 
 #endif //CONTINUOUSPROCESSING_CEPPROCESS_H

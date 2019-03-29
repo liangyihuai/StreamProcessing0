@@ -1,28 +1,26 @@
-//
-// Created by USER on 12/6/2018.
-//
 #include "../stdafx.h"
 #include "ExistOp.h"
+#include "../execution/result/BoolResult.h"
 
-ExistOp::ExistOp(string _streamName, int _timeWinLen) {
+ExistOp::ExistOp(string _streamName) {
 	this->streamName = _streamName;
-	window.setTimeLen(_timeWinLen);
 }
 
-bool ExistOp::digestEvent(EventPtr e) {
-	window.push_back(e);
-	return true;
-}
 
 ResultPtr<bool> ExistOp::result(EventPtr event) {
-	ResultPtr<bool> result;
-	if (!window.empty()) 
-		result = ResultPtr<bool>(new BoolResult(true));
-	else
-		result = ResultPtr<bool>(new BoolResult(false));
-
-	window.refresh();
-	return result;
+	cout << "not implemented." << endl;
+	throw runtime_error("");
 }
+
+ResultPtr<bool> ExistOp::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
+	if (eventList == nullptr || eventList->size() == 0) {
+		return ResultPtr<bool>(new BoolResult(false));
+	}
+	else {
+		return ResultPtr<bool>(new BoolResult(true));
+	}
+}
+
+
 
 

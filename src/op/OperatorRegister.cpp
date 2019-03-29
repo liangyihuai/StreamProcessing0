@@ -1,7 +1,9 @@
 #include "../stdafx.h"
 #include "OperatorRegister.h"
 
-const string OperatorRegister::opNames[8] = { "count", "avg", "average", "sum", "distance", "max", "min", "withinarea" };
+const string OperatorRegister::opNames[8] = { "count", "avg", "average", 
+											"sum", "distance", "max", 
+											"min", "withinarea" };
 
 bool OperatorRegister::isOperator(string name) {
 	for (string op : opNames) {

@@ -10,9 +10,9 @@ CEPSpec::CEPSpec() {
 CEPProcess * CEPSpec::instance() {
 	CEPProcess* cep = new CEPProcess(inputStreams , outputStreamName);
 
-	for (int i = 0; i < inputStreams.size(); i++) {
+	/*for (int i = 0; i < inputStreams.size(); i++) {
 		cep->addCondition(predicateVec[i], inputStreams[i]);
-	}
+	}*/
 
 	//cep->setWindow(win);
 

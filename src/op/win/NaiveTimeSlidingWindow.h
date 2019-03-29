@@ -8,6 +8,8 @@
 template <typename T>
 class NaiveTimeSlidingWindow :public Window<T> {
 public:
+	NaiveTimeSlidingWindow(int timeLen=1000);
+
 	void refresh() override;
 	void reevaluate(T& result)override;
 	bool push_back(EventPtr e)override;
@@ -29,7 +31,14 @@ private:
 };
 
 template <typename T>
+NaiveTimeSlidingWindow<T>::NaiveTimeSlidingWindow(int timeLen) {
+	this->timeWinLen = timeLen;
+}
+
+template <typename T>
 void NaiveTimeSlidingWindow<T>::reevaluate(T& result) {
+	refresh();
+	
 	ResultPtr<T> r = op->resultMultEvents(&eventQueue, true);
 	result = r->getResult();
 }
@@ -37,7 +46,7 @@ void NaiveTimeSlidingWindow<T>::reevaluate(T& result) {
 template <typename T>
 void NaiveTimeSlidingWindow<T>::refresh() {
 	long long curr = Utils::getTime();
-	while (!eventQueue.empty() && !eventQueue.front()->getTime() + timeWinLen < curr) {
+	while (!eventQueue.empty() && eventQueue.front()->getTime() + timeWinLen < curr) {
 		eventQueue.pop_front();
 	}
 }

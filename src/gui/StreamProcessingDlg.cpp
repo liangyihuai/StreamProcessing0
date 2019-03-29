@@ -426,7 +426,7 @@ class ThreadOfTimerToPerformCEP {
 public:
 	void run() {
 		while (true) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 			cout << "cep timer" << endl;
 			set<CEPProcess*> ceps = ExecuteScheduler::getCEPs();
 			for (CEPProcess * c : ceps) {
