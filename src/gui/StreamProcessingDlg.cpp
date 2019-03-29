@@ -15,6 +15,7 @@
 
 #include <future>
 #include "../spec/SpecRegister.h"
+#include "../execution/ProcessRegister.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -83,6 +84,14 @@ CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 	cep_rule = _T("If exist(flyingAllyTarget)\
 		\r\nFrom flyingAllyTarget\
 		\r\nThen cepTarget1");
+
+	//launch a console
+	FILE* fp = NULL;
+	AllocConsole();
+	freopen_s(&fp, "CONOUT$", "w+t", stdout);
+	cout << "start stream processing..." << endl;
+
+
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -238,7 +247,7 @@ void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd(){
 
 	EventFilterSpec* eventFilterSpec = EventFilterParser::parseOneEventFilterSpec(lines_list, outputStreamName);
 	EventProcess* ec = eventFilterSpec->instance();
-	ExecuteScheduler::registerEventProcess(ec);
+	ProcessRegister::registerEventFilter(ec);
 
 	MessageBox(_T("Add Event Filter rule successfully"), NULL, MB_OK);
 }
@@ -278,8 +287,7 @@ void CStreamProcessingDlg::addEventCaptureRule(CString c_outputStreamName, CStri
 	EventCaptureSpec* spec = EventCaptureSpecParser::parseOneEventCaptureSpec(lines_list, outputStreamName);
 	EventCapture* ec = spec->instance();
 	try {
-		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
-		ExecuteScheduler::registerProcess(outputStreamName, ec);
+		ProcessRegister::addProcess(ec);
 	}
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
@@ -322,8 +330,7 @@ void CStreamProcessingDlg::addCQRule(CString c_outputStreamName, CString c_ruleS
 	CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(lines_list, outputStreamName);
 	CQProcess* cq = cqSpec->instance();
 	try {
-		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
-		ExecuteScheduler::registerProcess(outputStreamName, cq);
+		ProcessRegister::addProcess(cq);
 	}
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
@@ -366,8 +373,7 @@ void CStreamProcessingDlg::addCEPRule(CString c_outputStreamName, CString c_rule
 	CEPSpec* cepSpec = CEPSpecParser::parseOneCEPSpec(lines_list, outputStreamName);
 	CEPProcess* cep = cepSpec->instance();
 	try {
-		std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfProcessMap);//mutex lock
-		ExecuteScheduler::registerProcess(outputStreamName, cep);
+		ProcessRegister::addProcess(cep);
 	}
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
@@ -382,8 +388,7 @@ private:
 	bool isStop = false;
 public:
 	void run() {
-		EventProcess * eventProcess = ExecuteScheduler::getEventProcess();
-
+		EventProcess * eventProcess = ProcessRegister::getProcessOfEventFiltering();
 		while(!isStop) {
 			Sleep(500);
 			EventPtr e = EventGenerator::generateEvent();
@@ -428,7 +433,8 @@ public:
 		while (true) {
 			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 			cout << "cep timer" << endl;
-			set<CEPProcess*> ceps = ExecuteScheduler::getCEPs();
+			//set<CEPProcess*> ceps = ExecuteScheduler::getCEPs();
+			set<CEPProcess*> ceps = ProcessRegister::getCEPs();
 			for (CEPProcess * c : ceps) {
 				c->result();
 			}
@@ -446,11 +452,6 @@ ThreadOfEventFilter *threadOfEventFilter = nullptr;//thread to run stream proces
 
 void CStreamProcessingDlg::OnBnClickedButtonStart(){
 	if (!isStarted) {
-		//launch a console
-		FILE* fp = NULL;
-		AllocConsole();
-		freopen_s(&fp, "CONOUT$", "w+t", stdout);
-		cout << "start stream processing..." << endl;
 
 		threadOfEventFilter = new ThreadOfEventFilter();
 		threadOfEventFilter->runThread().detach();
@@ -542,8 +543,9 @@ void CStreamProcessingDlg::OnBnClickedButtonDeleteRule(){
 
 	bool delete_result = SpecRegister::delete_rule(outputStreamName);
 	if (delete_result) {
-		ExecuteScheduler::deleteProcess(outputStreamName);
-		ExecuteScheduler::updateGraph();
+		//ExecuteScheduler::deleteProcess(outputStreamName);
+		//ExecuteScheduler::updateGraph();
+		ProcessRegister::removeProcess(outputStreamName);
 		MessageBox(_T("delete successfully"), NULL, MB_OK);
 	}else {
 		MessageBox(_T("no such rule specification."), NULL, MB_OK);
@@ -562,7 +564,7 @@ void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
 	//delete history
 	bool delete_result = SpecRegister::delete_rule(outputStreamName);
 	if (delete_result) {
-		Process * process = ExecuteScheduler::getProcess(outputStreamName);
+		Process * process = ProcessRegister::getProcess(outputStreamName);
 		int processType = 0;//1:event capture, 2:cq, 3:cep
 		if (EventCapture * ec = dynamic_cast<EventCapture*>(process)) {
 			processType = 1;
@@ -572,7 +574,8 @@ void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
 			processType = 3;
 		}
 
-		ExecuteScheduler::deleteProcess(outputStreamName);
+		//ExecuteScheduler::deleteProcess(outputStreamName);
+		ProcessRegister::removeProcess(outputStreamName);
 
 		if (processType == 1) {
 			addEventCaptureRule(outputStreamForUpdate, editBoxOfRule);
@@ -583,7 +586,6 @@ void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
 		else if (processType == 3) {
 			addCEPRule(outputStreamForUpdate, editBoxOfRule);
 		}
-		ExecuteScheduler::updateGraph();
 		
 		outputStreamNameForSearch = outputStreamForUpdate;
 		UpdateData(false);

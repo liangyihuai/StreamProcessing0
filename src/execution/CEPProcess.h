@@ -42,6 +42,7 @@ public:
 	string getOutputStreamName()override;
 	void addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess)override;
 	set<string> getConnectedOutputNameSet()override;
+	bool removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) override;
 
 	//---------------------------
 	//other

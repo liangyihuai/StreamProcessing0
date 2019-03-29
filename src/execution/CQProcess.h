@@ -17,7 +17,7 @@
 #include <set>
 
 //the ResultListener return DerivedEventPtr.
-class CQProcess: public Process{
+class CQProcess : public Process{
 public:
 	CQProcess(string outputStreamName);
 	~CQProcess();
@@ -32,6 +32,7 @@ public:
 	vector<queue<EventPtr>*> getInputQueues()override;
 	string getOutputStreamName()override;
 	set<string> getConnectedOutputNameSet()override;
+	bool removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) override;
    
 	//--------------------------------
 	//other
@@ -50,9 +51,9 @@ private:
 	string outputStreamName;
 	queue<EventPtr> * inputQueue;
 	//the input queue of other processing units.
-	set<queue<EventPtr>*> outputQueueSet;
+	vector<queue<EventPtr>*> inputQueueSetOfDownstreamProcessUnit;
 	//the output names of process that connects to this process unit.
-	set<string> connectedOutputNameSet;
+	vector<string> outputNameSetOfDownstreamProcessUnit;
 	// all stateless operatorPredicates and simple predicates share one queue reader.
 	Predicate* predicate;
 };

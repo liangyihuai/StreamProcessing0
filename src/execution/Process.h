@@ -20,9 +20,14 @@ public:
 	virtual string getOutputStreamName() = 0;
 
 	//string outputStreamNameOfProcess, the output stream name connected to this process unit.
-	virtual void addOutputQueue(queue<EventPtr>* outputQueue, string outputStreamNameOfProcess) = 0;
+	virtual void addOutputQueue(queue<EventPtr>* inputQueueOfDownstreamProcessUnit, string outputNameOfDownstreamProcessUnit) = 0;
 
 	//The current process unit might be referenced by others. 
 	//Hereby, we get the outputName of those other process units.
 	virtual set<string> getConnectedOutputNameSet() = 0;
+
+	//the current process unit is A. B is a downstream processing unit of A. Now remove output queue and name of A
+	//from the output queue set and output name set based on the output stream name of B.
+	virtual bool removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) = 0;
+
 };

@@ -13,7 +13,8 @@ CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName)
 	int inputStreamNum = inputStreamNames.size();
 	inputQueues = new vector<queue<EventPtr>*>();
 	for (string inputStreamName: inputStreamNames) {
-		inputQueues->push_back(new queue<EventPtr>());
+		inputQueues->push_back(new queue<EventPtr>());//initialize input queues
+
 		NaiveTimeSlidingWindow<bool> * win = new NaiveTimeSlidingWindow<bool>(windowLen);
 		ExistOp* existOp = new ExistOp(inputStreamName);//operator
 		win->setStatefulOperator(existOp);
@@ -68,13 +69,17 @@ set<string> CEPProcess::getConnectedOutputNameSet() {
 	throw runtime_error("");
 }
 
+bool CEPProcess::removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) {
+	std::cout << "not implemented method addOutputQueue";
+	throw runtime_error("");
+}
+
+
 void CEPProcess::result(){
 	int satisfiedCount = 0;
-	//for each input stream
-	for (int i = 0; i < timeSlidingWinForExistOpVec.size(); i++) {
+	for (int i = 0; i < timeSlidingWinForExistOpVec.size(); i++) {//for each input stream
 		bool result = false;
-		//32 bit, if the bit value is 1, the associated predicate saticfied.
-		if (timeSlidingWinForExistOpVec[i] == nullptr) {
+		if (timeSlidingWinForExistOpVec.size()<=i || timeSlidingWinForExistOpVec[i] == nullptr) {
 			std::cout << "The operator ExistOp is nullptr, index is " << i << ", outputStreamName is " << outputStreamName;
 			throw runtime_error("");
 		}

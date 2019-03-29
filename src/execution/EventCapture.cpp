@@ -23,9 +23,9 @@ string EventCapture::getOutputStreamName() {
 	return outputStreamName;
 }
 
-void EventCapture::addOutputQueue(queue<EventPtr> * outputQueue, string outputStreamNameOfProcess) {
-	outputQueueSet.insert(outputQueue);
-	connectedOutputNameSet.insert(outputStreamNameOfProcess);
+void EventCapture::addOutputQueue(queue<EventPtr>* inputQueueOfDownstreamProcessUnit, string outputNameOfDownstreamProcessUnit) {
+	inputQueueSetOfDownstreamProcessUnit.push_back(inputQueueOfDownstreamProcessUnit);
+	outputNameSetOfDownstreamProcessUnit.push_back(outputNameOfDownstreamProcessUnit);
 }
 
 EventCapture::~EventCapture() {
@@ -41,7 +41,7 @@ bool EventCapture::process(int timeSlice) {
 	EventPtr e = nullptr;
 	while (!inputQueue->empty() && timeSlice > 0) {
 		try {
-			lock_guard<mutex> lg(EventProcess::mutexOfEventFiler);
+			lock_guard<mutex> lg(EventProcess::mutexOfEventFiler);//mutex threat
 			e = inputQueue->front();
 			inputQueue->pop();
 		}catch (std::logic_error& e) {
@@ -57,7 +57,7 @@ bool EventCapture::process(int timeSlice) {
 					cq->addEventToQueue(e);
 				}
 			}else {
-				for (queue<EventPtr>* q : outputQueueSet) {
+				for (queue<EventPtr>* q : inputQueueSetOfDownstreamProcessUnit) {
 					q->push(e);
 				}
 			}
@@ -85,5 +85,27 @@ void EventCapture::setOutputStreamName(string name) {
 }
 
 set<string> EventCapture::getConnectedOutputNameSet() {
-	return this->connectedOutputNameSet;
+	set<string> s;
+	for (string name : outputNameSetOfDownstreamProcessUnit) {
+		s.insert(name);
+	}
+	return s;
+}
+
+bool EventCapture::removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) {
+	for (int i = 0; i < outputNameSetOfDownstreamProcessUnit.size(); i++) {
+		if (outputNameSetOfDownstreamProcessUnit[i] == outputNameOfProcessUnitB) {
+			delete inputQueueSetOfDownstreamProcessUnit[i];
+
+			int j = i + 1;
+			for (; j < outputNameSetOfDownstreamProcessUnit.size(); j++) {//move reaward one step.
+				outputNameSetOfDownstreamProcessUnit[j - 1] = outputNameSetOfDownstreamProcessUnit[j];
+				inputQueueSetOfDownstreamProcessUnit[j - 1] = inputQueueSetOfDownstreamProcessUnit[j];
+			}
+			outputNameSetOfDownstreamProcessUnit.pop_back();
+			inputQueueSetOfDownstreamProcessUnit.pop_back();
+			return true;
+		}
+	}
+	return false;
 }

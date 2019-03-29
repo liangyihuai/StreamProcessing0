@@ -211,7 +211,9 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\common\EventQueue.h" />
     <ClInclude Include="src\common\Logger.h" />
+    <ClInclude Include="src\execution\ProcessRegister.h" />
     <ClInclude Include="src\execution\result\BoolResult.h" />
     <ClInclude Include="src\execution\result\CEPPrintResultListener.h" />
     <ClInclude Include="src\execution\result\DoubleResult.h" />
@@ -220,6 +222,7 @@
     <ClInclude Include="src\execution\result\Result.h" />
     <ClInclude Include="src\execution\result\ResultListener.h" />
     <ClInclude Include="src\execution\result\SingleEventResult.h" />
+    <ClInclude Include="src\execution\TopoGraph.h" />
     <ClInclude Include="src\expression\And.h" />
     <ClInclude Include="src\op\Average.h" />
     <ClInclude Include="src\execution\CEPProcess.h" />
@@ -286,6 +289,8 @@
     <ClInclude Include="src\op\win\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\execution\ProcessRegister.cpp" />
+    <ClCompile Include="src\execution\TopoGraph.cpp" />
     <ClCompile Include="src\op\Average.cpp" />
     <ClCompile Include="src\execution\CEPProcess.cpp" />
     <ClCompile Include="src\op\DistanceOp.cpp" />

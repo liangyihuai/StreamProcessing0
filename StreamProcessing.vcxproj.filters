@@ -309,6 +309,15 @@
     <ClInclude Include="src\op\Min.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\common\EventQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\TopoGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\execution\ProcessRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\Event.cpp">
@@ -486,6 +495,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\op\Min.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\execution\TopoGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\execution\ProcessRegister.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

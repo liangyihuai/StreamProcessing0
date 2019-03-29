@@ -11,15 +11,15 @@ CQProcess::CQProcess(string outputStreamName) {
 	this->outputStreamName = outputStreamName;
 }
 
-void CQProcess::addOutputQueue(queue<EventPtr> *outputQueue, string outputStreamNameOfProcess) {
-	outputQueueSet.insert(outputQueue);
-	connectedOutputNameSet.insert(outputStreamNameOfProcess);
+void CQProcess::addOutputQueue(queue<EventPtr> *inputQueueOfDownstreamProcessUnit, string outputNameOfDownstreamProcessUnit) {
+	inputQueueSetOfDownstreamProcessUnit.push_back(inputQueueOfDownstreamProcessUnit);
+	outputNameSetOfDownstreamProcessUnit.push_back(outputNameOfDownstreamProcessUnit);
 }
 
 bool CQProcess::process(int timeSlice){
 	while (!inputQueue->empty() && timeSlice > 0) {
 		EventPtr e = inputQueue->front();
-		if (predicate->check(e)) {
+		if (predicate->check(e)) {//check CQ conditions
 			if (USE_CQ_INDEX && ProcessRegisterForCQIndex::isIndexed(this)) {
 				list<Process*> processList = ProcessRegisterForCQIndex::getIndexByProcess(this)->filter(e);
 				CQProcess * cq = nullptr;
@@ -28,7 +28,7 @@ bool CQProcess::process(int timeSlice){
 					cq->addEventToQueue(e);
 				}
 			}else {
-				for (queue<EventPtr>* q : outputQueueSet) {
+				for (queue<EventPtr>* q : inputQueueSetOfDownstreamProcessUnit) {
 					q->push(e);
 				}
 			}
@@ -80,12 +80,35 @@ Predicate* CQProcess::getPredicate() {
 }
 
 set<string> CQProcess::getConnectedOutputNameSet() {
-	return this->connectedOutputNameSet;
+	set<string> nameSet;
+	for (string name : outputNameSetOfDownstreamProcessUnit) {
+		nameSet.insert(name);
+	}
+	return nameSet;
 }
 
 void CQProcess::addEventToQueue(EventPtr e) {
 	inputQueue->push(e);
 }
+
+bool CQProcess::removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) {
+	for (int i = 0; i < outputNameSetOfDownstreamProcessUnit.size(); i++) {
+		if (outputNameSetOfDownstreamProcessUnit[i] == outputNameOfProcessUnitB) {
+			delete inputQueueSetOfDownstreamProcessUnit[i];
+
+			int j = i + 1;
+			for (; j < outputNameSetOfDownstreamProcessUnit.size(); j++) {//move reaward one step.
+				outputNameSetOfDownstreamProcessUnit[j - 1] = outputNameSetOfDownstreamProcessUnit[j];
+				inputQueueSetOfDownstreamProcessUnit[j - 1] = inputQueueSetOfDownstreamProcessUnit[j];
+			}
+			outputNameSetOfDownstreamProcessUnit.pop_back();
+			inputQueueSetOfDownstreamProcessUnit.pop_back();
+			return true;
+		}
+	}
+	return false;
+}
+
 
 CQProcess::~CQProcess(){
 	delete predicate; predicate = nullptr;

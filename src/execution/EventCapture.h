@@ -26,9 +26,11 @@ public:
 	string getOutputStreamName()override;
 
 	//string outputStreamNameOfProcess, the output stream name connected to this process unit.
-	void addOutputQueue(queue<EventPtr> * outputQueue, string outputStreamNameOfProcess)override;
+	void addOutputQueue(queue<EventPtr>* inputQueueOfDownstreamProcessUnit, string outputNameOfDownstreamProcessUnit)override;
 
 	set<string> getConnectedOutputNameSet()override;
+
+	bool removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) override;
 
 	//--------------------------
 	//other methods
@@ -42,10 +44,10 @@ private:
 	queue<EventPtr>* inputQueue;
 
 	//the input queue of other processing unit, so this class should not maintain deallocate it memory
-	set<queue<EventPtr>*> outputQueueSet;
+	vector<queue<EventPtr>*> inputQueueSetOfDownstreamProcessUnit;
 
 	//the output names of process that connects to this process unit.
-	set<string> connectedOutputNameSet;
+	vector<string> outputNameSetOfDownstreamProcessUnit;
 
 	Condition condition;
 	string inputStreamName;

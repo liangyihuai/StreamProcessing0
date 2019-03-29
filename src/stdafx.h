@@ -80,3 +80,5 @@
 
 #include "common/Consts.h"
 #include "common/Config.h"
+
+#include "common/EventQueue.h"
