@@ -103,7 +103,7 @@
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>spatialindex-32.lib;</AdditionalDependencies>
     </Link>
@@ -131,7 +131,7 @@
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>spatialindex-32.lib;</AdditionalDependencies>
     </Link>
@@ -161,7 +161,7 @@
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -193,7 +193,7 @@
       <ForcedIncludeFiles>stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Users\USER\Source\Repos\liangyihuai\StreamProcessing\spatialindexLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -224,6 +224,8 @@
     <ClInclude Include="src\execution\result\SingleEventResult.h" />
     <ClInclude Include="src\execution\TopoGraph.h" />
     <ClInclude Include="src\expression\And.h" />
+    <ClInclude Include="src\gui\MultiThreads.h" />
+    <ClInclude Include="src\gui\RuleRegisterUtils.h" />
     <ClInclude Include="src\op\Average.h" />
     <ClInclude Include="src\execution\CEPProcess.h" />
     <ClInclude Include="src\op\DistanceOp.h" />
@@ -241,6 +243,7 @@
     <ClInclude Include="src\common\Config.h" />
     <ClInclude Include="src\common\Consts.h" />
     <ClInclude Include="src\op\Count.h" />
+    <ClInclude Include="src\test\performanceTest\RuleSpecOfEventCapture.h" />
     <ClInclude Include="src\util\CQIndexUtils.h" />
     <ClInclude Include="src\execution\CQProcess.h" />
     <ClInclude Include="src\spec\CQSpec.h" />
@@ -291,6 +294,7 @@
   <ItemGroup>
     <ClCompile Include="src\execution\ProcessRegister.cpp" />
     <ClCompile Include="src\execution\TopoGraph.cpp" />
+    <ClCompile Include="src\gui\MultiThreads.cpp" />
     <ClCompile Include="src\op\Average.cpp" />
     <ClCompile Include="src\execution\CEPProcess.cpp" />
     <ClCompile Include="src\op\DistanceOp.cpp" />
@@ -321,7 +325,18 @@
     </ClCompile>
     <ClCompile Include="src\expression\Condition.cpp" />
     <ClCompile Include="src\op\Count.cpp" />
-    <ClCompile Include="src\test\funcTest\TestSlidingWindow.cpp" />
+    <ClCompile Include="src\test\funcTest\TestSlidingWindow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\test\performanceTest\PerformanceTest.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="src\util\CQIndexUtils.cpp" />
     <ClCompile Include="src\execution\CQProcess.cpp" />
     <ClCompile Include="src\spec\CQSpec.cpp" />

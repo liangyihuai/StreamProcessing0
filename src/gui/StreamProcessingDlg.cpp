@@ -16,6 +16,8 @@
 #include <future>
 #include "../spec/SpecRegister.h"
 #include "../execution/ProcessRegister.h"
+#include "MultiThreads.h"
+#include "RuleRegisterUtils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,8 +67,8 @@ CStreamProcessingDlg::CStreamProcessingDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_STREAMPROCESSING_DIALOG, pParent)
 	, outputStreamNameForSearch(_T(""))
 	, editBoxOfRule(_T(""))
-	, outputStreamForUpdate(_T(""))
-{
+	, outputStreamForUpdate(_T("")){
+
 	//initialize name and value
 	event_filter_name = _T("targetData");
 	event_filter_rule = _T("If not duplicate(id) & not unusual(speed)\
@@ -213,45 +215,25 @@ HCURSOR CStreamProcessingDlg::OnQueryDragIcon(){
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void CStreamProcessingDlg::OnEnChangeEditCepRule()
-{
-	// TODO:  If this is a RICHEDIT control, the control will not
-	// send this notification unless you override the CDialogEx::OnInitDialog()
-	// function and call CRichEditCtrl().SetEventMask()
-	// with the ENM_CHANGE flag ORed into the mask.
-
-	// TODO:  Add your control notification handler code here
+void CStreamProcessingDlg::OnEnChangeEditCepRule(){
 }
 
+
 //add rule of event filter
-void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd(){
+void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd() {
 	UpdateData(true);
 
 	if (event_filter_name.GetLength() == 0 || event_filter_rule.GetLength() == 0) {
 		MessageBox(_T("fill the name and the rule"), NULL, MB_OK);
 		return;
 	}
-
-	//parse names 
-	string outputStreamName(CW2A(event_filter_name.GetString()));
-	outputStreamName = Utils::toLower(outputStreamName);
-
-	//parse event capture rules
-	string str(CW2A(event_filter_rule.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-
-	EventFilterSpec* eventFilterSpec = EventFilterParser::parseOneEventFilterSpec(lines_list, outputStreamName);
-	EventProcess* ec = eventFilterSpec->instance();
-	ProcessRegister::registerEventFilter(ec);
+	string outputStreamName;
+	string specLines;
+	RuleRegisterUtils::specProcessWithCString(event_filter_name, event_filter_rule, outputStreamName, specLines);
+	RuleRegisterUtils::registerEventFilter(outputStreamName,specLines);
 
 	MessageBox(_T("Add Event Filter rule successfully"), NULL, MB_OK);
 }
-
 
 //add rule specification of event capture
 void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
@@ -261,39 +243,17 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 		MessageBox(_T("fill the name and the rule"), NULL, MB_OK);
 		return;
 	}
-	
-	addEventCaptureRule(event_capture_name, event_capture_rule);
+
+	string outputName;
+	string ruleStrs;
+	RuleRegisterUtils::specProcessWithCString(event_capture_name, event_capture_rule, outputName, ruleStrs);
+	RuleRegisterUtils::registerEventCapture(outputName, ruleStrs);
 
 	MessageBox(_T("Add Event Capture rule successfully"), NULL, MB_OK);
 
 	event_capture_rule = _T("");
 	event_capture_name = _T("");
 	UpdateData(false);
-}
-
-
-void CStreamProcessingDlg::addEventCaptureRule(CString c_outputStreamName, CString c_ruleStrs) {
-	//parse names 
-	string outputStreamName(CW2A(c_outputStreamName.GetString()));
-	outputStreamName = Utils::toLower(outputStreamName);
-	//parse event capture rules
-	string str(CW2A(c_ruleStrs.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-	EventCaptureSpec* spec = EventCaptureSpecParser::parseOneEventCaptureSpec(lines_list, outputStreamName);
-	EventCapture* ec = spec->instance();
-	try {
-		ProcessRegister::addProcess(ec);
-	}
-	catch (std::logic_error& e) {
-		std::cout << "[exception caught]\n";
-	}
-	//store rule specification
-	SpecRegister::register_event_capture_rule(outputStreamName, str);
 }
 
 //add rule specification of CQ
@@ -306,7 +266,10 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 		return;
 	}
 
-	addCQRule(cq_name, cq_rule);
+	string outputName;
+	string ruleStrs;
+	RuleRegisterUtils::specProcessWithCString(cq_name, cq_rule, outputName, ruleStrs);
+	RuleRegisterUtils::registerCQ(outputName, ruleStrs);
 
 	MessageBox(_T("Add CQ rule successfully"), NULL, MB_OK);
 	cq_rule = _T("");
@@ -314,30 +277,6 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 	UpdateData(false);
 }
 
-void CStreamProcessingDlg::addCQRule(CString c_outputStreamName, CString c_ruleStrs) {
-	//parse names 
-	string outputStreamName(CW2A(c_outputStreamName.GetString()));
-	outputStreamName = Utils::toLower(outputStreamName);
-
-	//parse event capture rules
-	string str(CW2A(c_ruleStrs.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-	CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(lines_list, outputStreamName);
-	CQProcess* cq = cqSpec->instance();
-	try {
-		ProcessRegister::addProcess(cq);
-	}
-	catch (std::logic_error& e) {
-		std::cout << "[exception caught]\n";
-	}
-	//store rule specification
-	SpecRegister::register_cq_rule(outputStreamName, str);
-}
 
 //add rule specification of CEP
 void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
@@ -349,7 +288,10 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 		return;
 	}
 
-	addCEPRule(cep_name, cep_rule);
+	string outputName;
+	string ruleStrs;
+	RuleRegisterUtils::specProcessWithCString(cep_name, cep_rule, outputName, ruleStrs);
+	RuleRegisterUtils::registerCEP(outputName, ruleStrs);
 
 	MessageBox(_T("Add CEP rule successfully"), NULL, MB_OK);
 	cep_name = _T("");
@@ -357,110 +299,22 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 	UpdateData(false);
 }
 
-void CStreamProcessingDlg::addCEPRule(CString c_outputStreamName, CString c_ruleStrs) {
-	//parse names 
-	string outputStreamName(CW2A(c_outputStreamName.GetString()));
-	outputStreamName = Utils::toLower(outputStreamName);
-
-	//parse event capture rules
-	string str(CW2A(c_ruleStrs.GetString()));
-	vector<string> lines = Utils::split(str, "\r\n");
-	list<string>lines_list;
-	for (string line : lines) {
-		line = Utils::trim(line);
-		lines_list.push_back(line);
-	}
-	CEPSpec* cepSpec = CEPSpecParser::parseOneCEPSpec(lines_list, outputStreamName);
-	CEPProcess* cep = cepSpec->instance();
-	try {
-		ProcessRegister::addProcess(cep);
-	}
-	catch (std::logic_error& e) {
-		std::cout << "[exception caught]\n";
-	}
-	//store rule specifications
-	SpecRegister::register_cep_rule(outputStreamName, str);
-}
-
-//the thread to run the backend of stream processing
-class ThreadOfEventFilter {
-private:
-	bool isStop = false;
-public:
-	void run() {
-		EventProcess * eventProcess = ProcessRegister::getProcessOfEventFiltering();
-		while(!isStop) {
-			Sleep(500);
-			EventPtr e = EventGenerator::generateEvent();
-
-			//update the variable of "inputstream_to_display"
-			CString cstr(e->toString().c_str());
-			
-			CStreamProcessingDlg::inputstream_to_display = cstr + "\r\n"+ CStreamProcessingDlg::inputstream_to_display;
-			if (CStreamProcessingDlg::inputstream_to_display.GetLength() > 5000)
-				CStreamProcessingDlg::inputstream_to_display.Truncate(3000);
-
-			eventProcess->process(e);
-		}
-	}
-
-
-	std::thread runThread() {
-		return std::thread(&ThreadOfEventFilter::run, this);
-	}
-
-	void stop() {
-		this->isStop = true;
-	}
-};
-
-//the thread to run the backend of stream processing
-class ThreadOfProcessUnit {
-public:
-	void run() {
-		ExecuteScheduler::runProcessQueue();
-	}
-
-	std::thread runThread() {
-		return std::thread(&ThreadOfProcessUnit::run, this);
-	}
-};
-
-//perform CEP regularly.
-class ThreadOfTimerToPerformCEP {
-public:
-	void run() {
-		while (true) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-			cout << "cep timer" << endl;
-			//set<CEPProcess*> ceps = ExecuteScheduler::getCEPs();
-			set<CEPProcess*> ceps = ProcessRegister::getCEPs();
-			for (CEPProcess * c : ceps) {
-				c->result();
-			}
-		}
-	}
-
-	std::thread runThread() {
-		return std::thread(&ThreadOfTimerToPerformCEP::run, this);
-	}
-};
-
-
 bool isStarted = false;
 ThreadOfEventFilter *threadOfEventFilter = nullptr;//thread to run stream processing
 
 void CStreamProcessingDlg::OnBnClickedButtonStart(){
 	if (!isStarted) {
-
+		//thread for event filtering.
 		threadOfEventFilter = new ThreadOfEventFilter();
 		threadOfEventFilter->runThread().detach();
 
 		ExecuteScheduler::initialize();
-
+		
+		//thread for EventCapture, CQ and CEP.
 		ThreadOfProcessUnit * threadOfProcessUnit = new ThreadOfProcessUnit();
 		threadOfProcessUnit->runThread().detach();
 
+		//thread for getting the results of CEP.
 		ThreadOfTimerToPerformCEP * threadOfTimerToPerformCEP = new ThreadOfTimerToPerformCEP();
 		threadOfTimerToPerformCEP->runThread().detach();
 
@@ -543,8 +397,6 @@ void CStreamProcessingDlg::OnBnClickedButtonDeleteRule(){
 
 	bool delete_result = SpecRegister::delete_rule(outputStreamName);
 	if (delete_result) {
-		//ExecuteScheduler::deleteProcess(outputStreamName);
-		//ExecuteScheduler::updateGraph();
 		ProcessRegister::removeProcess(outputStreamName);
 		MessageBox(_T("delete successfully"), NULL, MB_OK);
 	}else {
@@ -573,18 +425,20 @@ void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
 		}else if (CEPProcess * cep = dynamic_cast<CEPProcess*>(process)) {
 			processType = 3;
 		}
-
-		//ExecuteScheduler::deleteProcess(outputStreamName);
 		ProcessRegister::removeProcess(outputStreamName);
 
+		string outputName;
+		string ruleStrs;
+		RuleRegisterUtils::specProcessWithCString(outputStreamForUpdate, editBoxOfRule, outputName, ruleStrs);
+
 		if (processType == 1) {
-			addEventCaptureRule(outputStreamForUpdate, editBoxOfRule);
+			RuleRegisterUtils::registerEventCapture(outputName, ruleStrs);
 		}
 		else if (processType == 2) {
-			addCQRule(outputStreamForUpdate, editBoxOfRule);
+			RuleRegisterUtils::registerCQ(outputName, ruleStrs);
 		}
 		else if (processType == 3) {
-			addCEPRule(outputStreamForUpdate, editBoxOfRule);
+			RuleRegisterUtils::registerCEP(outputName, ruleStrs);
 		}
 		
 		outputStreamNameForSearch = outputStreamForUpdate;
@@ -597,8 +451,7 @@ void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
 }
 
 
-void CStreamProcessingDlg::OnBnClickedButton1()
-{
+void CStreamProcessingDlg::OnBnClickedButton1(){
 	// TODO: Add your control notification handler code here
 }
 

@@ -71,9 +71,9 @@ public:
 	afx_msg void OnBnClickedButtonUpdateRule();
 
 private:
-	void addEventCaptureRule(CString outputStreamName, CString ruleStrs);
+	/*void addEventCaptureRule(CString outputStreamName, CString ruleStrs);
 	void addCQRule(CString outputStreamName, CString ruleStrs);
-	void addCEPRule(CString outputStreamName, CString ruleStrs);
+	void addCEPRule(CString outputStreamName, CString ruleStrs);*/
 
 public:
 	CString outputStreamForUpdate;

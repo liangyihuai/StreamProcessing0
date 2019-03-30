@@ -1,9 +1,11 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include <thread>
 #include <iostream>
 
 class ThreadOfEventFilter {
 public:
+
+
 	void run() {
 		std::cout << "i am member1" << std::endl;
 	}

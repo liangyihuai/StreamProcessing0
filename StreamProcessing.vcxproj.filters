@@ -318,6 +318,15 @@
     <ClInclude Include="src\execution\ProcessRegister.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\MultiThreads.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\RuleRegisterUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\performanceTest\RuleSpecOfEventCapture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common\Event.cpp">
@@ -501,6 +510,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\execution\ProcessRegister.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\MultiThreads.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\performanceTest\PerformanceTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
