@@ -7,17 +7,17 @@ ExistOp::ExistOp(string _streamName) {
 }
 
 
-ResultPtr<bool> ExistOp::result(EventPtr event) {
+ResultPtr ExistOp::result(EventPtr event) {
 	cout << "not implemented." << endl;
 	throw runtime_error("");
 }
 
-ResultPtr<bool> ExistOp::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
+ResultPtr ExistOp::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
 	if (eventList == nullptr || eventList->size() == 0) {
-		return ResultPtr<bool>(new BoolResult(false));
+		return ResultPtr(new BoolResult(false));
 	}
 	else {
-		return ResultPtr<bool>(new BoolResult(true));
+		return ResultPtr(new BoolResult(true));
 	}
 }
 

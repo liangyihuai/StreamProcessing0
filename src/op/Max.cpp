@@ -5,11 +5,11 @@
 #include "Max.h"
 
 
-ResultPtr<double> Max::result(EventPtr event) {
+ResultPtr Max::result(EventPtr event) {
 	throw runtime_error("");
 }
 
-ResultPtr<double> Max::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
+ResultPtr Max::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
 	float tempMax = -99999;
 	float t = 0.0f;
 	for (EventPtr e : *eventList) {
@@ -24,5 +24,5 @@ ResultPtr<double> Max::resultMultEvents(list<EventPtr> *eventList, bool isReset)
 			tempMax = max;
 		}
 	}
-	return ResultPtr<double>(new DoubleResult(tempMax));
+	return ResultPtr(new DoubleResult(tempMax));
 }

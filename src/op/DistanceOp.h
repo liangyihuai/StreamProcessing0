@@ -8,7 +8,7 @@
 #include "inter/Operator.h"
 
 //DoubleResult
-class DistanceOp : public Operator<double>{
+class DistanceOp : public Operator{
 private:
 	string nameX;
 	string nameY;
@@ -22,7 +22,7 @@ public:
 		this->fixedPointY = fixedPointY;
 	}
 
-	ResultPtr<double> result(EventPtr event);
+	ResultPtr result(EventPtr event);
 };
 
 

@@ -8,24 +8,24 @@
 /*
 the type of template T indicates the result's of stateful operator. 
 */
-template <typename T>
-class NaiveTimeSlidingWindow :public Window<T> {
+class NaiveTimeSlidingWindow :public Window {
 public:
 	NaiveTimeSlidingWindow(int timeLen=1000);
 
 	void refresh() override;
-	void reevaluate(T& result)override;
+	void reevaluate(double& result)override;
+	void reevaluate(long& result)override;
+	void reevaluate(bool& result)override;
 	bool push_back(EventPtr e)override;
 	EventPtr front()override;
 	bool empty()override;
 	int size()override;
 	Window* clone()override;
 
-	void setTargetAttr(string attr);
-	void setStatefulOperator(StatefulOperator<T>* opera) override;
+	void setStatefulOperator(StatefulOperator* opera) override;
 private:
 	list<EventPtr> eventQueue;
-	StatefulOperator<T>* op = nullptr;
+	StatefulOperator* op = nullptr;
 
 	//max size of this window
 	int MAX_WINDOW_SIZE = 10000;
@@ -33,68 +33,3 @@ private:
 	int timeWinLen;
 };
 
-template <typename T>
-NaiveTimeSlidingWindow<T>::NaiveTimeSlidingWindow(int timeLen) {
-	this->timeWinLen = timeLen;
-}
-
-template <typename T>
-void NaiveTimeSlidingWindow<T>::reevaluate(T& result) {
-	refresh();
-	
-	ResultPtr<T> r = op->resultMultEvents(&eventQueue, true);
-	result = r->getResult();
-}
-
-template <typename T>
-void NaiveTimeSlidingWindow<T>::refresh() {
-	long long curr = Utils::getTime();
-	while (!eventQueue.empty() && eventQueue.front()->getTime() + timeWinLen < curr) {
-		eventQueue.pop_front();
-	}
-}
-
-template <typename T>
-bool NaiveTimeSlidingWindow<T>::push_back(EventPtr e) {
-	if (eventQueue.size() > MAX_WINDOW_SIZE) {
-		std::cout << "the window is full. operator name: ExistOP, stream name: ";
-		return false;
-	}
-
-	if (e == nullptr) {
-		throw "the parameter is empty.";
-	}
-
-	eventQueue.push_back(e);
-	return true;
-}
-
-template <typename T>
-EventPtr NaiveTimeSlidingWindow<T>::front() {
-	return eventQueue.front();
-}
-
-template <typename T>
-bool NaiveTimeSlidingWindow<T>::empty() {
-	return eventQueue.empty();
-}
-
-template <typename T>
-int NaiveTimeSlidingWindow<T>::size() {
-	return eventQueue.size();
-}
-
-template <typename T>
-Window<T>* NaiveTimeSlidingWindow<T>::clone() {
-	throw runtime_error("not implemented");
-}
-
-template <typename T>
-void NaiveTimeSlidingWindow<T>::setTargetAttr(string attr) {
-	this->targetAttr = attr;
-}
-
-template <typename T>
-void NaiveTimeSlidingWindow<T>::setStatefulOperator(StatefulOperator<T>* opera) {
-	this->op = opera;
-}

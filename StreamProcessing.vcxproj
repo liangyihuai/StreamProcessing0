@@ -23,7 +23,7 @@
     <ProjectGuid>{98D43555-D161-4FCA-A03A-CD84157C64FD}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
     <RootNamespace>StreamProcessing</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -302,6 +302,7 @@
     <ClCompile Include="src\op\Min.cpp" />
     <ClCompile Include="src\op\OutsideAreaOp.cpp" />
     <ClCompile Include="src\op\Sum.cpp" />
+    <ClCompile Include="src\op\win\NaiveTimeSlidingWindow.cpp" />
     <ClCompile Include="src\op\WithinAreaOp.cpp" />
     <ClCompile Include="src\spec\CEPSpec.cpp" />
     <ClCompile Include="src\spec\CEPSpecParser.cpp" />

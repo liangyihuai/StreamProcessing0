@@ -5,7 +5,7 @@
 #include "../execution/result/DoubleResult.h"
 
 //use doubleResult to get the result
-class Max : public StatefulOperator<double> {
+class Max : public StatefulOperator {
     float max = -99999999;
     string attr;
 public:
@@ -14,9 +14,9 @@ public:
 
    
     //override
-    ResultPtr<double> result(EventPtr event);
+    ResultPtr result(EventPtr event);
     //override
-    ResultPtr<double> resultMultEvents(list<EventPtr> *eventList, bool isReset);
+    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset);
 };
 
 

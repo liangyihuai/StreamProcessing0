@@ -15,7 +15,7 @@ CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName)
 	for (string inputStreamName: inputStreamNames) {
 		inputQueues->push_back(new queue<EventPtr>());//initialize input queues
 
-		NaiveTimeSlidingWindow<bool> * win = new NaiveTimeSlidingWindow<bool>(windowLen);
+		NaiveTimeSlidingWindow * win = new NaiveTimeSlidingWindow(windowLen);
 		ExistOp* existOp = new ExistOp(inputStreamName);//operator
 		win->setStatefulOperator(existOp);
 		timeSlidingWinForExistOpVec.push_back(win);//vector
@@ -24,7 +24,7 @@ CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName)
 
 bool CEPProcess::process(int timeSlice){
 	int nonEmptyCount = 0;
-	Window<bool> *input_queue_win = nullptr;
+	Window *input_queue_win = nullptr;
 
 	for (int i = 0; i < inputQueues->size(); i++) {
 		int timeSlice_i = timeSlice;
@@ -85,7 +85,7 @@ void CEPProcess::result(){
 		}
 		try {
 			std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
-			bool resultOfExistOp;
+			bool resultOfExistOp = false;
 			timeSlidingWinForExistOpVec[i]->reevaluate(resultOfExistOp);
 			if (resultOfExistOp) {satisfiedCount++;}
 		}catch (std::logic_error& e) {
@@ -97,7 +97,7 @@ void CEPProcess::result(){
 			MultEventResult * result = new MultEventResult();
 			result->addDeriveEventPtr(outputStreamName);
 
-			resultListener->update(ResultPtr<EventPtr>(result));
+			resultListener->update(ResultPtr(result));
 		}
 	}
 }
@@ -106,7 +106,7 @@ void CEPProcess::setInputStreamNames(vector<string> names) {
 	this->inputStreamNames = names;
 }
 
-void CEPProcess::setResultListener(ResultListener<EventPtr>* listener){
+void CEPProcess::setResultListener(ResultListener* listener){
     this->resultListener = listener;
 }
 
@@ -119,7 +119,7 @@ CEPProcess::~CEPProcess(){
 	delete inputQueues;
 	inputQueues = nullptr;
 
-	for (Window<bool>* win : timeSlidingWinForExistOpVec) {
+	for (Window* win : timeSlidingWinForExistOpVec) {
 		delete win;
 		win = nullptr;
 	}

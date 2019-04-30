@@ -8,15 +8,15 @@
 #include "../execution/result/BoolResult.h"
 #include "../op/win/NaiveTimeSlidingWindow.h"
 
-class ExistOp: public StatefulOperator<bool>{
+class ExistOp: public StatefulOperator{
 
 public:
 	ExistOp(string _streamName);
 
-	ResultPtr<bool> resultMultEvents(list<EventPtr> *eventList, bool isReset)override;
+	ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset)override;
 
 	//this is overrided function. to get rusults. In this class, the parameter is nullptr.
-	ResultPtr<bool> result(EventPtr event) override;
+	ResultPtr result(EventPtr event) override;
 	
 	
 private:

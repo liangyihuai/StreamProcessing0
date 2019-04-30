@@ -141,8 +141,8 @@ Predicate * SpecParser::parseExpressionWithOperator(string expression) {
 		}
 		opName = tempName;
 	}
-	Operator<void> * op = OperatorRegister::getInstance(opName, parameters);
-	Operator<double> * doubleOp = dynamic_cast<Operator<double>*>(op);
+	Operator * op = OperatorRegister::getInstance(opName, parameters);
+	//Operator * doubleOp = dynamic_cast<Operator<double>*>(op);
 	string value = right;
 
 	stringstream ss;
@@ -150,16 +150,16 @@ Predicate * SpecParser::parseExpressionWithOperator(string expression) {
 	ss << value;
 	ss >> f;
 	if (mid == ">=") {
-		return new GreatThanOpPreDouble(doubleOp, f);
+		return new GreatThanOpPreDouble(op, f);
 	}
 	else if (mid == ">") {
-		return new GreatThanOpPreDouble(doubleOp, f);
+		return new GreatThanOpPreDouble(op, f);
 	}
 	else if (mid == "<=") {
-		return new LessThanOpPreDouble(doubleOp, f);
+		return new LessThanOpPreDouble(op, f);
 	}
 	else if (mid == "<") {
-		return new LessThanOpPreDouble(doubleOp, f);
+		return new LessThanOpPreDouble(op, f);
 	}
 	std::cout << "undefined expression";
 	throw "undefined expression";

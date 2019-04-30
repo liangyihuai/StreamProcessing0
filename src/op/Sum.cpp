@@ -4,12 +4,12 @@
 #include "../stdafx.h"
 #include "Sum.h"
 
-ResultPtr<double> Sum::result(EventPtr event) {
+ResultPtr Sum::result(EventPtr event) {
 	throw runtime_error("");
 }
 
 
-ResultPtr<double> Sum::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
+ResultPtr Sum::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
 	double tempSum = 0.0;
 	if (!isReset) tempSum = this->sum;
 
@@ -18,5 +18,5 @@ ResultPtr<double> Sum::resultMultEvents(list<EventPtr> *eventList, bool isReset)
 	}
 	if (!isReset) this->sum = tempSum;
 
-	return ResultPtr<double>(new DoubleResult(tempSum));
+	return ResultPtr(new DoubleResult(tempSum));
 }

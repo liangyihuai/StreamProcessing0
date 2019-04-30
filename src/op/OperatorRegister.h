@@ -17,7 +17,7 @@ class OperatorRegister {
 public:
 	static bool isOperator(string name);
 
-	static Operator<void> * getInstance(string opName, vector<string> params);
+	static Operator * getInstance(string opName, vector<string> params);
 
 };
 

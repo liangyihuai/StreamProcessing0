@@ -7,11 +7,11 @@
 
 #include "../../execution/result/Result.h"
 
-template <class T>
+
 class Operator {
 public:
 	//perform the procedure to generate results.
-    virtual ResultPtr<T> result(EventPtr event) = 0;
+    virtual ResultPtr result(EventPtr event) = 0;
 };
 
 #endif //CONTINUOUSPROCESSING_OPERATOR_H

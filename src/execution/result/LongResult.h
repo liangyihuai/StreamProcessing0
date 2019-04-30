@@ -2,7 +2,7 @@
 
 #include "Result.h"
 
-class LongResult : public Result<long> {
+class LongResult : public Result {
 private:
 	long value;
 public:
@@ -14,7 +14,7 @@ public:
 		this->value = v;
 	}
 
-	long getResult() override {
+	long getResultLong() override {
 		return value;
 	}
 };

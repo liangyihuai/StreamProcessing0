@@ -33,6 +33,26 @@ public:
 		e->addAttr("elevation", ele);
 		e->addAttr("ele", ele);
 
+		if (Utils::id % 2 == 0) {
+			e->addAttr("communicationsetup", true);
+		}
+		else {
+			e->addAttr("communicationsetup", false);
+		}
+
+		e->addAttr("elevationangle", (float)Utils::randomFloat(0, 360));
+		double ran = ((double)rand())/RAND_MAX;
+		if (ran < 0.3) {
+			e->addAttr("electromagnetic", "enemy");
+		}
+		else if (ran < 0.6) {
+			e->addAttr("electromagnetic", "neutral");
+		}
+		else {
+			e->addAttr("electromagnetic", "ally");
+		}
+		
+
 		return EventPtr (e);
 	}
 };

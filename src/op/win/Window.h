@@ -3,13 +3,15 @@
 #include "../../common/Event.h"
 #include "../inter/StatefulOperator.h"
 
-template <typename T>
+
 class Window{
 public:
 	//evict those events that are expired.
 	virtual void refresh() = 0;
 
-	virtual void reevaluate(T& result) = 0;
+	virtual void reevaluate(double& result) = 0;
+	virtual void reevaluate(long& result) = 0;
+	virtual void reevaluate(bool& result) = 0;
 
 	//add an event to the back side of the window (queue)
 	virtual bool push_back(EventPtr e) = 0;
@@ -26,6 +28,6 @@ public:
 	//clone the window, including the events insides it.
     virtual Window* clone() = 0;
 
-	virtual void setStatefulOperator(StatefulOperator<T>* op) = 0;
+	virtual void setStatefulOperator(StatefulOperator* op) = 0;
 };
 

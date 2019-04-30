@@ -5,15 +5,15 @@
 
 class BoolOpPredicate: public OperatorPredicate{
 private:
-	Operator<bool> * op;
+	Operator * op;
 public:
 
-	BoolOpPredicate(Operator<bool> * o) {
+	BoolOpPredicate(Operator * o) {
 		this->op = o;
 	}
 
 	bool check(EventPtr e) {
-		ResultPtr<bool> result = op->result(e);
-		return result->getResult();
+		ResultPtr result = op->result(e);
+		return result->getResultBool();
 	}
 };

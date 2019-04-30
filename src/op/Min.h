@@ -10,7 +10,7 @@
 #include "inter/StatefulOperator.h"
 #include "../execution/result/DoubleResult.h"
 
-class Min : public StatefulOperator<double> {
+class Min : public StatefulOperator {
     float min = 99999;
     string attr;
 public:
@@ -18,9 +18,9 @@ public:
     ~Min() { }
 
     //override
-    ResultPtr<double> result(EventPtr event);
+    ResultPtr result(EventPtr event);
     //override
-    ResultPtr<double> resultMultEvents(list<EventPtr> *eventList, bool isReset);
+    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset);
 };
 
 #endif //CONTINUOUSPROCESSING_MIN_H

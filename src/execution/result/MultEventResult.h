@@ -5,11 +5,11 @@
 #include "../../common/HashEvent.h"
 
 //the result contains multiple derived events may with different stream names.
-class MultEventResult : public Result<EventPtr> {
+class MultEventResult : public Result {
 	vector<EventPtr> derivedEvents;
 
 public:
-	vector<EventPtr> getResultVec()override {
+	vector<EventPtr> getResultEventVec()override {
 		return derivedEvents;
 	}
 

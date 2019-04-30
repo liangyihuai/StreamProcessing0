@@ -4,11 +4,11 @@
 #include "../stdafx.h"
 #include "Min.h"
 
-ResultPtr<double> Min::result(EventPtr event) {
+ResultPtr Min::result(EventPtr event) {
 	throw runtime_error("");
 }
 
-ResultPtr<double> Min::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
+ResultPtr Min::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
 	float tempMin = 99999;
 	float t = 0.0f;
 	for (EventPtr e : *eventList) {
@@ -23,5 +23,5 @@ ResultPtr<double> Min::resultMultEvents(list<EventPtr> *eventList, bool isReset)
 			tempMin = min;
 		}
 	}
-	return ResultPtr<double>(new DoubleResult(tempMin));
+	return ResultPtr(new DoubleResult(tempMin));
 }

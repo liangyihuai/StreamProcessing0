@@ -10,7 +10,7 @@
 #include "../execution/result/DoubleResult.h"
 #include "inter/AggregateOperator.h"
 
-class Sum: public AggregateOperator<double>{
+class Sum: public AggregateOperator{
 private:
     double sum = 0.0;
     string attrName;
@@ -19,9 +19,9 @@ public:
     Sum(string attrName):attrName(attrName) {}
 
 
-    ResultPtr<double> result(EventPtr event);
+    ResultPtr result(EventPtr event);
 
-    ResultPtr<double> resultMultEvents(list<EventPtr> *eventList, bool isReset);
+    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset);
 
     StatefulOperator* clone();
 

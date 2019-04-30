@@ -7,9 +7,7 @@
 
 using namespace std;
 
-
 int main() {
-
 	RuleRegisterUtils::registerEventFilter(ef_rule1_name, ef_rule1);
 	RuleRegisterUtils::registerEventCapture(ec_rule2_name, ec_rule2);
 	RuleRegisterUtils::registerCQ(cq_rule3_name, cq_rule3);

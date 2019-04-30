@@ -220,9 +220,9 @@ Predicate * CEPSpecParser::parseExpressionWithOperator(string expression) {
 		}
 		opName = tempName;
 	}
-	Operator<void> * op = OperatorRegister::getInstance(opName, parameters);
+	Operator * op = OperatorRegister::getInstance(opName, parameters);
 
-	Operator<double> *doubleOp = dynamic_cast<Operator<double>*>(op);
+	//Operator<double> *doubleOp = dynamic_cast<Operator<double>*>(op);
 
 	string value = right;
 
@@ -232,16 +232,16 @@ Predicate * CEPSpecParser::parseExpressionWithOperator(string expression) {
 	ss << value;
 	ss >> f;
 	if (mid == ">=") {
-		pre = new GreatThanOpPreDouble(doubleOp, f);
+		pre = new GreatThanOpPreDouble(op, f);
 	}
 	else if (mid == ">") {
-		pre = new GreatThanOpPreDouble(doubleOp, f);
+		pre = new GreatThanOpPreDouble(op, f);
 	}
 	else if (mid == "<=") {
-		pre = new LessThanOpPreDouble(doubleOp, f);
+		pre = new LessThanOpPreDouble(op, f);
 	}
 	else if (mid == "<") {
-		pre = new LessThanOpPreDouble(doubleOp, f);
+		pre = new LessThanOpPreDouble(op, f);
 	}
 	std::cout << "undefined expression";
 	throw "undefined expression";

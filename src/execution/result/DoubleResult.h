@@ -2,7 +2,7 @@
 
 #include "Result.h"
 
-class DoubleResult : public Result<double> {
+class DoubleResult : public Result {
 private:
 	double value;
 public:
@@ -14,7 +14,7 @@ public:
 		this->value = v;
 	}
 
-	double getResult()override {
+	double getResultDouble()override {
 		return value;
 	};
 

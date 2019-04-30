@@ -1,16 +1,10 @@
-//
-// Created by USER on 12/5/2018.
-//
-
-#ifndef CONTINUOUSPROCESSING_CEPPROCESS_H
-#define CONTINUOUSPROCESSING_CEPPROCESS_H
+#pragma once
 
 #include "../op/ExistOp.h"
 #include "../common/Event.h"
 #include "Process.h"
 #include <queue>
 #include <vector>
-//#include "QueueReader.h"
 #include "../expression/Condition.h"
 #include "../op/inter/Operator.h"
 #include "result/ResultListener.h"
@@ -47,18 +41,18 @@ public:
 	//---------------------------
 	//other
 	//----------------------------
-    void setResultListener(ResultListener<EventPtr>* listener);
+    void setResultListener(ResultListener* listener);
 	void result();
 	void setInputStreamNames(vector<string> names);
     
 private:
-	vector<Window<bool>*> timeSlidingWinForExistOpVec;
+	vector<Window*> timeSlidingWinForExistOpVec;
 	vector<string> inputStreamNames;
 	vector<queue<EventPtr>*>* inputQueues;
 	string outputStreamName;
 
 	//set up callback function to process the result of this query
-	ResultListener<EventPtr>* resultListener = nullptr;
+	ResultListener* resultListener = nullptr;
 	const int windowLen = 1000; //1 second
 
 public:
@@ -66,4 +60,3 @@ public:
 	static mutex mutexOfCEPResult;
 };
 
-#endif //CONTINUOUSPROCESSING_CEPPROCESS_H

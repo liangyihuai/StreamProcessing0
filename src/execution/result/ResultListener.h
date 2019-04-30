@@ -7,10 +7,10 @@
 
 #include "Result.h"
 
-template <class T>
+
 class ResultListener {
 public:
-	virtual void update(ResultPtr<T>& result) = 0;
+	virtual void update(const ResultPtr& result) = 0;
 };
 
 #endif //CONTINUOUSPROCESSING_RESULTLISTENER_H

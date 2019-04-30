@@ -5,12 +5,12 @@
 #include "../stdafx.h"
 #include "Average.h"
 
-ResultPtr<double> Average::result(EventPtr event) {
+ResultPtr Average::result(EventPtr event) {
 	cout << "not implemented." << endl;
 	throw runtime_error("");
 }
 
-ResultPtr<double> Average::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
+ResultPtr Average::resultMultEvents(list<EventPtr> *eventList, bool isReset) {
 	double tempSum = 0.0;
 	int tempCount = 0;
 	for (EventPtr e : *eventList) {
@@ -25,7 +25,7 @@ ResultPtr<double> Average::resultMultEvents(list<EventPtr> *eventList, bool isRe
 		this->count = tempCount;
 	}
 	if (count < 1) {
-		return ResultPtr<double>(new DoubleResult(0.0));
+		return ResultPtr(new DoubleResult(0.0));
 	}else
-		return ResultPtr<double>(new DoubleResult((double)(sum / count)));
+		return ResultPtr(new DoubleResult((double)(sum / count)));
 }

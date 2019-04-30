@@ -5,7 +5,7 @@
 #include "../execution/result/DoubleResult.h"
 #include "inter/AggregateOperator.h"
 
-class Average : public AggregateOperator<double> {
+class Average : public AggregateOperator {
 private:
     double sum = 0.0;
     long count = 0;
@@ -14,7 +14,7 @@ public:
     Average(string attrName) :attrName(attrName) {}
 	~Average() {}
 
-    ResultPtr<double> result(EventPtr event) override;
-    ResultPtr<double> resultMultEvents(list<EventPtr> *eventList, bool isReset) override;
+    ResultPtr result(EventPtr event) override;
+    ResultPtr resultMultEvents(list<EventPtr> *eventList, bool isReset) override;
 };
 #endif //CONTINUOUSPROCESSING_AVERAGE_H
