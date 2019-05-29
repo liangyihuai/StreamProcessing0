@@ -16,6 +16,8 @@ public:
 	static void addProcessUnitToGraph(Process* pro);
 	static void removeProcessFromGraph(string outputStreamName);
 	static void setEventFilter(EventProcess* ep);
+	//make eventProcess==nullptr, and clear processMap.
+	static void clear();
 private:
 	static void addProcessUnitToGraph(string inputStreamNameOfB, queue<EventPtr> * inputQueueOfB, string outputNameOfB);
 

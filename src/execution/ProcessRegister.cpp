@@ -17,7 +17,8 @@ vector<Process*> ProcessRegister::cqVec;
 void ProcessRegister::addProcess(Process* pro) {
 	try {
  		std::lock_guard<mutex> lg(mutexOfProcessRegister);//mutex lock
-		if (processSet.find(pro) != processSet.end()) return;
+		if (processSet.find(pro) != processSet.end()) 
+			return;//existing
 		processSet.insert(pro);
 
 		processMap[pro->getOutputStreamName()] = pro;

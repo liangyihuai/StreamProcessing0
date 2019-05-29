@@ -93,7 +93,7 @@ void CQProcess::addEventToQueue(EventPtr e) {
 
 bool CQProcess::removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) {
 	for (int i = 0; i < outputNameSetOfDownstreamProcessUnit.size(); i++) {
-		if (outputNameSetOfDownstreamProcessUnit[i] == outputNameOfProcessUnitB) {
+		if (outputNameSetOfDownstreamProcessUnit[i] == outputNameOfProcessUnitB) {//exists
 			delete inputQueueSetOfDownstreamProcessUnit[i];
 
 			int j = i + 1;
@@ -109,6 +109,12 @@ bool CQProcess::removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) {
 	return false;
 }
 
+
+bool CQProcess::removeAllDownStreamQueuesAndNames() {
+	inputQueueSetOfDownstreamProcessUnit.clear();
+	outputNameSetOfDownstreamProcessUnit.clear();
+	return true;
+}
 
 CQProcess::~CQProcess(){
 	delete predicate; predicate = nullptr;

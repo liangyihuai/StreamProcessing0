@@ -30,4 +30,5 @@ public:
 	//from the output queue set and output name set based on the output stream name of B.
 	virtual bool removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) = 0;
 
+	virtual bool removeAllDownStreamQueuesAndNames() = 0;
 };

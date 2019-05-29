@@ -65,13 +65,16 @@ void CEPProcess::addOutputQueue(queue<EventPtr>* outputQueue, string outputStrea
 }
 
 set<string> CEPProcess::getConnectedOutputNameSet() {
-	std::cout << "not implemented method addOutputQueue";
+	std::cout << "not implemented method getConnectedOutputNameSet";
 	throw runtime_error("");
 }
 
 bool CEPProcess::removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) {
-	std::cout << "not implemented method addOutputQueue";
-	throw runtime_error("");
+	return true;
+}
+
+bool CEPProcess::removeAllDownStreamQueuesAndNames() {
+	return true;
 }
 
 

@@ -30,7 +30,10 @@ public:
 
 	set<string> getConnectedOutputNameSet()override;
 
+	//Process unit B connects to A downstream. It means that the input of B is from A.
 	bool removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB) override;
+
+	bool removeAllDownStreamQueuesAndNames()override;
 
 	//--------------------------
 	//other methods

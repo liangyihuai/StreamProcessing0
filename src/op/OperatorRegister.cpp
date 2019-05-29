@@ -13,7 +13,10 @@ bool OperatorRegister::isOperator(string name) {
 }
 
 Operator * OperatorRegister::getInstance(string opName, vector<string> params) {
-	if (!isOperator(opName)) return nullptr;
+	if (!isOperator(opName)) {
+		cout << "the operator " << opName << "does not exist." << endl;
+		return nullptr;
+	}
 
 	if (opName == "distance") {
 		float f1 = 0;
@@ -63,7 +66,7 @@ Operator * OperatorRegister::getInstance(string opName, vector<string> params) {
 		return new ExistOp(params[0]);
 	}
 	else {
-		std::cout << "undefined operator! the opName is " << opName;
+		std::cout << "The operator " << opName << " is not defined."<< endl;
 		throw "";
 	}
 }

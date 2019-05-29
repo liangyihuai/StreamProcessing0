@@ -19,7 +19,6 @@ class ExecuteScheduler {
 public:
 	static void initialize();
 	static void runProcessQueue();
-	
-public:
 	static void buildGraph();
+	static void rebuildGraph();
 };

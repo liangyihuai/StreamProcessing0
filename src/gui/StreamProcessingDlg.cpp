@@ -136,6 +136,7 @@ BEGIN_MESSAGE_MAP(CStreamProcessingDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_DELETE_RULE, &CStreamProcessingDlg::OnBnClickedButtonDeleteRule)
 	ON_BN_CLICKED(IDC_BUTTON_UPDATE_RULE, &CStreamProcessingDlg::OnBnClickedButtonUpdateRule)
 	ON_BN_CLICKED(IDC_BUTTON1, &CStreamProcessingDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON_RefeshRule, &CStreamProcessingDlg::OnBnClickedButtonRefeshrule)
 END_MESSAGE_MAP()
 
 
@@ -455,3 +456,8 @@ void CStreamProcessingDlg::OnBnClickedButton1(){
 	// TODO: Add your control notification handler code here
 }
 
+
+void CStreamProcessingDlg::OnBnClickedButtonRefeshrule(){
+	ExecuteScheduler::rebuildGraph();
+	MessageBox(_T("Refresh all rules successfully"), NULL, MB_OK);
+}

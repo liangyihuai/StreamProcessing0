@@ -11,7 +11,8 @@ void TopoGraph::setEventFilter(EventProcess* ep) {
 }
 
 void TopoGraph::removeProcessFromGraph(string outputStreamName) {
-	if (eventProcess && eventProcess->getOutputStreamName() == outputStreamName) {//Event Filtering
+	if (eventProcess 
+		&& eventProcess->getOutputStreamName() == outputStreamName) {//Event Filtering
 		eventProcess = nullptr;
 		return;
 	}
@@ -31,10 +32,11 @@ void TopoGraph::removeProcessFromGraph(string outputStreamName) {
 }
 
 void TopoGraph::addProcessUnitToGraph(Process* processB) {
-	if (eventProcess == nullptr) throw "the process of Event Filter is null, please set it up first.";
-
+	if (eventProcess == nullptr) 
+		throw "the process of Event Filter is null, please set it up first.";
 	if (!processB) return; // nullptr
-	if (processMap.find(processB->getOutputStreamName()) != processMap.end()) return; // element existing
+	if (processMap.find(processB->getOutputStreamName()) != processMap.end()) 
+		return; // element existing
 
 	//debug
 	string on = processB->getOutputStreamName();
@@ -48,7 +50,8 @@ void TopoGraph::addProcessUnitToGraph(Process* processB) {
 	}
 }
 
-void TopoGraph::addProcessUnitToGraph(string inputNameOfB, queue<EventPtr> * inputQueueOfB, string outputNameOfB) {
+void TopoGraph::addProcessUnitToGraph(string inputNameOfB, 
+			queue<EventPtr> * inputQueueOfB, string outputNameOfB) {
 	if (eventProcess && eventProcess->getOutputStreamName() == inputNameOfB) {//Event Filtering
 		eventProcess->addOutputQueue(inputQueueOfB);
 	}
@@ -62,4 +65,9 @@ void TopoGraph::addProcessUnitToGraph(string inputNameOfB, queue<EventPtr> * inp
 			}
 		}
 	}
+}
+
+void TopoGraph::clear() {
+	eventProcess = nullptr;
+	processMap.clear();
 }

@@ -78,6 +78,7 @@ private:
 public:
 	CString outputStreamForUpdate;
 	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButtonRefeshrule();
 };
 
 namespace gui {

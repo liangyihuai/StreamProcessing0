@@ -29,6 +29,20 @@ void ExecuteScheduler::buildGraph() {
 	}
 }
 
+void ExecuteScheduler::rebuildGraph() {
+	try {
+		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		TopoGraph::clear();
+		for (Process * p : ProcessRegister::allProcess()) {
+			p->removeAllDownStreamQueuesAndNames();
+		}
+		buildGraph();
+	}
+	catch (std::logic_error& e) {
+		std::cout << "[exception caught]\n";
+	}
+}
+
 void ExecuteScheduler::runProcessQueue(){
 	do {
 		try {

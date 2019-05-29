@@ -109,3 +109,9 @@ bool EventCapture::removeOutputQueueAndNameFromA(string outputNameOfProcessUnitB
 	}
 	return false;
 }
+
+bool EventCapture::removeAllDownStreamQueuesAndNames() {
+	inputQueueSetOfDownstreamProcessUnit.clear();
+	outputNameSetOfDownstreamProcessUnit.clear();
+	return true;
+}
