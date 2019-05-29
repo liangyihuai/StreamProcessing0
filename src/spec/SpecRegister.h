@@ -3,7 +3,9 @@
 #include <unordered_map>
 #include <string>
 
-//store input rule specifications at string form.
+/*
+To store input rule specifications at string form.
+*/
 class SpecRegister {
 private:
 	//output target name to string rule

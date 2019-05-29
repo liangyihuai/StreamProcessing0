@@ -7,7 +7,10 @@
 #include "../execution/CEPProcess.h"
 #include <set>
 
-
+/*
+This class is to build topo computation graph for processing units, 
+including Event Filtering, Event Capture, CQ and CEP. 
+*/
 class TopoGraph {
 public:
 	static void addProcessUnitToGraph(Process* pro);

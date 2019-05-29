@@ -28,6 +28,8 @@ public:
     string getString(string attrName)override;
     void print(ostream& out) override;
 	string toString()override;
+
+	//it returns: current attributes + extension attributes
 	Event* extend(const map<string, string> &extendedEntry) override;
 
     void addAttr(string attrName, int value);
@@ -35,8 +37,5 @@ public:
     void addAttr(string attrName, string value);
 	void setDestination(string _destination);
 };
-
-
-
 
 #endif //CONTINUOUSPROCESSING_HASHEVENT_H

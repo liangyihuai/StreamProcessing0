@@ -33,7 +33,9 @@ void ExecuteScheduler::runProcessQueue(){
 	do {
 		try {
 			std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
-			for (auto iter = ProcessRegister::processSet.begin(); iter != ProcessRegister::processSet.end(); iter++){
+			for (auto iter = ProcessRegister::processSet.begin(); 
+				iter != ProcessRegister::processSet.end(); 
+				iter++){
 				(*iter)->process(100);
 			}
 		}catch (std::logic_error& e) {

@@ -7,6 +7,11 @@
 #include "../execution/CEPProcess.h"
 #include <set>
 
+/*
+To store the objects of Processing, including Event Filter, 
+Event Capture, CQ and CEP. So it has functions to add, get and delete 
+processing objects. All functions are decorated by static clause.
+*/
 class ProcessRegister {
 	friend class ExecuteScheduler;
 public:

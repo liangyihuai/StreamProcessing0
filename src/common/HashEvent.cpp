@@ -115,6 +115,7 @@ void HashEvent::setDestination(string _destination) {
 	destination = _destination;
 }
 
+
 Event* HashEvent::extend(const map<string, string>& extendedEntry) {
 	HashEvent* he = new HashEvent(getId(), getTime());
 

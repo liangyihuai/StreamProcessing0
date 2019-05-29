@@ -16,8 +16,6 @@ public:
 		else {
 			e->addAttr("iff", "unknown");
 		}
-		//e->setElectromagnetic(0);
-		e->addAttr("electromagnetic", 0);
 		//e->setElevationAngle((float)Utils::randomFloat(0, 90));
 		e->addAttr("elevationAngle", (float)Utils::randomFloat(0, 90));
 		//e->setSpeed((float)Utils::randomFloat(-10, 800));
@@ -51,8 +49,6 @@ public:
 		else {
 			e->addAttr("electromagnetic", "ally");
 		}
-		
-
 		return EventPtr (e);
 	}
 };
