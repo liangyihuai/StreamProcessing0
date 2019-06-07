@@ -46,7 +46,7 @@ void TopoGraph::addProcessUnitToGraph(Process* processB) {
 	vector<string> inputNamesOfB = processB->getInputStreamNames();
 	vector<queue<EventPtr>*> inputQueuesOfB = processB->getInputQueues();
 	for (int i = 0; i < inputNamesOfB.size(); i++) {
-		addProcessUnitToGraph(inputNamesOfB[i], inputQueuesOfB[i], processB->getOutputStreamName());
+		addProcessUnitToGraph(inputNamesOfB[i], inputQueuesOfB[i], processB-> getOutputStreamName());
 	}
 }
 
