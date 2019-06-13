@@ -91,7 +91,7 @@ void ExecuteScheduler::buildTriggerTimePriorityQueue() {
 	}
 	
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		//std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		for (auto iter = ProcessRegister::processSet.begin();
 			iter != ProcessRegister::processSet.end(); iter++) {
 			if (CEPProcess* cep = (CEPProcess*)dynamic_cast<CEPProcess*>(*iter)) {

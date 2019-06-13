@@ -14,6 +14,7 @@ CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName)
 		inputQueues->push_back(new queue<EventPtr>());//initialize input queues
 
 		NaiveTimeSlidingWindow * win = new NaiveTimeSlidingWindow(windowLen);
+		win->setTimeSliding(1000);
 		ExistOp* existOp = new ExistOp(inputStreamName);//operator
 		win->setStatefulOperator(existOp);
 		windowList.push_back(win);//vector
