@@ -2,7 +2,7 @@
 
 #include "../../common/Event.h"
 #include "../inter/StatefulOperator.h"
-
+#include "../../expression/Predicate.h"
 
 class Window{
 public:
@@ -12,6 +12,8 @@ public:
 	virtual void reevaluate(double& result) = 0;
 	virtual void reevaluate(long& result) = 0;
 	virtual void reevaluate(bool& result) = 0;
+
+	virtual bool checkAllEvents(Predicate& pre) = 0;
 
 	//add an event to the back side of the window (queue)
 	virtual bool push_back(EventPtr e) = 0;
@@ -29,5 +31,9 @@ public:
     virtual Window* clone() = 0;
 
 	virtual void setStatefulOperator(StatefulOperator* op) = 0;
+
+	virtual int getWinLen() = 0;
+
+	virtual int getWinSliding() = 0;
 };
 

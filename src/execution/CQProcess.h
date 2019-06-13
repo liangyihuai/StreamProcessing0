@@ -15,11 +15,13 @@
 #include <unordered_map>
 #include <queue>
 #include <set>
+#include "ExecuteScheduler.h"
 
 //the ResultListener return DerivedEventPtr.
 class CQProcess : public Process{
+	friend class ExecuteScheduler;
 public:
-	CQProcess(string outputStreamName);
+	CQProcess(vector<string> inputStreamNames, string outputStreamName);
 	~CQProcess();
 
 	//---------------------------
@@ -41,24 +43,27 @@ public:
 	//--------------------------------
 	//other
 	//---------------------------------
-    void setPredicate(Predicate * pre);
+    void addPredicate(Predicate * pre);
     void setOutputStreamName(string name);
-	void setInputStreamName(string name);
-    queue<EventPtr>* getInputQueue();
-    //void setWindow(Window *w);
-	Predicate* getPredicate();
-	void addEventToQueue(EventPtr e);
+	void setInputStreamNames(vector<string> names);
+    void setWindows(vector<Window*> win);
+	vector<Predicate*> getPredicates();
+	void addEventToQueue(EventPtr e, queue<EventPtr>& q);
+	void triggerResult();
 
 private:
-	string inputStreamName;
+	vector<string> inputStreamNames;
+	vector<Window*> windowList;
+
 	//the result name of stream after processing
 	string outputStreamName;
-	queue<EventPtr> * inputQueue;
+	vector<queue<EventPtr>*> inputQueues;
 	//the input queue of other processing units.
 	vector<queue<EventPtr>*> inputQueueSetOfDownstreamProcessUnit;
 	//the output names of process that connects to this process unit.
 	vector<string> outputNameSetOfDownstreamProcessUnit;
 	// all stateless operatorPredicates and simple predicates share one queue reader.
-	Predicate* predicate;
+	vector<Predicate*> predicates;
+	
 };
 #endif //CONTINUOUSPROCESSING_CQPROCESS_H

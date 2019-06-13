@@ -21,8 +21,15 @@ public:
 	bool empty()override;
 	int size()override;
 	Window* clone()override;
+	int getWinLen() override;
+	int getWinSliding() override;
+
+	//if anyone meets the predicate, return true, else return false.
+	bool checkAllEvents(Predicate& pre) override;
 
 	void setStatefulOperator(StatefulOperator* opera) override;
+
+	void setTimeSliding(int sliding);
 private:
 	list<EventPtr> eventQueue;
 	StatefulOperator* op = nullptr;
@@ -31,5 +38,7 @@ private:
 	int MAX_WINDOW_SIZE = 10000;
 
 	int timeWinLen;
+
+	int timeSliding = -1;
 };
 

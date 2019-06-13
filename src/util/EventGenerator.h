@@ -16,17 +16,11 @@ public:
 		else {
 			e->addAttr("iff", "unknown");
 		}
-		//e->setElevationAngle((float)Utils::randomFloat(0, 90));
 		e->addAttr("elevationAngle", (float)Utils::randomFloat(0, 90));
-		//e->setSpeed((float)Utils::randomFloat(-10, 800));
 		e->addAttr("speed", (float)Utils::randomFloat(-10, 800));
-		//e->setLon((float)Utils::randomFloat(127, 129));
 		e->addAttr("lon", (float)Utils::randomFloat(127, 129));
-		//e->setLat((float)Utils::randomFloat(35, 37));
 		e->addAttr("lat", (float)Utils::randomFloat(35, 37));
-		//e->setDirection((float)Utils::randomFloat(0, 360));
 		e->addAttr("dir", (float)Utils::randomFloat(0, 360));
-		//e->setElevation((float)Utils::randomFloat(-300, 10000));
 		float ele = (float)Utils::randomFloat(-300, 10000);
 		e->addAttr("elevation", ele);
 		e->addAttr("ele", ele);

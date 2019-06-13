@@ -31,5 +31,4 @@ public:
 	//1. parse and generate operator
 	//2. parse and generate predicate object
 	static Predicate * parseExpressionWithOperator(string expression);
-
 };

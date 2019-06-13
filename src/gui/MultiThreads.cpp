@@ -6,21 +6,21 @@
 #include "StreamProcessingDlg.h"
 #include "../execution/ExecuteScheduler.h"
 
-void ThreadOfTimerToPerformCEP::run() {
-	while (true) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		cout << "cep timer" << endl;
-		//set<CEPProcess*> ceps = ExecuteScheduler::getCEPs();
-		set<CEPProcess*> ceps = ProcessRegister::getCEPs();
-		for (CEPProcess * c : ceps) {
-			c->result();
-		}
-	}
-}
-
-std::thread ThreadOfTimerToPerformCEP::runThread() {
-	return std::thread(&ThreadOfTimerToPerformCEP::run, this);
-}
+//void ThreadOfTimerToPerformCEP::run() {
+//	while (true) {
+//		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+//		//cout << "cep timer" << endl;
+//		//set<CEPProcess*> ceps = ExecuteScheduler::getCEPs();
+//		set<CEPProcess*> ceps = ProcessRegister::getCEPs();
+//		for (CEPProcess * c : ceps) {
+//			c->result();
+//		}
+//	}
+//}
+//
+//std::thread ThreadOfTimerToPerformCEP::runThread() {
+//	return std::thread(&ThreadOfTimerToPerformCEP::run, this);
+//}
 
 ////////////////////////////////////////////////
 ThreadOfEventFilter::ThreadOfEventFilter(bool isWithGUI) {

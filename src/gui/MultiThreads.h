@@ -7,12 +7,12 @@
 using namespace std;
 
 //perform CEP regularly.
-class ThreadOfTimerToPerformCEP {
-public:
-	void run();
-
-	std::thread runThread();
-};
+//class ThreadOfTimerToPerformCEP {
+//public:
+//	void run();
+//
+//	std::thread runThread();
+//};
 
 
 //the thread to run the backend of stream processing

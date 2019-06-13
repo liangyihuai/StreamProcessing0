@@ -12,6 +12,7 @@
 #include "result/MultEventResult.h"
 #include <unordered_map>
 #include <mutex>
+#include "ExecuteScheduler.h"
 
 using namespace std;
 
@@ -22,6 +23,7 @@ using namespace std;
 The ResultListener return vector<DerivedEventPtr>.
 */
 class CEPProcess: public Process{
+	friend class ExecuteScheduler;
 public:
 	CEPProcess(vector<string> inputStreamNames, string outputStreamName);
 	~CEPProcess();
@@ -48,7 +50,7 @@ public:
 	void setInputStreamNames(vector<string> names);
     
 private:
-	vector<Window*> timeSlidingWinForExistOpVec;
+	vector<Window*> windowList;
 	vector<string> inputStreamNames;
 	vector<queue<EventPtr>*>* inputQueues;
 	string outputStreamName;

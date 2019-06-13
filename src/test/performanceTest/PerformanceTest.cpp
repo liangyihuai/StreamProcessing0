@@ -13,11 +13,11 @@ int main() {
 	RuleRegisterUtils::registerCQ(cq_rule3_name, cq_rule3);
 	RuleRegisterUtils::registerCEP(cep_rule4_name, cep_rule4);
 
-	RuleRegisterUtils::registerEventCapture(ec_rule5_name, ec_rule5);
+	/*RuleRegisterUtils::registerEventCapture(ec_rule5_name, ec_rule5);
 	RuleRegisterUtils::registerCQ(cq_rule6_name, cq_rule6);
 	RuleRegisterUtils::registerCQ(cq_rule7_name, cq_rule7);
 	RuleRegisterUtils::registerCEP(cep_rule8_name, cep_rule8);
-	RuleRegisterUtils::registerCEP(cep_rule9_name, cep_rule9);
+	RuleRegisterUtils::registerCEP(cep_rule9_name, cep_rule9);*/
 
 	//thread for event filtering.
 	ThreadOfEventFilter* threadOfEventFilter = new ThreadOfEventFilter();
@@ -30,8 +30,8 @@ int main() {
 	threadOfProcessUnit->runThread().detach();
 
 	//thread for getting the results of CEP.
-	ThreadOfTimerToPerformCEP * threadOfTimerToPerformCEP = new ThreadOfTimerToPerformCEP();
-	threadOfTimerToPerformCEP->runThread().detach();
+	//ThreadOfTimerToPerformCEP * threadOfTimerToPerformCEP = new ThreadOfTimerToPerformCEP();
+	//threadOfTimerToPerformCEP->runThread().detach();
 
 	system("pause");
 	return 0;

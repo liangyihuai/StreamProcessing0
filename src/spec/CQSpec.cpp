@@ -4,30 +4,25 @@
 
 CQProcess * CQSpec::instance() {
 	CQProcess* cq = new CQProcess(outputStream);
-	if (windowType.length() > 0) {
-		windowType = Utils::toLower(windowType);
-		if (windowType == "slidingwindowofcount") {
-
+	if (winLen > 0) {
+		vector<Window*> windowList;
+		for (int i = 0; i < inputStreams.size(); i++) {
+			NaiveTimeSlidingWindow* nWin = new NaiveTimeSlidingWindow(winLen);
+			nWin->setTimeSliding(winSliding);
+			windowList.push_back(nWin);
 		}
-		else if (windowType == "slidingwindowoftime") {
-
-		}
-		else if (windowType == "tumblecountwindow") {
-
-		}
-		else if (windowType == "tumbletimewindow") {
-
-		}
+		cq->setWindows(windowList);
 	}
-	cq->setInputStreamName(inputStream);
+	cq->newAttrNames = newAttrNames;
+	cq->newAttrValues = newAttrValues;
+	cq->setInputStreamNames(inputStreams);
 	cq->setOutputStreamName(outputStream);
 	cq->setPredicate(predicate);
-	//cq->setResultListener(new CQStoreResultListener());
  	return cq;
 }
 
-void CQSpec::setInputStream(string name) {
-	this->inputStream = name;
+void CQSpec::setInputStreams(vector<string> names) {
+	this->inputStreams = names;
 }
 
 void CQSpec::setOutputStream(string name) {
@@ -36,10 +31,6 @@ void CQSpec::setOutputStream(string name) {
 
 void CQSpec::setPredicate(Predicate * pre) {
 	this->predicate = pre;
-}
-
-void CQSpec::setWindowType(string type) {
-	this->windowType = type;
 }
 
 void CQSpec::setWindowlen(int len) {

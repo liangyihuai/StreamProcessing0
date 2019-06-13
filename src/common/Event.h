@@ -2,84 +2,62 @@
 // Created by USER on 12/4/2018.
 //
 
-#ifndef CONTINUOUSPROCESSING_EVENT_H
-#define CONTINUOUSPROCESSING_EVENT_H
-#include <iostream>
+#ifndef CONTINUOUSPROCESSING_HASHEVENT_H
+#define CONTINUOUSPROCESSING_HASHEVENT_H
+
+
+#include <unordered_map>
 #include <set>
-#include <memory>
-#include "Consts.h"
 #include <map>
+#include <sstream>
+#include <memory>
+#include "Event.h"
+#include <string>
 
 using namespace std;
-//using namespace google;
 
 /**
  * A simple attribute
  */
-typedef struct EventAttribute {
-	string name;
-	ValType type;
-	union {
-		int intVal;
-		float floatVal;
-		bool boolVal;
-		string stringVal;
-	};
-} Attribute;
+//typedef struct EventAttribute {
+//	string name;
+//	ValType type;
+//	union {
+//		int intVal;
+//		float floatVal;
+//		bool boolVal;
+//		string stringVal;
+//	};
+//} Attribute;
 
-//enum EventType {
-//	EVENT_MSG, TIME_SLIDING_MSG
-//};
-
-class Event {
-public:
-	/*EventType getEventType() { return eventType; }
-	void setEventType(EventType type) { this->eventType = type; }*/
-
-    virtual long getId(){ return 0L;};
-
-	virtual string getDestination() {
-		return this->destination;
-	};
-
-    virtual long long getTime() {return 0LL;};
-
-    virtual int getInt(string attrName){
-		std::cout << "function size is not implemented" << endl;
-        throw runtime_error("");
-    }
-
-    virtual float getFloat(string attrName){
-		std::cout << "function size is not implemented" << endl;
-        throw runtime_error("");
-    }
-
-    virtual string getString(string attrName){
-		std::cout << "function size is not implemented" << endl;
-        throw runtime_error("");
-    }
-
-    virtual void print(ostream& out){
-		std::cout << "function size is not implemented" << endl;
-        throw runtime_error("");
-    }
-
-	virtual string toString() = 0;
-
-	virtual void setDestination(string destination) = 0;
-
-	//add more attributes "extendedEntry" to the copy of current event. The current evnet does not change.
-	virtual Event* extend(const map<string, string>& extendedEntry) = 0;
-
+class Event{
 private:
-    friend std::ostream& operator<< (std::ostream& os, Event& e);
+    unordered_map<string, string> attrMap;
 
-	//event message or control message, event msg in default.
-	//EventType eventType = EVENT_MSG;
+	friend std::ostream& operator<< (std::ostream& os, Event& e);
+public:
+	Event(long id, long long time);
+    long getId() { return getInt("id"); }
+    long long getTime() ;
+    int getInt(string attrName) ;
+    float getFloat(string attrName);
+    string getString(string attrName);
+    void print(ostream& out) ;
+	string toString();
+
+	//it returns: current attributes + extension attributes
+	Event* extend(const map<string, string> &extendedEntry) ;
+	Event* clone();
+
+    void addAttr(string attrName, int value);
+    void addAttr(string attrName, float value);
+    void addAttr(string attrName, string value);
+	void setDestination(string _destination);
+
 protected:
 	string destination = "";//the destination the event will be passed to.
 };
 
-
 typedef shared_ptr<Event> EventPtr;
-#endif //CONTINUOUSPROCESSING_EVENT_H
+
+#endif //CONTINUOUSPROCESSING_HASHEVENT_H

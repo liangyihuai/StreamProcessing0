@@ -71,9 +71,34 @@ Window* NaiveTimeSlidingWindow::clone() {
 	throw runtime_error("not implemented");
 }
 
-
-
-
 void NaiveTimeSlidingWindow::setStatefulOperator(StatefulOperator* opera) {
 	this->op = opera;
+}
+
+int NaiveTimeSlidingWindow::getWinLen() {
+	return this->timeWinLen;
+}
+
+int NaiveTimeSlidingWindow::getWinSliding() {
+	if (this->timeSliding < 0) {
+		cout << "did not set window sliding." << endl;
+		throw "";
+	}
+	return timeSliding;
+}
+
+void NaiveTimeSlidingWindow::setTimeSliding(int sliding) {
+	if (sliding < 0) {
+		cout << "time sliding <= 0" << endl;
+		throw "";
+	}
+	this->timeSliding = sliding;
+}
+
+bool NaiveTimeSlidingWindow::checkAllEvents(Predicate& pre) {
+	refresh();
+	for (EventPtr e : eventQueue) {
+		if (pre.check(e)) return true;
+	}
+	return false;
 }

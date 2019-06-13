@@ -316,8 +316,8 @@ void CStreamProcessingDlg::OnBnClickedButtonStart(){
 		threadOfProcessUnit->runThread().detach();
 
 		//thread for getting the results of CEP.
-		ThreadOfTimerToPerformCEP * threadOfTimerToPerformCEP = new ThreadOfTimerToPerformCEP();
-		threadOfTimerToPerformCEP->runThread().detach();
+		//ThreadOfTimerToPerformCEP * threadOfTimerToPerformCEP = new ThreadOfTimerToPerformCEP();
+		//threadOfTimerToPerformCEP->runThread().detach();
 
 		isStarted = true;
 	}else {

@@ -19,16 +19,18 @@
 //}
 
 /*
-If distance < 20
+If distance < 20, condition2, condition3
 From airplane
-Window type=, len=, sliding=
-Then WideAreaDefenceTarget
+Window length=, sliding=
+Then WideAreaDefenceTarget, attr1, attr2
 */
-CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec, string outputStreamName) {
+CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 	CQSpec * result = nullptr;
 	Predicate* condition = nullptr;
-	string inputStream;
+	vector<string> inputStreams;
 	string streamSource;
+	int win_len = -1;
+	int win_sliding = -1;
 
 	for (string s : oneCQSpec) {
 		s = Utils::toLower(Utils::trim(s));
@@ -46,24 +48,53 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec, string outputStream
 
 		if ("if" == clause) {
 			condition = parseMultiExpression(value);
-		}
-		else if ("from" == clause) {
-			inputStream = value;
-		}
-		else if ("window" == clause) {
-
-		}
-		else if ("then" == clause) {
-			streamSource = value;
+		}else if ("from" == clause) {
+			inputStreams = Utils::split(value, ",");
+		}else if ("window" == clause) {//Window length=, sliding=
+			vector<string> pieces = Utils::split(value, ",");
+			for (string piece : pieces) {
+				vector<string> key_value = Utils::split(piece, "=");
+				if (key_value[0] == "length") {
+					stringstream ss;
+					ss << key_value[1];
+					ss >> win_len;
+				}else if (key_value[0] == "sliding") {
+					stringstream ss;
+					ss << key_value[1];
+					ss >> win_sliding;
+				}
+			}
+			if (win_len > 0 && win_sliding < 0) win_sliding = win_len;
+		}else if ("then" == clause) {
 			result = new CQSpec();
-			result->setInputStream(inputStream);
+
+			//parse THEN clause
+			vector<string> splits = Utils::split(value, ",");
+			string outputStreamName = splits[0];//get output stream name
 			result->setOutputStream(outputStreamName);
+			for (int i = 1; i < splits.size(); i++) {
+				string attr = splits[i];
+				if (attr.find('=') > 0) {//For example, THEN SevereThreat, threatLevel=severe
+					vector<string> key_value = Utils::split(attr, "=");//提取出等号两边的内容
+					result->newAttrNames.push_back(key_value[0]);
+					result->newAttrValues.push_back(key_value[1]);
+				}else if (attr.find('(') > 0 && attr.find(')') > 0) {//For example, THEN SevereThreat, count(*)
+					int index = attr.find('(');
+					result->newAttrNames.push_back(attr.substr(0, index));//提取出方法名
+					result->newAttrValues.push_back("");
+				}
+			}
+			result->setInputStreams(inputStreams);
 			result->setPredicate(condition);
+			if (win_len > 0) {
+				result->setWindowlen(win_len);
+				result->setWindowSliding(win_sliding);
+			}
 			return result;
 		}
 		else {
 			std::cout << "undefined CQ spec term";
-			throw "undefined CQ spec term";
+			throw "";
 		}
 	}
 	return nullptr;

@@ -8,6 +8,11 @@
 
 class Process {
 public:
+	vector<string> newAttrNames;
+	vector<string> newAttrValues;
+	vector<string> operatorNames;
+	vector<string> operatorParamaters;//An operator only has one parameter.
+
 	/*insert event to the window of operator from input queues.
 	this function is called by a time scheduler. 
 	Return false, the process needs to push back to the CP queue.*/

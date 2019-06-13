@@ -61,7 +61,7 @@ public:
 	static void registerCQ(string outputStreamName, string ruleSpec) {
 		list<string> specLines;
 		specPreprocess(outputStreamName, ruleSpec, specLines);
-		CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(specLines, outputStreamName);
+		CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(specLines);
 		CQProcess* cq = cqSpec->instance();
 		ProcessRegister::addProcess(cq);
 		//store rule specification

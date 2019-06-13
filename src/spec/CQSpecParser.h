@@ -15,5 +15,5 @@ public:
 	Window type=, len=, sliding=
 	Then WideAreaDefenceTarget
 	*/
-	static CQSpec* parseOneCQSpec(list<string> oneCQSpec, string outputStreamName);
+	static CQSpec* parseOneCQSpec(list<string> oneCQSpec);
 };
