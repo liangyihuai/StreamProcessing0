@@ -1,29 +1,54 @@
 #include "../stdafx.h"
 #include "SpecParser.h"
 
-Predicate * SpecParser::parseMultiExpression(string expStr) {
+//And, it is a predicate.
+bool contain(const vector<And*>& preList, string streamName) {
+	for (And* pre : preList) {
+		if (pre->streamName == streamName) return true;
+	}
+	return false;
+}
+
+And* getPredicateByStreamName(const vector<And*>& preList, string streamName) {
+	for (And* pre : preList) {
+		if (pre->streamName == streamName) return pre;
+	}
+	cout << "there is no such stream name: " << streamName << endl;
+	throw "";
+}
+
+vector<Predicate*> SpecParser::parseMultiExpression(string expStr) {
+	vector<And*> predicateListResult;
+
 	And * andPredicate = nullptr;
 	vector<string> expressionList = Utils::split(expStr, "&");
 	if (expressionList.size() > 0) {
-		andPredicate = new And();
 		for (string expression : expressionList) {
 			string stream;
 			string fieldName;
 			string mid;
 			string right;
 			splitExpression(expression, stream, fieldName, mid, right);
+			if (!contain(predicateListResult, stream)) {
+				andPredicate = new And();
+				predicateListResult.push_back(andPredicate);
+			}else {
+				andPredicate = getPredicateByStreamName(predicateListResult, stream);
+			}
 			int index1 = fieldName.find("(");
 			int index2 = fieldName.find(")");
-			if ((index1 > -1 && index2 > -1)
-				|| OperatorRegister::isOperator(fieldName)) {
+			if ((index1 > -1 && index2 > -1) || OperatorRegister::isOperator(fieldName)) {
 				andPredicate->addChild(parseExpressionWithOperator(expression));
-			}
-			else {
+			}else {
 				andPredicate->addChild(parseValueExpression(fieldName, mid, right));
 			}
 		}
 	}
-	return andPredicate;
+	vector<Predicate*> vec;
+	for (Predicate* p : predicateListResult) {
+		vec.push_back(p);
+	}
+	return vec;
 }
 
 //format is: "streamName.field mid right", for example: "plane.speed > 12"

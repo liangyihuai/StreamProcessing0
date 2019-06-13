@@ -18,7 +18,7 @@ class SpecParser {
 public:
 
 	//currently, assume only & conjunction
-	static Predicate * parseMultiExpression(string expStr);
+	static vector<Predicate*> parseMultiExpression(string expStr);
 
 	//format is: "streamName.field mid right", for example: "plane.speed > 12"
 	//It could be "streamName.operatorName() > 12", or

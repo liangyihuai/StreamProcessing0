@@ -10,7 +10,7 @@ class CQSpec : public Spec{
 private:
 	vector<string> inputStreams;
 	string outputStream;
-	Predicate * predicate;
+	vector<Predicate*> predicateList;
 	int winLen = -1;
 	int winSliding = -1;
 public:
@@ -25,7 +25,7 @@ public:
 
 	void setOutputStream(string name);
 
-	void setPredicate(Predicate * pre);
+	void setPredicates(vector<Predicate*> preList);
 
 	void setWindowlen(int len);
 

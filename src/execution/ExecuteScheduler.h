@@ -28,6 +28,9 @@ public:
 		//x值较大的Node优先级低（x小的Node排在队前）
 		return a.triggerTime > b.triggerTime;
 	}
+
+	~Process_TriggerTime() {
+	}
 };
 
 
@@ -40,14 +43,14 @@ public:
 */
 class ExecuteScheduler {
 	friend class CQProcess;
-	friend class CEProcess;
+	friend class CEPProcess;
 public:
 	static void initialize();
 	static void runProcessQueue();
 	static void buildGraph();
 	static void rebuildGraph();
 
-	//构建优先级队列
+	//构建优先级队列,让最先需要触发输出结果的process在堆的顶部
 	static void buildTriggerTimePriorityQueue();
 private:
 
@@ -55,6 +58,10 @@ private:
 	static priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*> > cq_pq;
 
 	static priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*> > cep_pq;
+
+	static mutex mutexOfCQPriorityQueue;//mutex lock among threads
+
+	static mutex mutexOfCEPPriorityQueue;//mutex lock among threads
 };
 
 

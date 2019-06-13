@@ -91,7 +91,6 @@ Process* ProcessRegister::getProcess(string outputStreamName) {
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
 	}
-	
 }
 
 set<Process*> ProcessRegister::allProcess() {
@@ -106,7 +105,6 @@ EventProcess * ProcessRegister::getProcessOfEventFiltering() {
 	catch (std::logic_error& e) {
 		std::cout << "[exception caught]\n";
 	}
-	
 }
 
 bool ProcessRegister::isExist(Process* pro) {

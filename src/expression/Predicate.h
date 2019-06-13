@@ -13,6 +13,8 @@ using namespace std;
 
 class Predicate {
 public:
+	string streamName;
+
     virtual vector<Predicate*>* getChildren() = 0;
 
     virtual void setChildren(vector<Predicate*>* children) = 0;

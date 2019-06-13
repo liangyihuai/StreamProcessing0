@@ -115,6 +115,10 @@ void Event::setDestination(string _destination) {
 	destination = _destination;
 }
 
+string Event::getDestination() {
+	return this->destination;
+}
+
 
 Event* Event::extend(const map<string, string>& extendedEntry) {
 	Event* he = new Event(getId(), getTime());

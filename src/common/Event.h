@@ -53,6 +53,7 @@ public:
     void addAttr(string attrName, float value);
     void addAttr(string attrName, string value);
 	void setDestination(string _destination);
+	string getDestination();
 
 protected:
 	string destination = "";//the destination the event will be passed to.

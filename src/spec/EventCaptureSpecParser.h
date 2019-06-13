@@ -51,7 +51,8 @@ public:
 			Utils::deleteAllMark(value, " ");
 
 			if ("if" == clause) {
-				condition = parseMultiExpression(value);
+				vector<Predicate*> preVec = parseMultiExpression(value);
+				condition = preVec[0];
 			}
 			else if ("from" == clause) {
 				inputStream = value;

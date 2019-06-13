@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Utils.h"
-#include "../common/HashEvent.h"
+#include "../common/Event.h"
 
 class EventGenerator {
 private:
@@ -9,7 +9,7 @@ private:
 public:
 
 	static EventPtr generateEvent() {
-		HashEvent* e = new HashEvent(Utils::id++, Utils::getTime());
+		Event* e = new Event(Utils::id++, Utils::getTime());
 		if (Utils::id % 2 == 0) {
 			e->addAttr("iff", "ally");
 		}

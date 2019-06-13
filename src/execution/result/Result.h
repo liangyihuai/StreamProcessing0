@@ -2,7 +2,9 @@
 
 #include "../../common/Event.h"
 #include <vector>
+#include <iostream>
 
+using namespace std;
 
 class Result {
 public:

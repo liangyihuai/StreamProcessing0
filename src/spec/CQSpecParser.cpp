@@ -26,7 +26,7 @@ Then WideAreaDefenceTarget, attr1, attr2
 */
 CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 	CQSpec * result = nullptr;
-	Predicate* condition = nullptr;
+	vector<Predicate*> conditionList;
 	vector<string> inputStreams;
 	string streamSource;
 	int win_len = -1;
@@ -47,7 +47,7 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 		Utils::deleteAllMark(value, " ");
 
 		if ("if" == clause) {
-			condition = parseMultiExpression(value);
+			conditionList = parseMultiExpression(value);
 		}else if ("from" == clause) {
 			inputStreams = Utils::split(value, ",");
 		}else if ("window" == clause) {//Window length=, sliding=
@@ -85,7 +85,7 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 				}
 			}
 			result->setInputStreams(inputStreams);
-			result->setPredicate(condition);
+			result->setPredicates(conditionList);
 			if (win_len > 0) {
 				result->setWindowlen(win_len);
 				result->setWindowSliding(win_sliding);

@@ -5,8 +5,6 @@
 #include "../op/ExistOp.h"
 #include "result/ResultListener.h"
 
-mutex CEPProcess::mutexOfCEPResult;
-
 CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName) {
 	this->outputStreamName = outputStreamName;
 	this->inputStreamNames = inputStreamNames;
@@ -31,7 +29,7 @@ bool CEPProcess::process(int timeSlice){
 		queue<EventPtr> * q = (*inputQueues)[i];
 		while (!q->empty() && timeSlice_i > 0) {
 			try {
-				std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
+				//std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
 				input_queue_win = windowList[i];
 				input_queue_win->push_back(q->front());
 			}catch (std::logic_error& e) {
@@ -47,6 +45,54 @@ bool CEPProcess::process(int timeSlice){
 	if (nonEmptyCount == inputQueues->size()) 
 		return false;
 	return true;
+}
+
+
+//this function is called by function "process".
+void CEPProcess::result() {
+	if (!ExecuteScheduler::cep_pq.empty()) {
+		try {
+			std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfCEPPriorityQueue);
+			while (ExecuteScheduler::cep_pq.top()->triggerTime <= Utils::getTime()) {
+				Process_TriggerTime* ptt = ExecuteScheduler::cep_pq.top();
+
+				int satisfiedCount = 0;
+				for (int i = 0; i < windowList.size(); i++) {//for each input stream
+					bool result = false;
+					if (windowList.size() <= i || windowList[i] == nullptr) {
+						std::cout << "The operator ExistOp is nullptr, index is " << i << ", outputStreamName is " << outputStreamName;
+						throw runtime_error("");
+					}
+					try {
+						//std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
+						bool resultOfExistOp = false;
+						windowList[i]->reevaluate(resultOfExistOp);
+						if (resultOfExistOp) { satisfiedCount++; }
+					}
+					catch (std::logic_error& e) {
+						std::cout << "[exception caught]\n";
+					}
+				}
+				if (satisfiedCount == windowList.size()) {
+					if (resultListener) {
+						MultEventResult* result = new MultEventResult();
+						result->addDeriveEventPtr(outputStreamName);
+
+						resultListener->update(ResultPtr(result));
+					}
+				}
+
+				if (ptt->triggerLen <= 0) throw "the trigger length of current process <= 0.";
+
+				ExecuteScheduler::cep_pq.pop();
+				ptt->triggerTime = Utils::getTime() + ptt->triggerLen;
+				ExecuteScheduler::cep_pq.push(ptt);
+			}
+		}
+		catch (std::logic_error& e) {
+			std::cout << "[exception caught]\n";
+		}
+	}
 }
 
 vector<string> CEPProcess::getInputStreamNames() {
@@ -79,49 +125,6 @@ bool CEPProcess::removeAllDownStreamQueuesAndNames() {
 	return true;
 }
 
-//this function is called by function "process".
-void CEPProcess::result(){
-	
-	if (!ExecuteScheduler::cep_pq.empty()) {
-		while (ExecuteScheduler::cep_pq.top()->triggerTime <= Utils::getTime()) {
-			Process_TriggerTime* ptt = ExecuteScheduler::cep_pq.top();
-
-			int satisfiedCount = 0;
-			for (int i = 0; i < windowList.size(); i++) {//for each input stream
-				bool result = false;
-				if (windowList.size() <= i || windowList[i] == nullptr) {
-					std::cout << "The operator ExistOp is nullptr, index is " << i << ", outputStreamName is " << outputStreamName;
-					throw runtime_error("");
-				}
-				try {
-					std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
-					bool resultOfExistOp = false;
-					windowList[i]->reevaluate(resultOfExistOp);
-					if (resultOfExistOp) { satisfiedCount++; }
-				}
-				catch (std::logic_error& e) {
-					std::cout << "[exception caught]\n";
-				}
-			}
-			if (satisfiedCount == windowList.size()) {
-				if (resultListener) {
-					MultEventResult* result = new MultEventResult();
-					result->addDeriveEventPtr(outputStreamName);
-
-					resultListener->update(ResultPtr(result));
-				}
-			}
-
-			if (ptt->triggerLen <= 0) throw "the trigger length of current process <= 0.";
-
-			ExecuteScheduler::cep_pq.pop();
-			ptt->triggerTime = Utils::getTime() + ptt->triggerLen;
-			ExecuteScheduler::cep_pq.push(ptt);
-		}
-	}
-
-	
-}
 
 void CEPProcess::setInputStreamNames(vector<string> names) {
 	this->inputStreamNames = names;

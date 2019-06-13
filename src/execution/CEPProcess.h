@@ -58,9 +58,5 @@ private:
 	//set up callback function to process the result of this query
 	ResultListener* resultListener = nullptr;
 	const int windowLen = 1000; //1 second
-
-public:
-	//CEP结果的互斥锁，目前所有的CEP只有一个锁，以后应该改进，使得每一个queue有一个单独的互斥锁
-	static mutex mutexOfCEPResult;
 };
 

@@ -44,6 +44,7 @@ public:
 	//other
 	//---------------------------------
     void addPredicate(Predicate * pre);
+	void setPredicates(vector<Predicate*> preList);
     void setOutputStreamName(string name);
 	void setInputStreamNames(vector<string> names);
     void setWindows(vector<Window*> win);

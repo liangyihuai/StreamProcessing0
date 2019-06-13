@@ -91,9 +91,10 @@ void ProcessRegisterForCQIndex::buildIndexGraph(
 		if (iter->second->size() >= minConnection) {
 			CQIndex* index = new RTreeCQIndex(dimension_index);
 			for (CQProcess* cq_index : *(iter->second)) {
-				Predicate* predicate = cq_index->getPredicate();
+				//need to fix the error
+				/*Predicate* predicate = cq_index->getPredicates();
 				int regionInIndex = getId(cq_index);
-				index->buildIndex(predicate, regionInIndex);
+				index->buildIndex(predicate, regionInIndex);*/
 			}
 			Process* cq = iter->first;
 			indexedProcessSet.insert(cq);//register the indexed process unit.

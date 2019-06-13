@@ -50,12 +50,12 @@ bool EventCapture::process(int timeSlice) {
 		if (condition.check(e)) {
 			//use CQ index
 			if (USE_CQ_INDEX && ProcessRegisterForCQIndex::isIndexed(this)) {
-				list<Process*> processList = ProcessRegisterForCQIndex::getIndexByProcess(this)->filter(e);
+				/*list<Process*> processList = ProcessRegisterForCQIndex::getIndexByProcess(this)->filter(e);
 				CQProcess * cq = nullptr;
 				for (Process* p : processList) {
 					cq = dynamic_cast<CQProcess*>(p);
 					cq->addEventToQueue(e);
-				}
+				}*/
 			}else {
 				for (queue<EventPtr>* q : inputQueueSetOfDownstreamProcessUnit) {
 					q->push(e);

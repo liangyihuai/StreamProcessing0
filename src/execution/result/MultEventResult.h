@@ -2,7 +2,7 @@
 
 #include "Result.h"
 #include "../../util/Utils.h"
-#include "../../common/HashEvent.h"
+#include "../../common/Event.h"
 
 //the result contains multiple derived events may with different stream names.
 class MultEventResult : public Result {
@@ -18,7 +18,7 @@ public:
 	}
 
 	void addDeriveEventPtr(string s) {
-		EventPtr newEvent(new HashEvent(Utils::id++, Utils::getTime()));
+		EventPtr newEvent(new Event(Utils::id++, Utils::getTime()));
 		newEvent->setDestination(s);
 		derivedEvents.push_back(newEvent);
 	}
