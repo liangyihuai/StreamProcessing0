@@ -4,7 +4,7 @@
 
 class DoubleResult : public Result {
 private:
-	double value;
+	double value = 0.0;
 public:
 	DoubleResult() {}
 

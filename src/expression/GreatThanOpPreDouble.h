@@ -18,6 +18,7 @@ public:
 
     GreatThanOpPreDouble(Operator * o, double value){
         this->op = o;
+		this->value = value;
     }
 
     bool check(EventPtr e){

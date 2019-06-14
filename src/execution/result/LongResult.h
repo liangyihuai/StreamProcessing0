@@ -4,7 +4,7 @@
 
 class LongResult : public Result {
 private:
-	long value;
+	long value = 0;
 public:
 	LongResult() {}
 

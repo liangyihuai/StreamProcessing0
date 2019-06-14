@@ -56,6 +56,21 @@ public:
 
     static std::vector<std::string> split(const std::string &str, const std::string &delim);
 
+	/*
+	For example, str = "THEN EnemyDistance, distance(127.12, 35.33), hello world, speed(a, b)"
+	delim=",";
+	skipStart="("
+	skipEnd=")"
+	The function result is:
+	THEN EnemyDistance
+	 distance(127.12, 35.33)
+	 hello world
+	 speed(a, b)
+	*/
+	static std::vector<std::string> split(const std::string& str, const std::string& delim,
+		const string skipStart,
+		const string skipEnd);
+
     static void deleteAllMark(string &s, const string &mark);
 };
 

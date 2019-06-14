@@ -527,6 +527,9 @@
     <ClCompile Include="src\common\Event0.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\test\funcTest\TestUtilsFunc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\spec_text\cep_spec.txt">

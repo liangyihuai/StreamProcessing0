@@ -14,7 +14,7 @@ mutex ExecuteScheduler::mutexOfCEPPriorityQueue;
 
 void ExecuteScheduler::initialize() {
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		buildGraph();
 	}
 	catch (std::logic_error& e) {
@@ -41,7 +41,7 @@ void ExecuteScheduler::buildGraph() {
 
 void ExecuteScheduler::rebuildGraph() {
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		TopoGraph::clear();
 		for (Process * p : ProcessRegister::allProcess()) {
 			p->removeAllDownStreamQueuesAndNames();
@@ -56,7 +56,7 @@ void ExecuteScheduler::rebuildGraph() {
 void ExecuteScheduler::runProcessQueue(){
 	do {
 		try {
-			std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+			std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 			for (auto iter = ProcessRegister::processSet.begin(); iter != ProcessRegister::processSet.end(); iter++){
 				(*iter)->process(100);
 			}
@@ -91,7 +91,7 @@ void ExecuteScheduler::buildTriggerTimePriorityQueue() {
 	}
 	
 	try {
-		//std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		for (auto iter = ProcessRegister::processSet.begin();
 			iter != ProcessRegister::processSet.end(); iter++) {
 			if (CEPProcess* cep = (CEPProcess*)dynamic_cast<CEPProcess*>(*iter)) {

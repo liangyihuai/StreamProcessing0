@@ -59,6 +59,7 @@ bool EventCapture::process(int timeSlice) {
 			}else {
 				for (queue<EventPtr>* q : inputQueueSetOfDownstreamProcessUnit) {
 					q->push(e);
+					cout << "EC: " << outputStreamName << "; " << *e << endl;
 				}
 			}
 		}

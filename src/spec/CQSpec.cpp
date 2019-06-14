@@ -22,6 +22,8 @@ CQProcess * CQSpec::instance() {
 	}
 	cq->newAttrNames = newAttrNames;
 	cq->newAttrValues = newAttrValues;
+	cq->operatorNames = operatorNames;
+	cq->operatorParamaters = operatorParams;
 	cq->setOutputStreamName(outputStream);
 
 	////////////start to set predicate/////////////

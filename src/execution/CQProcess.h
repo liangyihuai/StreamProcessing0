@@ -66,5 +66,6 @@ private:
 	// all stateless operatorPredicates and simple predicates share one queue reader.
 	vector<Predicate*> predicates;
 	
+
 };
 #endif //CONTINUOUSPROCESSING_CQPROCESS_H

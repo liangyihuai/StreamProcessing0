@@ -4,7 +4,7 @@
 
 class BoolResult : public Result {
 private:
-	bool value;
+	bool value = false;
 public:
 	BoolResult() {}
 

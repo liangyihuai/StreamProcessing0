@@ -11,7 +11,9 @@ public:
 	vector<string> newAttrNames;
 	vector<string> newAttrValues;
 	vector<string> operatorNames;
-	vector<string> operatorParamaters;//An operator only has one parameter.
+	vector<vector<string>*> operatorParamaters;//An operator only has one parameter.
+
+	~Process();
 
 	/*insert event to the window of operator from input queues.
 	this function is called by a time scheduler. 

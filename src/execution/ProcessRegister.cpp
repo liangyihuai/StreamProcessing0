@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "ProcessRegister.h"
 
-mutex ProcessRegister::mutexOfProcessRegister;
+std::recursive_mutex ProcessRegister::mutexOfProcessRegister;
 
 EventProcess * ProcessRegister::eventProcess;
 
@@ -16,7 +16,7 @@ vector<Process*> ProcessRegister::cqVec;
 
 void ProcessRegister::addProcess(Process* pro) {
 	try {
- 		std::lock_guard<mutex> lg(mutexOfProcessRegister);//mutex lock
+ 		std::lock_guard<std::recursive_mutex> lg(mutexOfProcessRegister);//mutex lock
 		if (processSet.find(pro) != processSet.end()) 
 			return;//existing
 		processSet.insert(pro);
@@ -43,7 +43,7 @@ void ProcessRegister::addProcess(Process* pro) {
 
 void ProcessRegister::registerEventFilter(EventProcess* ep) {
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		eventProcess = ep;
 	}
 	catch (std::logic_error& e) {
@@ -53,7 +53,7 @@ void ProcessRegister::registerEventFilter(EventProcess* ep) {
 
 void ProcessRegister::removeProcess(string outputStreamName) {
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		Process * pro = processMap[outputStreamName];
 		if (dynamic_cast<CEPProcess*>(pro)) {
 			cepSet.erase(dynamic_cast<CEPProcess*>(pro));
@@ -85,7 +85,7 @@ void ProcessRegister::removeProcess(string outputStreamName) {
 
 Process* ProcessRegister::getProcess(string outputStreamName) {
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		return processMap[outputStreamName];
 	}
 	catch (std::logic_error& e) {
@@ -99,7 +99,7 @@ set<Process*> ProcessRegister::allProcess() {
 
 EventProcess * ProcessRegister::getProcessOfEventFiltering() {
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		return eventProcess;
 	}
 	catch (std::logic_error& e) {
@@ -109,7 +109,7 @@ EventProcess * ProcessRegister::getProcessOfEventFiltering() {
 
 bool ProcessRegister::isExist(Process* pro) {
 	try {
-		std::lock_guard<mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
+		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
 		return pro != nullptr && processSet.find(pro) != processSet.end();
 	}
 	catch (std::logic_error& e) {

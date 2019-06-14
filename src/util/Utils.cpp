@@ -123,8 +123,7 @@ std::vector<std::string> Utils::split(const std::string &str, const std::string 
         return spiltCollection;
     int start = 0;
     int idx = str.find(delim, start);
-    while (idx != std::string::npos)
-    {
+    while (idx != std::string::npos){
         spiltCollection.push_back(str.substr(start, idx - start));
         start = idx + delim.size();
         idx = str.find(delim, start);
@@ -132,6 +131,53 @@ std::vector<std::string> Utils::split(const std::string &str, const std::string 
     spiltCollection.push_back(str.substr(start));
     return spiltCollection;
 }
+
+std::vector<std::string> Utils::split(const std::string& str, const std::string& delim, 
+										const string skipStart, const string skipEnd) {
+	vector<string> result;
+	if (str.size() == 0) return result;
+	int skipStartIndex = str.find(skipStart, 0);
+	int skipEndIndex = str.find(skipEnd, 0);
+	if (skipStartIndex < 0 || skipEndIndex < 0 || (skipStartIndex >= skipEndIndex)) {
+		skipStartIndex = -1;
+		skipEndIndex = -1;
+	}
+	if (skipEndIndex > 0) {
+		skipEndIndex += skipEnd.length() - 1;
+	}
+
+	int start = 0;
+	int idx = str.find(delim, start);
+	while (idx != string::npos) {
+		if (idx >= skipStartIndex && idx <= skipEndIndex) {
+			idx = str.find(delim, skipEndIndex+1);
+
+			skipStartIndex = str.find(skipStart, idx + 1);
+			skipEndIndex = str.find(skipEnd, idx + 1);
+
+			if (idx != string::npos) {
+				result.push_back(str.substr(start, idx-start));
+				start = idx + delim.size();
+				if (start >= str.length())
+					return result;
+				else 
+					idx = str.find(delim, start);
+				continue;
+			}
+			else {
+				result.push_back(str.substr(start));
+				return result;
+			}
+		}
+		result.push_back(str.substr(start, idx - start));
+		start = idx + delim.size();
+		idx = str.find(delim, start);
+	}
+	result.push_back(str.substr(start));
+	return result;
+}
+
+
 
 
 void Utils::deleteAllMark(string &s, const string &mark) {

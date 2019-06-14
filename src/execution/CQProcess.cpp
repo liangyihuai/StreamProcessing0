@@ -26,12 +26,56 @@ bool CQProcess::process(int timeSlice){
 		int timeSlice_i = timeSlice;
 		queue<EventPtr>* q = inputQueues[i];
 		while (!q->empty() && timeSlice_i > 0) {//current input queue is not empty.
-			EventPtr currEvent = q->front();//get the oldest event.
+			EventPtr currEvent(q->front()->clone());//clone the event
 			if (predicates[i]->check(currEvent)) {//check the query condition.
 				if (windowList.size() == 0 || (inputQueues.size() == 1 && operatorNames.size() == 0)) {
+					//如果Then下存在新的属性，比如threatLevel. THEN SevereThreat, threatLevel=severe
+					for (int i = 0; i < this->newAttrNames.size(); i++) {
+						string attrName = this->newAttrNames[i];
+						string attrValue = this->newAttrValues[i];
+
+						if (attrValue.length() > 0) {
+							//add new attrs and values to the oldest event in the window
+							currEvent->addAttr(attrName, attrValue);//目前只考虑在有新attr时只有一个window
+						}
+						else {
+							cout << "This new attr is not an operator and its value is null." << endl;
+							throw "";
+						}
+					}//end for new attributes
+
+					//如果Then中存在非stateful算子，比如distance. Then AirplaneCountSevereThreat, distance()
+					for (int i = 0; i < this->operatorNames.size(); i++) {
+						string operatorName = this->operatorNames[i];
+						vector<string>* operatorParam = this->operatorParamaters[i];
+
+						if (dynamic_cast<StatefulOperator*>(this) == nullptr) {
+							//如果Then中存在算子，比如count. Then AirplaneCountSevereThreat, Count()
+							if (operatorName == "distance") {
+								Operator * distanceOp = OperatorRegister::getInstance(operatorName, *operatorParam);
+								DistanceOp* dop = (DistanceOp*)dynamic_cast<DistanceOp*>(distanceOp);
+								ResultPtr r = dop->result(currEvent);
+								stringstream ss;
+								ss << r->getResultDouble();
+								currEvent->addAttr("distance", ss.str());
+							}
+							else if (operatorName == "max"
+								|| operatorName == "min"
+								|| operatorName == "sum"
+								|| operatorName == "ave"
+								|| operatorName == "average"
+								|| operatorName == "distance") {
+								//...
+							}
+							else {
+								throw "no such an operator.";
+							}
+						}//end if stateful operators
+					}
+
+					cout << "CQ:" << outputStreamName << "; " << *currEvent << endl;
 					for (queue<EventPtr>* outputQueue : inputQueueSetOfDownstreamProcessUnit) {
 						outputQueue->push(currEvent);
-						cout << "CQ:" << outputStreamName << "; " << *currEvent << endl;
 					}
 				}else {
 					try {
@@ -51,7 +95,6 @@ bool CQProcess::process(int timeSlice){
 
 	return true;
 }
-
 
 void CQProcess::triggerResult() {
 	//check output trigger
@@ -76,7 +119,7 @@ void CQProcess::triggerResult() {
 					EventPtr currEvent(windowList[0]->front()->clone());//clone the event
 					for (int i = 0; i < ptt->p->operatorNames.size(); i++) {
 						string operatorName = ptt->p->operatorNames[i];
-						string operatorParam = ptt->p->operatorParamaters[i];
+						vector<string>* operatorParam = ptt->p->operatorParamaters[i];
 
 						if (dynamic_cast<StatefulOperator*>(ptt->p) != nullptr) {
 							//如果Then中存在算子，比如count. Then AirplaneCountSevereThreat, Count()
@@ -123,16 +166,16 @@ void CQProcess::triggerResult() {
 						Event* e = new Event(Utils::id++, Utils::getTime());
 						e->addAttr("name", this->outputStreamName);
 						EventPtr ep(e);
+						cout << "CQ:" << outputStreamName << "; " << *ep << endl;
 						for (queue<EventPtr>* outputQueue : inputQueueSetOfDownstreamProcessUnit) {
 							outputQueue->push(ep);
-							cout << "CQ:" << outputStreamName << "; " << *ep << endl;
 						}
 					}
 					else {
 						currEvent->addAttr("name", this->outputStreamName);
+						cout << "CQ:" << outputStreamName << "; " << *currEvent << endl;
 						for (queue<EventPtr>* outputQueue : inputQueueSetOfDownstreamProcessUnit) {
 							outputQueue->push(currEvent);
-							cout << "CQ:" << outputStreamName << "; " << *currEvent << endl;
 						}
 					}
 				}

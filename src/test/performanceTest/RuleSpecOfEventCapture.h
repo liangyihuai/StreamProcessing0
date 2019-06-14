@@ -10,10 +10,10 @@ string ef_rule1 = "If not duplicate(id) & not unusual(speed)\
 		\r\nFrom rawData\
 		\r\nThen targetData";
 
-string ec_rule2_name = "allytarget";
-string ec_rule2 = "If target.iff = ally\
+string ec_rule2_name = "EnemyTarget";
+string ec_rule2 = "If target.iff = unknown\
 		\r\nFrom targetData\
-		\r\nThen allytarget";
+		\r\nThen EnemyTarget";
 
 string cq_rule3_name = "flyingAllyTarget";
 string cq_rule3 = "If speed > 500 & elevation > 200\
@@ -42,6 +42,14 @@ string cep_rule9_name = "cepTarget2";
 string cep_rule9 = "If exist(enemyTarget) & exist(flyingAllyTarget)\
 \r\nFrom enemyTarget, flyingAllyTarget\r\nThen cepTarget2";
 
+string cq_enemy_aircraft_name = "EnemyAircraft";
+string cq_enemy_aircraft = "IF ElevationAngle >30 & Speed > 150 & elevation > 100\
+\r\nFROM EnemyTarget\
+\r\nTHEN EnemyAircraft, objectType = aircraft";
 
+string cq_enemy_distance_name = "EnemyDistance";
+string cq_enemy_distance = "IF elevation > 10\
+\r\nFROM EnemyTarget\
+\r\nTHEN EnemyDistance, distance(127.12, 35.33)";
 
 

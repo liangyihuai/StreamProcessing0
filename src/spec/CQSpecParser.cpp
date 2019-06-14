@@ -69,19 +69,23 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 			result = new CQSpec();
 
 			//parse THEN clause
-			vector<string> splits = Utils::split(value, ",");
+			vector<string> splits = Utils::split(value, ",", "(", ")");
 			string outputStreamName = splits[0];//get output stream name
 			result->setOutputStream(outputStreamName);
 			for (int i = 1; i < splits.size(); i++) {
 				string attr = splits[i];
-				if (attr.find('=') > 0) {//For example, THEN SevereThreat, threatLevel=severe
+				if (attr.find('=') != string::npos) {//For example, THEN SevereThreat, threatLevel=severe
 					vector<string> key_value = Utils::split(attr, "=");//提取出等号两边的内容
 					result->newAttrNames.push_back(key_value[0]);
 					result->newAttrValues.push_back(key_value[1]);
 				}else if (attr.find('(') > 0 && attr.find(')') > 0) {//For example, THEN SevereThreat, count(*)
 					int index = attr.find('(');
-					result->newAttrNames.push_back(attr.substr(0, index));//提取出方法名
-					result->newAttrValues.push_back("");
+					result->operatorNames.push_back(attr.substr(0, index));//提取出方法名
+					vector<string> params = Utils::split(attr.substr(index+1, attr.length()-2-index), ",");
+					vector<string>* v = new vector<string>();
+					for (string s : params) 
+						v->push_back(s);
+					result->operatorParams.push_back(v);
 				}
 			}
 			result->setInputStreams(inputStreams);

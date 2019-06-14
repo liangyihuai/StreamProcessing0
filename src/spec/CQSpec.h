@@ -18,6 +18,8 @@ public:
 	//But some do not have. For example, "THEN SevereThreat, count(*)"
 	vector<string> newAttrNames;
 	vector<string> newAttrValues;
+	vector<string> operatorNames;
+	vector<vector<string>*> operatorParams;
 
 	CQProcess * instance();
 

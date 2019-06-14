@@ -39,5 +39,5 @@ private:
 	static set<CEPProcess*> cepSet;
 
 public:
-	static mutex mutexOfProcessRegister;//mutex lock among threads
+	static std::recursive_mutex mutexOfProcessRegister;//mutex lock among threads
 };
