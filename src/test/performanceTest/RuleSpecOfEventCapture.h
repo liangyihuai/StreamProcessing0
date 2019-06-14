@@ -52,4 +52,12 @@ string cq_enemy_distance = "IF elevation > 10\
 \r\nFROM EnemyTarget\
 \r\nTHEN EnemyDistance, distance(127.12, 35.33)";
 
+string cq_enemy_count_name = "EnemyCount";
+string cq_enemy_count = "IF elevation > 10\
+\r\nFROM EnemyTarget\
+\r\nWindow length=3000, sliding=2000\
+\r\nTHEN EnemyCount, count(), A=B";
+
+
+
 

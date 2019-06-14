@@ -13,10 +13,22 @@ CQProcess * CQSpec::instance() {
 	CQProcess* cq = new CQProcess(inputStreams, outputStream);
 	if (winLen > 0) {
 		vector<Window*> windowList;
-		for (int i = 0; i < inputStreams.size(); i++) {
+		for (int i = 0; i < inputStreams.size(); i++) {//这里一概生成这么多个win，是有问题的。
+													//应该只生成必要的win
 			NaiveTimeSlidingWindow* nWin = new NaiveTimeSlidingWindow(winLen);
 			nWin->setTimeSliding(winSliding);
 			windowList.push_back(nWin);
+			for (string attrName : operatorNames) {
+				if (attrName == "count") {
+					Operator * op = OperatorRegister::getInstance("count", vector<string>());
+					StatefulOperator* countOp =(StatefulOperator*)dynamic_cast<StatefulOperator*>(op);
+					nWin->setStatefulOperator(countOp);
+				}
+				else {
+					cout << "Not implemented the stateful operator for a sliding window, name is " << attrName << endl;
+					throw "";
+				}
+			}
 		}
 		cq->setWindows(windowList);
 	}

@@ -13,14 +13,14 @@
 //将Process对象和它的最近的结果出发时间关联起来
 class Process_TriggerTime {
 public:
-	Process* p = nullptr;
+	Process* process = nullptr;
 	long long triggerTime = -1; // current time plus triggerLen;
 	int triggerLen = -1; //time length to trigger, for example 1000ms
 
 	Process_TriggerTime() {}
 
 	Process_TriggerTime(Process* p, int triggerLen) {
-		this->p = p;
+		this->process = p;
 		this->triggerLen = triggerLen;
 	}
 

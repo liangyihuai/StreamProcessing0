@@ -11,8 +11,9 @@ int main() {
 	RuleRegisterUtils::registerEventFilter(ef_rule1_name, ef_rule1);
 	RuleRegisterUtils::registerEventCapture(ec_rule2_name, ec_rule2);
 	//RuleRegisterUtils::registerCQ(cq_rule3_name, cq_rule3);
-	RuleRegisterUtils::registerCQ(cq_enemy_aircraft_name, cq_enemy_aircraft);
-	RuleRegisterUtils::registerCQ(cq_enemy_distance_name, cq_enemy_distance);
+	//RuleRegisterUtils::registerCQ(cq_enemy_aircraft_name, cq_enemy_aircraft);
+	//RuleRegisterUtils::registerCQ(cq_enemy_distance_name, cq_enemy_distance);
+	RuleRegisterUtils::registerCQ(cq_enemy_count_name, cq_enemy_count);
 	//RuleRegisterUtils::registerCEP(cep_rule4_name, cep_rule4);
 
 	/*RuleRegisterUtils::registerEventCapture(ec_rule5_name, ec_rule5);

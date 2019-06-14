@@ -26,9 +26,10 @@ bool CQProcess::process(int timeSlice){
 		int timeSlice_i = timeSlice;
 		queue<EventPtr>* q = inputQueues[i];
 		while (!q->empty() && timeSlice_i > 0) {//current input queue is not empty.
-			EventPtr currEvent(q->front()->clone());//clone the event
-			if (predicates[i]->check(currEvent)) {//check the query condition.
+			EventPtr originalFrontEvent = q->front();
+			if (predicates[i]->check(originalFrontEvent)) {//check the query condition.
 				if (windowList.size() == 0 || (inputQueues.size() == 1 && operatorNames.size() == 0)) {
+					EventPtr currEvent(originalFrontEvent->clone());//clone the event
 					//如果Then下存在新的属性，比如threatLevel. THEN SevereThreat, threatLevel=severe
 					for (int i = 0; i < this->newAttrNames.size(); i++) {
 						string attrName = this->newAttrNames[i];
@@ -79,7 +80,7 @@ bool CQProcess::process(int timeSlice){
 					}
 				}else {
 					try {
-						windowList[i]->push_back(currEvent);
+						windowList[i]->push_back(originalFrontEvent);
 					}
 					catch (std::logic_error& e) {
 						std::cout << "[exception caught]\n";
@@ -105,52 +106,51 @@ void CQProcess::triggerResult() {
 			while (ExecuteScheduler::cq_pq.top()->triggerTime <= Utils::getTime()) {
 				Process_TriggerTime* ptt = ExecuteScheduler::cq_pq.top();
 				//check whether it meets the output conditions
-				bool meetQueryCondition = true;
-				if (inputQueues.size() > 1) {//if more than one input stream
+				bool meetQueryCondition = false;
+				if (inputQueues.size() >= 1) {//if more than one input stream
+					int count = 0;
 					for (int i = 0; i < predicates.size(); i++) {
 						bool checkResult = windowList[i]->checkAllEvents(*predicates[i]);
-						if (!checkResult) {//all input stream should meet the query condition.
-							meetQueryCondition = false;
-							break;
+						if (checkResult) {//all input stream should meet the query condition.
+							count++;
 						}
 					}
+					if (count == inputQueues.size()) meetQueryCondition = true;
 				}
 				if (meetQueryCondition) {
 					EventPtr currEvent(windowList[0]->front()->clone());//clone the event
-					for (int i = 0; i < ptt->p->operatorNames.size(); i++) {
-						string operatorName = ptt->p->operatorNames[i];
-						vector<string>* operatorParam = ptt->p->operatorParamaters[i];
+					for (int i = 0; i < ptt->process->operatorNames.size(); i++) {
+						string operatorName = ptt->process->operatorNames[i];
+						vector<string>* operatorParam = ptt->process->operatorParamaters[i];
 
-						if (dynamic_cast<StatefulOperator*>(ptt->p) != nullptr) {
-							//如果Then中存在算子，比如count. Then AirplaneCountSevereThreat, Count()
-							if (operatorName == "count") {//for count operator
+						//如果Then中存在算子，比如count. Then AirplaneCountSevereThreat, Count()
+						if (operatorName == "count") {//for count operator
 
-								long countResult = 0;
-								windowList[0]->reevaluate(countResult);//目前只考虑在有operator时只有一个window
+							long countResult = 0;
+							windowList[0]->reevaluate(countResult);//目前只考虑在有operator时只有一个window
 
-								currEvent->addAttr(operatorName, countResult);
-								stringstream ss;
-								ss << Utils::getTime();//current timestamp
-								currEvent->addAttr("time", ss.str());
-							}
-							else if (operatorName == "max"
-								|| operatorName == "min"
-								|| operatorName == "sum"
-								|| operatorName == "ave"
-								|| operatorName == "average"
-								|| operatorName == "distance") {
-								//...
-							}
-							else {
-								throw "no such an operator.";
-							}
-						}//end if stateful operators
+							currEvent->addAttr(operatorName, countResult);
+							stringstream ss;
+							ss << Utils::getTime();//current timestamp
+							currEvent->addAttr("time", ss.str());
+						}
+						else if (operatorName == "max"
+							|| operatorName == "min"
+							|| operatorName == "sum"
+							|| operatorName == "ave"
+							|| operatorName == "average"
+							|| operatorName == "distance") {
+							//...
+						}
+						else {
+							throw "no such an operator.";
+						}
 					}
 
 					//如果Then下存在新的属性，比如threatLevel. THEN SevereThreat, threatLevel=severe
-					for (int i = 0; i < ptt->p->newAttrNames.size(); i++) {
-						string attrName = ptt->p->newAttrNames[i];
-						string attrValue = ptt->p->newAttrValues[i];
+					for (int i = 0; i < ptt->process->newAttrNames.size(); i++) {
+						string attrName = ptt->process->newAttrNames[i];
+						string attrValue = ptt->process->newAttrValues[i];
 
 						if (attrValue.length() > 0) {
 							//add new attrs and values to the oldest event in the window
