@@ -18,14 +18,14 @@ CQProcess * CQSpec::instance() {
 			NaiveTimeSlidingWindow* nWin = new NaiveTimeSlidingWindow(winLen);
 			nWin->setTimeSliding(winSliding);
 			windowList.push_back(nWin);
-			for (string attrName : operatorNames) {
-				if (attrName == "count") {
+			for (string opName : operatorNames) {
+				if (opName == "count") {
 					Operator * op = OperatorRegister::getInstance("count", vector<string>());
 					StatefulOperator* countOp =(StatefulOperator*)dynamic_cast<StatefulOperator*>(op);
 					nWin->setStatefulOperator(countOp);
 				}
 				else {
-					cout << "Not implemented the stateful operator for a sliding window, name is " << attrName << endl;
+					cout << "Not implemented the stateful operator for a sliding window, name is " << opName << endl;
 					throw "";
 				}
 			}
@@ -74,4 +74,8 @@ void CQSpec::setWindowlen(int len) {
 
 void CQSpec::setWindowSliding(int sliding) {
 	this->winSliding = sliding;
+}
+
+string CQSpec::getOutputStreamName() {
+	return this->outputStream;
 }

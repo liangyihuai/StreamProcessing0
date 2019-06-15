@@ -11,8 +11,7 @@
 #include <queue>
 
 //将Process对象和它的最近的结果出发时间关联起来
-class Process_TriggerTime {
-public:
+struct Process_TriggerTime {
 	Process* process = nullptr;
 	long long triggerTime = -1; // current time plus triggerLen;
 	int triggerLen = -1; //time length to trigger, for example 1000ms
@@ -24,16 +23,15 @@ public:
 		this->triggerLen = triggerLen;
 	}
 
-	friend bool operator < (Process_TriggerTime& a, Process_TriggerTime& b) {//返回true时，说明a的优先级低于b
-		//x值较大的Node优先级低（x小的Node排在队前）
-		return a.triggerTime > b.triggerTime;
-	}
-
 	~Process_TriggerTime() {
 	}
 };
 
-
+struct cmp {
+	bool operator()(Process_TriggerTime* a, Process_TriggerTime* b) {
+		return a->triggerTime > b->triggerTime;
+	}
+};
 
 /*
 维护一个输入队列不为空的cp队列，循环消费cp中输入队列中的数据，直到cp队列为空。
@@ -55,9 +53,9 @@ public:
 private:
 
 	//currently it is only for CQProcess.
-	static priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*> > cq_pq;
+	static priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*>, cmp > cq_pq;
 
-	static priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*> > cep_pq;
+	static priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*>, cmp > cep_pq;
 
 	static mutex mutexOfCQPriorityQueue;//mutex lock among threads
 

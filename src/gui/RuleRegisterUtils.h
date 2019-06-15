@@ -20,16 +20,13 @@ using namespace std;
 class RuleRegisterUtils {
 public:
 	//Change CString to string type
-	static void specProcessWithCString(CString outputStreamName, CString ruleSpec, string & outputName, string& specLines_out) {
-		//parse names 
-		outputName = CW2A(outputStreamName.GetString());
+	static void specProcessWithCString(CString ruleSpec, string& specLines_out) {
 		//parse event capture rules
 		specLines_out = CW2A(ruleSpec.GetString());
 	}
 
 	//CLow case; Change multiple lines of string to list<string>
-	static void specPreprocess(string & outputStreamName, const string ruleSpec, list<string>& specLines_out) {
-		outputStreamName = Utils::toLower(outputStreamName);
+	static void specPreprocess(const string ruleSpec, list<string>& specLines_out) {
 		vector<string> lines = Utils::split(ruleSpec, "\r\n");
 		list<string>lines_list;
 		for (string line : lines) {
@@ -39,43 +36,43 @@ public:
 		specLines_out = lines_list;
 	}
 
-	static void registerEventFilter(string outputStreamName, string ruleSpec) {
+	static void registerEventFilter(string ruleSpec) {
 		list<string> specLines;
-		specPreprocess(outputStreamName, ruleSpec, specLines);
+		specPreprocess(ruleSpec, specLines);
 
-		EventFilterSpec* eventFilterSpec = EventFilterParser::parseOneEventFilterSpec(specLines, outputStreamName);
+		EventFilterSpec* eventFilterSpec = EventFilterParser::parseOneEventFilterSpec(specLines);
 		EventProcess* ec = eventFilterSpec->instance();
 		ProcessRegister::registerEventFilter(ec);
 	}
 
-	static void registerEventCapture(string outputStreamName, string ruleSpec) {
+	static void registerEventCapture(string ruleSpec) {
 		list<string> specLines;
-		specPreprocess(outputStreamName, ruleSpec, specLines);
-		EventCaptureSpec* spec = EventCaptureSpecParser::parseOneEventCaptureSpec(specLines, outputStreamName);
+		specPreprocess(ruleSpec, specLines);
+		EventCaptureSpec* spec = EventCaptureSpecParser::parseOneEventCaptureSpec(specLines);
 		EventCapture* ec = spec->instance();
 		ProcessRegister::addProcess(ec);
 		//store rule specification
-		SpecRegister::register_event_capture_rule(outputStreamName, ruleSpec);
+		SpecRegister::register_event_capture_rule(spec->getOutputStream(), ruleSpec);
 	}
 
-	static void registerCQ(string outputStreamName, string ruleSpec) {
+	static void registerCQ(string ruleSpec) {
 		list<string> specLines;
-		specPreprocess(outputStreamName, ruleSpec, specLines);
+		specPreprocess(ruleSpec, specLines);
 		CQSpec* cqSpec = CQSpecParser::parseOneCQSpec(specLines);
 		CQProcess* cq = cqSpec->instance();
 		ProcessRegister::addProcess(cq);
 		//store rule specification
-		SpecRegister::register_cq_rule(outputStreamName, ruleSpec);
+		SpecRegister::register_cq_rule(cqSpec->getOutputStreamName(), ruleSpec);
 	}
 
-	static void registerCEP(string outputStreamName, string ruleSpec) {
+	static void registerCEP(string ruleSpec) {
 		list<string> specLines;
-		specPreprocess(outputStreamName, ruleSpec, specLines);
-		CEPSpec* cepSpec = CEPSpecParser::parseOneCEPSpec(specLines, outputStreamName);
+		specPreprocess(ruleSpec, specLines);
+		CEPSpec* cepSpec = CEPSpecParser::parseOneCEPSpec(specLines);
 		CEPProcess* cep = cepSpec->instance();
 		ProcessRegister::addProcess(cep);
 		//store rule specifications
-		SpecRegister::register_cep_rule(outputStreamName, ruleSpec);
+		SpecRegister::register_cep_rule(cepSpec->getOutputStreamName(), ruleSpec);
 	}
 
 };

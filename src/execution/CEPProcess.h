@@ -48,12 +48,16 @@ public:
     void setResultListener(ResultListener* listener);
 	void result();
 	void setInputStreamNames(vector<string> names);
+	void setPredicates(vector<Predicate*> preList);
+	void setWindows(vector<Window*> windowList);
     
 private:
 	vector<Window*> windowList;
+	vector<Predicate*> predicates;
 	vector<string> inputStreamNames;
 	vector<queue<EventPtr>*>* inputQueues;
 	string outputStreamName;
+
 
 	//set up callback function to process the result of this query
 	ResultListener* resultListener = nullptr;

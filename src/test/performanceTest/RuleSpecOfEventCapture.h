@@ -55,9 +55,19 @@ string cq_enemy_distance = "IF elevation > 10\
 string cq_enemy_count_name = "EnemyCount";
 string cq_enemy_count = "IF elevation > 10\
 \r\nFROM EnemyTarget\
-\r\nWindow length=3000, sliding=2000\
-\r\nTHEN EnemyCount, count(), A=B";
+\r\nWindow length=3000, sliding=1000\
+\r\nTHEN EnemyCount, count()";
+
+string cq_enemy_count1_name = "enemycount1";
+string cq_enemy_count1 = "If EnemyCount.count > 2 & EnemyDistance.distance >0.01\
+\r\nFrom EnemyCount, EnemyDistance\
+\r\nWindow length = 3000, sliding=1000\
+\r\nThen enemycount1";
 
 
+string cep_exist1 = "If exist(EnemyDistance) & exist(EnemyCount) & EnemyCount.count > 3 & EnemyDistance.distance > 0.3\
+\r\nFrom EnemyCount, EnemyDistance\
+\r\nWindow length=3000, sliding=1000\
+\r\nThen cep_exist1";
 
 

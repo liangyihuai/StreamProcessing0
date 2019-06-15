@@ -25,7 +25,7 @@ public:
 	Window type=, len=, sliding=
 	Then WideAreaDefenceTarget
 	*/
-	static CEPSpec* parseOneCEPSpec(list<string> oneCEPSpec, string outputStreamName);
+	static CEPSpec* parseOneCEPSpec(list<string> oneCEPSpec);
 
 private:
 	//currently, assume only & conjunction

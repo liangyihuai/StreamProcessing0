@@ -90,25 +90,17 @@ void Event::print(ostream& out) {
 
 string Event::toString() {
 	stringstream msg;
+	msg << "id:";
 	msg << getId() << ",time:";
-	msg << getTime() << ",speed:";
-	msg << getFloat("speed") << ",lon:";
-	msg << getFloat("lon") << ",lat:";
-	msg << getFloat("lat") << ",ele:";
-	msg << getFloat("elevation") << ",dir:";
-	msg << getFloat("dir") << ",eleAngle:";
-	msg << getFloat("elevationAngle") << ",elec:";
-	msg << getFloat("electromagnetic") << ",IFF:";
-	msg << getString("iff");
+	msg << getTime();
 
-	string sa[] = {"id", "time", "speed", "lon", "lat", "elevation", "dir", "elevationAngle", "electromagnetic", "iff"};
 
 	for (auto iter = attrMap.begin(); iter != attrMap.end(); iter++) {
 		string str = iter->first;
 		bool exist = false;
-		for (string s : sa) {
-			if (str == s) exist = true;
-		}
+		if (str == "id" || str=="time")
+			exist = true;
+
 		if (!exist) {
 			msg << "," << iter->first <<":" << iter->second;
 		}

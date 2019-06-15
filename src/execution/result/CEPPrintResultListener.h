@@ -8,7 +8,7 @@ public:
 		vector<EventPtr> eventVec = result->getResultEventVec();
 		for (EventPtr ePtr : eventVec) {
 			string streamName = ePtr->getDestination();
-			cout << "---> time: " << Utils::getTime() << ", complexEvent: " << streamName << endl;
+			cout << "CEP["<< streamName << "]; time: " << Utils::getTime() << endl;
 		}
 	}
 

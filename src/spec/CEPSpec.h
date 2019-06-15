@@ -11,11 +11,13 @@ private:
 	vector<string> inputStreams;
 	string outputStreamName;
 
-	//vector<Predicate*> predicateVec;
-	vector<ExistOp*> predicateVec;
-	vector<string> precessedStreamVec;
+	vector<ExistOp*> existOpPredicateList;
+	vector<Predicate*> predicates;
 
 	SinkType sinkType;
+
+	int winLen = -1;
+	int winSliding = -1;
 
 public:
 	CEPSpec();
@@ -24,5 +26,17 @@ public:
 
 	void setOutputStreamName(string name);
 
-	void addPredicate(ExistOp * pre, string stream);
+	void addExistOpPredicate(ExistOp * pre, string stream);
+
+	string getOutputStreamName();
+
+	void addPredicate(Predicate* pre);
+
+	void setPredicates(vector<Predicate*> preList);
+
+	void setInputStreams(vector<string> inputStreams);
+
+	void setWinLen(int winLen);
+
+	void setWinSliding(int sliding);
 };

@@ -29,7 +29,7 @@ public:
 	Window type=, len=, sliding=
 	Then WideAreaDefenceTarget
 	*/
-	static EventCaptureSpec* parseOneEventCaptureSpec(list<string> oneCQSpec, string outputStreamName) {
+	static EventCaptureSpec* parseOneEventCaptureSpec(list<string> oneCQSpec) {
 		EventCaptureSpec * result = nullptr;
 		Predicate* condition = nullptr;
 		string inputStream;
@@ -61,6 +61,8 @@ public:
 
 			}
 			else if ("then" == clause) {
+				string outputStreamName = value;
+
 				result = new EventCaptureSpec();
 				result->setInputStream(inputStream);
 				result->setOutputStream(outputStreamName);

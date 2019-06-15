@@ -37,7 +37,7 @@ vector<Predicate*> SpecParser::parseMultiExpression(string expStr) {
 			}
 			int index1 = fieldName.find("(");
 			int index2 = fieldName.find(")");
-			if ((index1 > -1 && index2 > -1) || OperatorRegister::isOperator(fieldName)) {
+			if ((index1 > -1 && index2 > -1) /*|| OperatorRegister::isOperator(fieldName)*/) {
 				andPredicate->addChild(parseExpressionWithOperator(expression));
 			}else {
 				andPredicate->addChild(parseValueExpression(fieldName, mid, right));

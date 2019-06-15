@@ -17,7 +17,7 @@
 //	return result;
 //}
 
-EventFilterSpec* EventFilterParser::parseOneEventFilterSpec(list<string> specStr, string outputStreamName) {
+EventFilterSpec* EventFilterParser::parseOneEventFilterSpec(list<string> specStr) {
 	EventFilterSpec * eventfilterSpec = new EventFilterSpec();
 
 	for (string s : specStr) {
@@ -62,6 +62,5 @@ EventFilterSpec* EventFilterParser::parseOneEventFilterSpec(list<string> specStr
 			throw "undefined CQ spec term";
 		}
 	}
-	eventfilterSpec->setOutputStream(outputStreamName);
 	return eventfilterSpec;
 }

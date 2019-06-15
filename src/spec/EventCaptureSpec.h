@@ -17,4 +17,6 @@ public:
 	void setOutputStream(string name);
 
 	void setCondition(Condition con);
+
+	string getOutputStream();
 };

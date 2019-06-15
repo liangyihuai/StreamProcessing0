@@ -4,9 +4,9 @@
 #include "../cqindex/ProcessRegisterForCQIndex.h"
 
 
-priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*> > ExecuteScheduler::cq_pq;
+priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*>,cmp > ExecuteScheduler::cq_pq;
 
-priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*> > ExecuteScheduler::cep_pq;
+priority_queue<Process_TriggerTime*, vector<Process_TriggerTime*>, cmp > ExecuteScheduler::cep_pq;
 
 mutex ExecuteScheduler::mutexOfCQPriorityQueue;
 
@@ -92,8 +92,7 @@ void ExecuteScheduler::buildTriggerTimePriorityQueue() {
 	
 	try {
 		std::lock_guard<std::recursive_mutex> lg(ProcessRegister::mutexOfProcessRegister);//mutex lock
-		for (auto iter = ProcessRegister::processSet.begin();
-			iter != ProcessRegister::processSet.end(); iter++) {
+		for (auto iter = ProcessRegister::processSet.begin(); iter != ProcessRegister::processSet.end(); iter++) {
 			if (CEPProcess* cep = (CEPProcess*)dynamic_cast<CEPProcess*>(*iter)) {
 				if (cep->windowList.size() > 0) {
 					Process_TriggerTime* ptt = new Process_TriggerTime(cep, cep->windowList[0]->getWinSliding());

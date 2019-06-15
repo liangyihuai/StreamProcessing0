@@ -32,4 +32,6 @@ public:
 	void setWindowlen(int len);
 
 	void setWindowSliding(int sliding);
+
+	string getOutputStreamName();
 };

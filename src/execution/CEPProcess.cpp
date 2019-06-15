@@ -12,17 +12,10 @@ CEPProcess::CEPProcess(vector<string> inputStreamNames, string outputStreamName)
 	inputQueues = new vector<queue<EventPtr>*>();
 	for (string inputStreamName: inputStreamNames) {
 		inputQueues->push_back(new queue<EventPtr>());//initialize input queues
-
-		NaiveTimeSlidingWindow * win = new NaiveTimeSlidingWindow(windowLen);
-		win->setTimeSliding(1000);
-		ExistOp* existOp = new ExistOp(inputStreamName);//operator
-		win->setStatefulOperator(existOp);
-		windowList.push_back(win);//vector
 	}
 }
 
 bool CEPProcess::process(int timeSlice){
-	int nonEmptyCount = 0;
 	Window *input_queue_win = nullptr;
 
 	for (int i = 0; i < inputQueues->size(); i++) {
@@ -30,9 +23,11 @@ bool CEPProcess::process(int timeSlice){
 		queue<EventPtr> * q = (*inputQueues)[i];
 		while (!q->empty() && timeSlice_i > 0) {
 			try {
-				//std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
-				input_queue_win = windowList[i];
-				input_queue_win->push_back(q->front());
+				Predicate* pre = predicates[i];
+				if (pre->check(q->front())) {//check query condition before buffering the event.
+					input_queue_win = windowList[i];
+					input_queue_win->push_back(q->front());
+				}
 			}catch (std::logic_error& e) {
 				std::cout << "[exception caught]\n";
 			}
@@ -41,10 +36,7 @@ bool CEPProcess::process(int timeSlice){
 
 			result();//trigger output results
 		}
-		if (!q->empty()) nonEmptyCount++;
 	}
-	if (nonEmptyCount == inputQueues->size()) 
-		return false;
 	return true;
 }
 
@@ -56,30 +48,30 @@ void CEPProcess::result() {
 			std::lock_guard<mutex> lg(ExecuteScheduler::mutexOfCEPPriorityQueue);
 			while (ExecuteScheduler::cep_pq.top()->triggerTime <= Utils::getTime()) {
 				Process_TriggerTime* ptt = ExecuteScheduler::cep_pq.top();
-
+				CEPProcess* cep = (CEPProcess*)dynamic_cast<CEPProcess*>(ptt->process);
 				int satisfiedCount = 0;
-				for (int i = 0; i < windowList.size(); i++) {//for each input stream
+				for (int i = 0; i < cep->windowList.size(); i++) {//for each input stream
 					bool result = false;
-					if (windowList.size() <= i || windowList[i] == nullptr) {
+					if (cep->windowList.size() <= i || cep->windowList[i] == nullptr) {
 						std::cout << "The operator ExistOp is nullptr, index is " << i << ", outputStreamName is " << outputStreamName;
 						throw runtime_error("");
 					}
 					try {
 						//std::lock_guard<mutex> lg(CEPProcess::mutexOfCEPResult);//mutex lock
 						bool resultOfExistOp = false;
-						windowList[i]->reevaluate(resultOfExistOp);
+						cep->windowList[i]->reevaluate(resultOfExistOp);
 						if (resultOfExistOp) { satisfiedCount++; }
 					}
 					catch (std::logic_error& e) {
 						std::cout << "[exception caught]\n";
 					}
 				}
-				if (satisfiedCount == windowList.size()) {
-					if (resultListener) {
+				if (satisfiedCount == cep->windowList.size()) {
+					if (cep->resultListener) {
 						MultEventResult* result = new MultEventResult();
-						result->addDeriveEventPtr(outputStreamName);
+						result->addDeriveEventPtr(cep->outputStreamName);
 
-						resultListener->update(ResultPtr(result));
+						cep->resultListener->update(ResultPtr(result));
 					}
 				}
 
@@ -150,3 +142,10 @@ CEPProcess::~CEPProcess(){
 	}
 }
 
+void CEPProcess::setPredicates(vector<Predicate*> preList) {
+	this->predicates = preList;
+}
+
+void CEPProcess::setWindows(vector<Window*> windowList) {
+	this->windowList = windowList;
+}

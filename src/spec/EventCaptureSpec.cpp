@@ -20,3 +20,7 @@ void EventCaptureSpec::setOutputStream(string name) {
 void EventCaptureSpec::setCondition(Condition con) {
 	this->conditon = con;
 }
+
+string EventCaptureSpec::getOutputStream() {
+	return this->outputStream;
+}

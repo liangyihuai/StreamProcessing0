@@ -23,6 +23,6 @@ class EventFilterParser {
 public:
 	//static list<EventFilterSpec*> parseAllEventFilterSpec(const list<string> allCQSpecs);
 
-	static EventFilterSpec* parseOneEventFilterSpec(list<string> specStr, string outputStreamName);
+	static EventFilterSpec* parseOneEventFilterSpec(list<string> specStr);
 };
 

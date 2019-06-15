@@ -22,10 +22,13 @@
 //	return result;
 //}
 
-CEPSpec* CEPSpecParser::parseOneCEPSpec(list<string> oneCEPSpec, string outputStringName) {
+CEPSpec* CEPSpecParser::parseOneCEPSpec(list<string> oneCEPSpec) {
 	CEPSpec * result = new CEPSpec();
 	//Predicate* condition = nullptr;
 	//vector<string> outputStreamVec;
+
+	int winLen = -1;
+	int winSliding = -1;
 
 	for (string s : oneCEPSpec) {
 		s = Utils::toLower(Utils::trim(s));
@@ -45,17 +48,33 @@ CEPSpec* CEPSpecParser::parseOneCEPSpec(list<string> oneCEPSpec, string outputSt
 			parseMultiExpression(value, result);
 		}
 		else if ("from" == clause) {
-			//inputStreamVec = Utils::split(value, ",");
+			vector<string> inputStreams = Utils::split(value, ",");
+			result->setInputStreams(inputStreams);
 		}
 		else if ("window" == clause) {
-
+			vector<string> pieces = Utils::split(value, ",");
+			for (string piece : pieces) {
+				vector<string> key_value = Utils::split(piece, "=");
+				if (key_value[0] == "length") {
+					stringstream ss;
+					ss << key_value[1];
+					ss >> winLen;
+				}
+				else if (key_value[0] == "sliding") {
+					stringstream ss;
+					ss << key_value[1];
+					ss >> winSliding;
+				}
+			}
+			if (winLen > 0 && winSliding < 0) winSliding = winLen;
 		}
 		else if ("then" == clause) {
-			/*outputStreamVec = Utils::split(value, ",");
-			for (string os : outputStreamVec) {
-				result->addOutputStream(os);
-			}*/
+			string outputStringName = value;
+
 			result->setOutputStreamName(outputStringName);
+			result->setWinLen(winLen);
+			result->setWinSliding(winSliding);
+
 			return result;
 		}
 		else {
@@ -66,28 +85,62 @@ CEPSpec* CEPSpecParser::parseOneCEPSpec(list<string> oneCEPSpec, string outputSt
 	return nullptr;
 }
 
+//And, it is a predicate.
+bool contain_CEP(const vector<And*>& preList, string streamName) {
+	for (And* pre : preList) {
+		if (pre->streamName == streamName) return true;
+	}
+	return false;
+}
+
+And* getPredicateByStreamName_CEP(const vector<And*>& preList, string streamName) {
+	for (And* pre : preList) {
+		if (pre->streamName == streamName) return pre;
+	}
+	cout << "there is no such stream name: " << streamName << endl;
+	throw "";
+}
+
 void CEPSpecParser::parseMultiExpression(string expStr, CEPSpec *cepSpec) {
+	vector<And*> predicateListResult;
+	And* andPredicate = nullptr;
+
 	vector<string> expressionList = Utils::split(expStr, "&");
 	if (expressionList.size() > 0) {
 		for (string expression : expressionList) {
-			/*string stream;
-			string fieldName;
-			string mid;
-			string right;
-			splitExpression(expression, stream, fieldName, mid, right);
-			int index1 = fieldName.find("(");
-			int index2 = fieldName.find(")");*/
 			int index;
 			if ((index = expression.find("exist")) == 0) {
 				parseExistOpExpression(expression, cepSpec);
-			}//else if ((index1 > -1 && index2 > -1)
-			//	|| OperatorRegister::isOperator(fieldName)) {
-			//	//andPredicate->addChild(parseExpressionWithOperator(expression));
-			//}
-			//else {
-			//	//andPredicate->addChild(parseValueExpression(fieldName, mid, right));
-			//}
+			}
+			else {
+				string stream;
+				string fieldName;
+				string mid;
+				string right;
+				splitExpression(expression, stream, fieldName, mid, right);
+				if (!contain_CEP(predicateListResult, stream)) {
+					andPredicate = new And();
+					andPredicate->streamName = stream;
+					predicateListResult.push_back(andPredicate);
+				}else {
+					andPredicate = getPredicateByStreamName_CEP(predicateListResult, stream);
+				}
+
+				int index1 = fieldName.find("(");
+				int index2 = fieldName.find(")");
+				if ((index1 > -1 && index2 > -1)) {
+					cout << "error: currently in IF clause, no other operator except Exist()";
+					throw "";
+				}else {
+					andPredicate->addChild(parseValueExpression(fieldName, mid, right));
+				}
+			}
 		}
+		vector<Predicate*> vec;
+		for (Predicate* p : predicateListResult) {
+			vec.push_back(p);
+		}
+		cepSpec->setPredicates(vec);
 	}
 }
 
@@ -113,8 +166,7 @@ void CEPSpecParser::parseExistOpExpression(string expStr, CEPSpec * cepSpec) {
 		string paramsStr = expStr.substr(index1 + 1, index2 - index1 - 1);
 
 		ExistOp* eo = new ExistOp(paramsStr);
-		//BoolOpPredicate* bop = new BoolOpPredicate(eo);
-		cepSpec->addPredicate(eo, paramsStr);
+		cepSpec->addExistOpPredicate(eo, paramsStr);
 	}
 	else {
 		std::cout << "illegal spec";

@@ -48,19 +48,9 @@ bool EventCapture::process(int timeSlice) {
 			std::cout << "[exception caught]\n";
 		}
 		if (condition.check(e)) {
-			//use CQ index
-			if (USE_CQ_INDEX && ProcessRegisterForCQIndex::isIndexed(this)) {
-				/*list<Process*> processList = ProcessRegisterForCQIndex::getIndexByProcess(this)->filter(e);
-				CQProcess * cq = nullptr;
-				for (Process* p : processList) {
-					cq = dynamic_cast<CQProcess*>(p);
-					cq->addEventToQueue(e);
-				}*/
-			}else {
-				for (queue<EventPtr>* q : inputQueueSetOfDownstreamProcessUnit) {
-					q->push(e);
-					cout << "EC: " << outputStreamName << "; " << *e << endl;
-				}
+			cout << "EC[" << outputStreamName << "] " << *e << endl;
+			for (queue<EventPtr>* q : inputQueueSetOfDownstreamProcessUnit) {
+				q->push(e);
 			}
 		}
 		timeSlice--;

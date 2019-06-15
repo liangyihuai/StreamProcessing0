@@ -228,10 +228,9 @@ void CStreamProcessingDlg::OnBnClickedButtonEventFilterAdd() {
 		MessageBox(_T("fill the name and the rule"), NULL, MB_OK);
 		return;
 	}
-	string outputStreamName;
 	string specLines;
-	RuleRegisterUtils::specProcessWithCString(event_filter_name, event_filter_rule, outputStreamName, specLines);
-	RuleRegisterUtils::registerEventFilter(outputStreamName,specLines);
+	RuleRegisterUtils::specProcessWithCString(event_filter_rule, specLines);
+	RuleRegisterUtils::registerEventFilter(specLines);
 
 	MessageBox(_T("Add Event Filter rule successfully"), NULL, MB_OK);
 }
@@ -247,8 +246,8 @@ void CStreamProcessingDlg::OnBnClickedButtonCaptureAdd(){
 
 	string outputName;
 	string ruleStrs;
-	RuleRegisterUtils::specProcessWithCString(event_capture_name, event_capture_rule, outputName, ruleStrs);
-	RuleRegisterUtils::registerEventCapture(outputName, ruleStrs);
+	RuleRegisterUtils::specProcessWithCString(event_capture_rule, ruleStrs);
+	RuleRegisterUtils::registerEventCapture(ruleStrs);
 
 	MessageBox(_T("Add Event Capture rule successfully"), NULL, MB_OK);
 
@@ -269,8 +268,8 @@ void CStreamProcessingDlg::OnBnClickedButtonCqAdd()
 
 	string outputName;
 	string ruleStrs;
-	RuleRegisterUtils::specProcessWithCString(cq_name, cq_rule, outputName, ruleStrs);
-	RuleRegisterUtils::registerCQ(outputName, ruleStrs);
+	RuleRegisterUtils::specProcessWithCString(cq_rule, ruleStrs);
+	RuleRegisterUtils::registerCQ(ruleStrs);
 
 	MessageBox(_T("Add CQ rule successfully"), NULL, MB_OK);
 	cq_rule = _T("");
@@ -291,8 +290,8 @@ void CStreamProcessingDlg::OnBnClickedButtonCepAdd()
 
 	string outputName;
 	string ruleStrs;
-	RuleRegisterUtils::specProcessWithCString(cep_name, cep_rule, outputName, ruleStrs);
-	RuleRegisterUtils::registerCEP(outputName, ruleStrs);
+	RuleRegisterUtils::specProcessWithCString(cep_rule, ruleStrs);
+	RuleRegisterUtils::registerCEP(ruleStrs);
 
 	MessageBox(_T("Add CEP rule successfully"), NULL, MB_OK);
 	cep_name = _T("");
@@ -430,16 +429,16 @@ void CStreamProcessingDlg::OnBnClickedButtonUpdateRule(){
 
 		string outputName;
 		string ruleStrs;
-		RuleRegisterUtils::specProcessWithCString(outputStreamForUpdate, editBoxOfRule, outputName, ruleStrs);
+		RuleRegisterUtils::specProcessWithCString(editBoxOfRule, ruleStrs);
 
 		if (processType == 1) {
-			RuleRegisterUtils::registerEventCapture(outputName, ruleStrs);
+			RuleRegisterUtils::registerEventCapture(ruleStrs);
 		}
 		else if (processType == 2) {
-			RuleRegisterUtils::registerCQ(outputName, ruleStrs);
+			RuleRegisterUtils::registerCQ(ruleStrs);
 		}
 		else if (processType == 3) {
-			RuleRegisterUtils::registerCEP(outputName, ruleStrs);
+			RuleRegisterUtils::registerCEP(ruleStrs);
 		}
 		
 		outputStreamNameForSearch = outputStreamForUpdate;
