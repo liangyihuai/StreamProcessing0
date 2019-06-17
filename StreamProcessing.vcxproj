@@ -227,9 +227,11 @@
     <ClInclude Include="src\expression\And.h" />
     <ClInclude Include="src\gui\MultiThreads.h" />
     <ClInclude Include="src\gui\RuleRegisterUtils.h" />
+    <ClInclude Include="src\op\ApproachingOP.h" />
     <ClInclude Include="src\op\Average.h" />
     <ClInclude Include="src\execution\CEPProcess.h" />
     <ClInclude Include="src\op\DistanceOp.h" />
+    <ClInclude Include="src\op\HoveringOp.h" />
     <ClInclude Include="src\op\inter\AggregateOperator.h" />
     <ClInclude Include="src\op\Max.h" />
     <ClInclude Include="src\op\Min.h" />
@@ -298,6 +300,7 @@
     <ClCompile Include="src\execution\ProcessRegister.cpp" />
     <ClCompile Include="src\execution\TopoGraph.cpp" />
     <ClCompile Include="src\gui\MultiThreads.cpp" />
+    <ClCompile Include="src\op\ApproachingOP.cpp" />
     <ClCompile Include="src\op\Average.cpp" />
     <ClCompile Include="src\execution\CEPProcess.cpp" />
     <ClCompile Include="src\op\DistanceOp.cpp" />
