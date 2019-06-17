@@ -30,6 +30,9 @@ public:
     //get the current time, millisecond.
     static long long getTime();
 
+	static int movingObject_id_count;
+	static int movingObject_id_total_numble;//the maximum object id to be generated.
+
     //static string getTimeStr();
 
 	static std::hash<string> hashFun;

@@ -235,6 +235,7 @@
     <ClInclude Include="src\op\Min.h" />
     <ClInclude Include="src\op\OutsideAreaOp.h" />
     <ClInclude Include="src\op\Sum.h" />
+    <ClInclude Include="src\op\win\NaiveTimeDistinctSlidingWindow.h" />
     <ClInclude Include="src\op\win\NaiveTimeSlidingWindow.h" />
     <ClInclude Include="src\op\WithinAreaOp.h" />
     <ClInclude Include="src\resource.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="src\op\Min.cpp" />
     <ClCompile Include="src\op\OutsideAreaOp.cpp" />
     <ClCompile Include="src\op\Sum.cpp" />
+    <ClCompile Include="src\op\win\NaiveTimeDistinctSlidingWindow.cpp" />
     <ClCompile Include="src\op\win\NaiveTimeSlidingWindow.cpp" />
     <ClCompile Include="src\op\WithinAreaOp.cpp" />
     <ClCompile Include="src\spec\CEPSpec.cpp" />

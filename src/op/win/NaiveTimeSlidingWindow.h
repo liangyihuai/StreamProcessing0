@@ -29,9 +29,9 @@ public:
 
 	void setStatefulOperator(StatefulOperator* opera) override;
 
-	void setTimeSliding(int sliding);
-private:
+protected:
 	list<EventPtr> eventQueue;
+
 	StatefulOperator* op = nullptr;
 
 	//max size of this window

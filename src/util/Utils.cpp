@@ -3,6 +3,9 @@
 
 unsigned long Utils::id = 0;
 
+int Utils::movingObject_id_count = 0;
+int Utils::movingObject_id_total_numble = 30;
+
 std::hash<string> Utils::hashFun;
 
 long long Utils::getTime() {

@@ -3,13 +3,18 @@
 #include "Utils.h"
 #include "../common/Event.h"
 
-class EventGenerator {
-private:
 
+class EventGenerator {
 public:
 
 	static EventPtr generateEvent() {
 		Event* e = new Event(Utils::id++, Utils::getTime());
+
+		e->addAttr("objId", ++Utils::movingObject_id_count);
+		if (Utils::movingObject_id_count >= Utils::movingObject_id_total_numble) {
+			Utils::movingObject_id_count = 0;
+		}
+
 		if (Utils::id % 2 == 0) {
 			e->addAttr("iff", "ally");
 		}
@@ -46,3 +51,5 @@ public:
 		return EventPtr (e);
 	}
 };
+
+
