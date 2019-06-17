@@ -225,6 +225,7 @@
     <ClInclude Include="src\execution\result\SingleEventResult.h" />
     <ClInclude Include="src\execution\TopoGraph.h" />
     <ClInclude Include="src\expression\And.h" />
+    <ClInclude Include="src\expression\EqualBool.h" />
     <ClInclude Include="src\gui\MultiThreads.h" />
     <ClInclude Include="src\gui\RuleRegisterUtils.h" />
     <ClInclude Include="src\op\ApproachingOP.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="src\op\Average.cpp" />
     <ClCompile Include="src\execution\CEPProcess.cpp" />
     <ClCompile Include="src\op\DistanceOp.cpp" />
+    <ClCompile Include="src\op\HoveringOp.cpp" />
     <ClCompile Include="src\op\Max.cpp" />
     <ClCompile Include="src\op\Min.cpp" />
     <ClCompile Include="src\op\OutsideAreaOp.cpp" />

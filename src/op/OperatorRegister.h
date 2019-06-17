@@ -13,7 +13,7 @@
 #include "ExistOp.h"
 
 class OperatorRegister {
-	const static string opNames[8];
+	const static string opNames[10];
 public:
 	static bool isOperator(string name);
 

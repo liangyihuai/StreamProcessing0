@@ -13,9 +13,11 @@ int main() {
 	//RuleRegisterUtils::registerCQ(cq_rule3_name, cq_rule3);
 	//RuleRegisterUtils::registerCQ(cq_enemy_aircraft_name, cq_enemy_aircraft);
 	//RuleRegisterUtils::registerCQ(cq_enemy_distance);
-	RuleRegisterUtils::registerCQ(cq_enemy_count);
+	//RuleRegisterUtils::registerCQ(cq_enemy_count);
 	//RuleRegisterUtils::registerCQ(cq_enemy_count1);
 	//RuleRegisterUtils::registerCEP(cep_rule4_name, cep_rule4);
+	RuleRegisterUtils::registerCQ(cq_enemy_approaching);
+	RuleRegisterUtils::registerCQ(cq_enemy_hovering);
 
 	//RuleRegisterUtils::registerCEP(cep_exist1);
 	/*RuleRegisterUtils::registerEventCapture(ec_rule5_name, ec_rule5);

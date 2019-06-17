@@ -3,7 +3,11 @@
 #include "../execution/CQProcess.h"
 #include "../op/win/NaiveTimeDistinctSlidingWindow.h"
 
+
 Predicate* getPredicateByStreamName(vector<Predicate*> predicateList, string streamName) {
+	if (predicateList.size() == 1)//if there is only one predicate in the list.
+		return predicateList[0];
+
 	for (Predicate* pre : predicateList) {
 		if (pre->streamName == streamName) return pre;
 	}

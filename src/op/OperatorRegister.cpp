@@ -1,9 +1,11 @@
 #include "../stdafx.h"
 #include "OperatorRegister.h"
+#include "ApproachingOP.h"
+#include "HoveringOp.h"
 
-const string OperatorRegister::opNames[8] = { "count", "avg", "average", 
+const string OperatorRegister::opNames[10] = { "count", "avg", "average", 
 											"sum", "distance", "max", 
-											"min", "withinarea" };
+											"min", "withinarea", "approaching", "hovering" };
 
 bool OperatorRegister::isOperator(string name) {
 	for (string op : opNames) {
@@ -65,7 +67,12 @@ Operator * OperatorRegister::getInstance(string opName, vector<string> params) {
 	else if ("exist" == opName) {
 		return new ExistOp(params[0]);
 	}
-	else {
+	else if ("approaching" == opName) {
+		return new ApproachingOP(3, 30, 127.5, 35.5);//min_step, min_speed, longitude, latitude
+	}
+	else if ("hovering" == opName) {
+		return new HoveringOp(127.5, 35.5, 30, 3000);//targetLon, targetLat, minSpeed, windowLen
+	}else {
 		std::cout << "The operator " << opName << " is not defined."<< endl;
 		throw "";
 	}

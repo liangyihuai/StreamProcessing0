@@ -1,5 +1,6 @@
 #include "../stdafx.h"
 #include "SpecParser.h"
+#include "..//expression/EqualBool.h"
 
 //And, it is a predicate.
 bool contain(const vector<And*>& preList, string streamName) {
@@ -169,6 +170,12 @@ Predicate * SpecParser::parseExpressionWithOperator(string expression) {
 	Operator * op = OperatorRegister::getInstance(opName, parameters);
 	//Operator * doubleOp = dynamic_cast<Operator<double>*>(op);
 	string value = right;
+
+	if (value == "true") {
+		return new EqualBool(op, true);
+	}else if (value == "false") {
+		return new EqualBool(op, false);
+	}
 
 	stringstream ss;
 	float f = 0.0;
