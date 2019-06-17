@@ -6,7 +6,7 @@
 
 class NaiveTimeDistinctSlidingWindow : public NaiveTimeSlidingWindow {
 public:
-	NaiveTimeDistinctSlidingWindow();
+	NaiveTimeDistinctSlidingWindow(int timeLen);
 	~NaiveTimeDistinctSlidingWindow();
 
 	void refresh() override;
@@ -21,6 +21,7 @@ public:
 	//if anyone meets the predicate, return true, else return false.
 	bool checkAllEvents(Predicate& pre) override;
 
+	void setDistinctField(string distinctField);
 private:
 	string distinctField;
 	vector<EventPtr> eventArray;//array

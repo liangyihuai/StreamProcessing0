@@ -10,17 +10,19 @@ public:
 	static EventPtr generateEvent() {
 		Event* e = new Event(Utils::id++, Utils::getTime());
 
-		e->addAttr("objId", ++Utils::movingObject_id_count);
+		e->addAttr("objid", Utils::movingObject_id_count++);
 		if (Utils::movingObject_id_count >= Utils::movingObject_id_total_numble) {
 			Utils::movingObject_id_count = 0;
 		}
 
-		if (Utils::id % 2 == 0) {
+		e->addAttr("iff", "unknown");
+
+		/*if (((int)Utils::randomFloat(0, 1000)) % 2 == 0) {
 			e->addAttr("iff", "ally");
 		}
 		else {
 			e->addAttr("iff", "unknown");
-		}
+		}*/
 		e->addAttr("elevationAngle", (float)Utils::randomFloat(0, 90));
 		e->addAttr("speed", (float)Utils::randomFloat(-10, 800));
 		e->addAttr("lon", (float)Utils::randomFloat(127, 129));

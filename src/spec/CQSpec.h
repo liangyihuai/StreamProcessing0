@@ -13,6 +13,7 @@ private:
 	vector<Predicate*> predicateList;
 	int winLen = -1;
 	int winSliding = -1;
+	string distinctField;
 public:
 	//An new attr has a value from spec. For example, "THEN SevereThreat, threatLevel=severe"
 	//But some do not have. For example, "THEN SevereThreat, count(*)"

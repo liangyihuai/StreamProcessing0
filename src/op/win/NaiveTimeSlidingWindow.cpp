@@ -87,13 +87,13 @@ int NaiveTimeSlidingWindow::getWinSliding() {
 	return timeSliding;
 }
 
-//void NaiveTimeSlidingWindow::setTimeSliding(int sliding) {
-//	if (sliding < 0) {
-//		cout << "time sliding <= 0" << endl;
-//		throw "";
-//	}
-//	this->timeSliding = sliding;
-//}
+void NaiveTimeSlidingWindow::setTimeSliding(int sliding) {
+	if (sliding < 0) {
+		cout << "time sliding <= 0" << endl;
+		throw "";
+	}
+	this->timeSliding = sliding;
+}
 
 bool NaiveTimeSlidingWindow::checkAllEvents(Predicate& pre) {
 	refresh();

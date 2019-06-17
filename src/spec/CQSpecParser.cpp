@@ -31,6 +31,7 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 	string streamSource;
 	int win_len = -1;
 	int win_sliding = -1;
+	string distinctField;
 
 	for (string s : oneCQSpec) {
 		s = Utils::toLower(Utils::trim(s));
@@ -62,6 +63,9 @@ CQSpec* CQSpecParser::parseOneCQSpec(list<string> oneCQSpec) {
 					stringstream ss;
 					ss << key_value[1];
 					ss >> win_sliding;
+				}
+				else if (key_value[0] == "distinct") {
+					distinctField = key_value[1];
 				}
 			}
 			if (win_len > 0 && win_sliding < 0) win_sliding = win_len;

@@ -26,7 +26,7 @@ public:
 
 	//if anyone meets the predicate, return true, else return false.
 	bool checkAllEvents(Predicate& pre) override;
-
+	void setTimeSliding(int sliding);
 	void setStatefulOperator(StatefulOperator* opera) override;
 
 protected:

@@ -1,6 +1,7 @@
 #include "../stdafx.h"
 #include "CQSpec.h"
 #include "../execution/CQProcess.h"
+#include "../op/win/NaiveTimeDistinctSlidingWindow.h"
 
 Predicate* getPredicateByStreamName(vector<Predicate*> predicateList, string streamName) {
 	for (Predicate* pre : predicateList) {
@@ -15,9 +16,17 @@ CQProcess * CQSpec::instance() {
 		vector<Window*> windowList;
 		for (int i = 0; i < inputStreams.size(); i++) {//这里一概生成这么多个win，是有问题的。
 													//应该只生成必要的win
-			NaiveTimeSlidingWindow* nWin = new NaiveTimeSlidingWindow(winLen);
+			NaiveTimeSlidingWindow* nWin = nullptr;
+			if (distinctField.length() > 0) {
+				nWin = new NaiveTimeSlidingWindow(winLen);
+			}else {
+				NaiveTimeDistinctSlidingWindow* distinctWin = new NaiveTimeDistinctSlidingWindow(winLen);
+				distinctWin->setDistinctField(distinctField);
+				nWin = distinctWin;
+			}
 			nWin->setTimeSliding(winSliding);
 			windowList.push_back(nWin);
+			
 			for (string opName : operatorNames) {
 				if (opName == "count") {
 					Operator * op = OperatorRegister::getInstance("count", vector<string>());

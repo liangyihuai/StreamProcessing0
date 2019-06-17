@@ -52,16 +52,16 @@ string cq_enemy_distance = "IF elevation > 10\
 \r\nFROM EnemyTarget\
 \r\nTHEN EnemyDistance, distance(127.12, 35.33)";
 
-string cq_enemy_count_name = "EnemyCount";
+//
 string cq_enemy_count = "IF elevation > 10\
 \r\nFROM EnemyTarget\
-\r\nWindow length=3000, sliding=1000\
+\r\nWindow length=3000, sliding=1000, distinct=objId\
 \r\nTHEN EnemyCount, count()";
 
 string cq_enemy_count1_name = "enemycount1";
 string cq_enemy_count1 = "If EnemyCount.count > 2 & EnemyDistance.distance >0.01\
 \r\nFrom EnemyCount, EnemyDistance\
-\r\nWindow length = 3000, sliding=1000\
+\r\nWindow length = 1000, sliding=1000\
 \r\nThen enemycount1";
 
 

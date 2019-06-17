@@ -2,7 +2,8 @@
 
 #include "NaiveTimeDistinctSlidingWindow.h"
 
-NaiveTimeDistinctSlidingWindow::NaiveTimeDistinctSlidingWindow() {
+NaiveTimeDistinctSlidingWindow::NaiveTimeDistinctSlidingWindow(int timeLen) {
+	this->timeWinLen = timeLen;
 	for (int i = 0; i < Utils::movingObject_id_total_numble; i++) {
 		eventArray.push_back(nullptr);
 	}
@@ -20,6 +21,7 @@ bool NaiveTimeDistinctSlidingWindow::push_back(EventPtr e) {
 
 	//get moving object ID
 	int objId = e->getInt("objid");
+//	cout << endl << "Object ID: " << objId << endl;
 	eventArray[objId] = e;
 
 	this->event_size++;
@@ -109,6 +111,10 @@ bool NaiveTimeDistinctSlidingWindow::checkAllEvents(Predicate& pre) {
 		}
 	}
 	return false;
+}
+
+void NaiveTimeDistinctSlidingWindow::setDistinctField(string distinctField) {
+	this->distinctField = distinctField;
 }
 
 NaiveTimeDistinctSlidingWindow::~NaiveTimeDistinctSlidingWindow() {
